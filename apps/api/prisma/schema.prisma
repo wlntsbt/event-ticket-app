@@ -16,6 +16,183 @@ model Sample {
   code      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
-  @@map("samples") // if you want to use snake_case format
+enum Category {
+  Entertainment
+  Seminar
+  Workshop
+  Social
+  Other
+}
+
+enum City {
+  JAKARTA
+  BANDUNG
+  YOGYAKARTA
+  BALI
+  SEMARANG
+  SURABAYA
+  BOGOR
+  DEPOK
+  TANGERANG
+  BEKASI
+}
+
+enum PointStatus {
+  AVAILABLE
+  EXPIRED
+  USED
+}
+
+enum BillingStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum Role {
+  USER
+  PROMOTER
+}
+
+model Attendee {
+  uid          String    @id @default(uuid())
+  firstName    String
+  lastName     String
+  username     String    @unique
+  email        String    @unique
+  role         Role      @default(USER)
+  password     String
+  referralCode String    @unique
+  phone        String?
+  dob          DateTime? @db.Date
+  idCardNumber String?   @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+  Points       Point[]
+  Vouchers     Voucher[]
+  Bill         Bill[]
+  Review       Review[]
+}
+
+model Promotor {
+  uid       String    @id @default(uuid())
+  name      String
+  username  String    @unique
+  email     String    @unique
+  password  String
+  phone     String?
+  location  City?
+  role      Role      @default(PROMOTER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  Event     Event[]
+}
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  name        String
+  startDate   DateTime  @db.Date
+  endDate     DateTime  @db.Date
+  startTime   DateTime  @db.Time()
+  endTime     DateTime  @db.Time()
+  category    Category  @default(Other)
+  location    City      @default(JAKARTA)
+  namePIC     String
+  phonePIC    String
+  emailPIC    String
+  description String    @db.LongText
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
+  promotorUid String
+  Ticket      Ticket[]
+  Bill        Bill[]
+  Review      Review[]
+}
+
+model Point {
+  id          Int         @id @default(autoincrement())
+  attendee    Attendee    @relation(fields: [attendeeUid], references: [uid])
+  attendeeUid String
+  createdAt   DateTime    @default(now())
+  expiredAt   DateTime
+  status      PointStatus @default(AVAILABLE)
+}
+
+model Voucher {
+  id          Int         @id @default(autoincrement())
+  attendee    Attendee    @relation(fields: [attendeeUid], references: [uid])
+  attendeeUid String
+  createdAt   DateTime    @default(now())
+  expiredAt   DateTime
+  amount      Decimal     @db.Decimal(10, 2)
+  description String?     @db.Text
+  status      PointStatus @default(AVAILABLE)
+}
+
+model Discount {
+  id        Int      @id @default(autoincrement())
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+  amount    Decimal  @db.Decimal(10, 2)
+  startDate DateTime
+  endDate   DateTime
+}
+
+model Ticket {
+  id                    Int              @id @default(autoincrement())
+  ticketName            String
+  ticketAmount          Int
+  ticketPrice           Int
+  ticketPriceDiscounted Int?
+  ticketDescription     String
+  event                 Event            @relation(fields: [eventId], references: [id])
+  eventId               Int
+  salesStart            DateTime
+  salesEnd              DateTime
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  deletedAt             DateTime?
+  Discount              Discount[]
+  AttendeeTicket        AttendeeTicket[]
+}
+
+model AttendeeTicket {
+  id       String @id @default(uuid())
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId Int
+  bill     Bill   @relation(fields: [billId], references: [id])
+  billId   String
+}
+
+model Bill {
+  id             String           @id @default(uuid())
+  eventName      Event            @relation(fields: [eventId], references: [id])
+  eventId        Int
+  attendee       Attendee         @relation(fields: [attendeeUid], references: [uid])
+  attendeeUid    String
+  qty            Int
+  total          Int
+  usePromo       Boolean          @default(false)
+  status         BillingStatus    @default(PENDING)
+  createdAt      DateTime         @default(now())
+  AttendeeTicket AttendeeTicket[]
+}
+
+model Review {
+  id          Int       @id @default(autoincrement())
+  eventName   Event     @relation(fields: [eventId], references: [id])
+  eventId     Int
+  attendee    Attendee  @relation(fields: [attendeeUid], references: [uid])
+  attendeeUid String
+  rating      Int
+  feedback    String    @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
