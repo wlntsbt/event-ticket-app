@@ -110,6 +110,7 @@ model Event {
   deletedAt   DateTime?
   promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
   promotorUid String
+  imageLink   String
   Ticket      Ticket[]
   Bill        Bill[]
   Review      Review[]

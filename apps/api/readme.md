@@ -74,6 +74,7 @@ POST @ http://localhost:8000/promoter/event/new
 "phonePIC": "+62896777888",
 "emailPIC": "sakamoto@test.com",
 "description": "super chill family friendly festival"
+"imageLink": "https://s3-ap-southeast-1.amazonaws.com/loket-production-sg/images/banner/20240213090546.jpg"
 }
 
 POST @ http://localhost:8000/promoter/event/ticket
