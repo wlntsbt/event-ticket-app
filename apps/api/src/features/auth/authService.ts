@@ -5,7 +5,6 @@ export const findAccountbyEmail = async (email: string) => {
       email,
     },
   });
-  console.log(findUser)
 
   const findPromoter = await prisma.promotor.findUnique({
     where: {
