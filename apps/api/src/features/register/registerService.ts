@@ -3,7 +3,7 @@ import { ICreateAttendeeParams, ICreatePromoterParams } from './registerType';
 import { addMonths } from 'date-fns';
 
 export const createPromoter = async (promotorData: ICreatePromoterParams) => {
-  await prisma.promotor.create({
+  return await prisma.promotor.create({
     data: promotorData,
   });
 };
@@ -18,34 +18,43 @@ export const isReferralCodeExist = async (code: string) => {
 
 export const createAttendee = async (
   attendeeData: ICreateAttendeeParams,
-  member?: any,
+  memberCode?: any,
 ) => {
-  if (!member) {
-    await prisma.attendee.create({
+  let newUser: any;
+  if (!memberCode) {
+    newUser = await prisma.attendee.create({
       data: attendeeData,
     });
   } else {
     await prisma.$transaction(async (tx: any) => {
+      const memberData = await tx.attendee.findUnique({
+        where: {
+          referralCode: memberCode,
+        },
+      });
+
+      if (!memberData) throw new Error('Referral code invalid');
+
       await tx.point.create({
         data: {
-          attendeeUid: member.uid,
+          attendeeUid: memberData.uid,
           expiredAt: addMonths(new Date(), 3),
         },
       });
 
-      const newUser = await prisma.attendee.create({
+      newUser = await tx.attendee.create({
         data: attendeeData,
       });
 
-      console.log(newUser)
       await tx.voucher.create({
         data: {
           attendeeUid: newUser.uid,
           expiredAt: addMonths(new Date(), 3),
-          amount: 0.10,
+          amount: 0.1,
           description: 'New Member Voucher',
         },
       });
     });
   }
+  return newUser;
 };
