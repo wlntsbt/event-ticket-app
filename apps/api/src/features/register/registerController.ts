@@ -57,12 +57,13 @@ export const newAttendee = async (
       referralCode: referralCodeGenerator(),
     };
 
-    const checkMemberCode = await isReferralCodeExist(memberCode);
-    if (!checkMemberCode) throw new Error('Referral code does not exist!');
+    if (memberCode) {
+      const checkMemberCode = await isReferralCodeExist(memberCode);
+      if (!checkMemberCode) throw new Error('Referral code does not exist!');
+    }
 
     data.password = await hashPassword(password);
-
-    await createAttendee(data, checkMemberCode);
+    await createAttendee(data, memberCode);
 
     res.status(200).send({
       error: false,
