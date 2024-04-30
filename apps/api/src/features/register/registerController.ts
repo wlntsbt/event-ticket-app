@@ -6,6 +6,7 @@ import {
 } from './registerService';
 import { hashPassword } from '@/helpers/hash';
 import { referralCodeGenerator } from '@/helpers/referralCode';
+import { createToken } from '@/helpers/token';
 
 export const newPromoter = async (
   req: Request,
@@ -19,12 +20,21 @@ export const newPromoter = async (
 
     data.password = await hashPassword(password);
 
-    await createPromoter(data);
+    const accountData = await createPromoter(data);
+
+    const accesstoken = await createToken({
+      uid: accountData.uid,
+      role: accountData.role,
+    });
 
     res.status(200).send({
       error: false,
       message: 'Create promoter success!',
-      data: null,
+      data: {
+        accesstoken,
+        uid: accountData.uid,
+        role: accountData.role,
+      },
     });
   } catch (error) {
     next(error);
@@ -57,17 +67,23 @@ export const newAttendee = async (
       referralCode: referralCodeGenerator(),
     };
 
-    const checkMemberCode = await isReferralCodeExist(memberCode);
-    if (!checkMemberCode) throw new Error('Referral code does not exist!');
-
     data.password = await hashPassword(password);
 
-    await createAttendee(data, checkMemberCode);
+    const accountData = await createAttendee(data, memberCode);
+
+    const accesstoken = await createToken({
+      uid: accountData.uid,
+      role: accountData.role,
+    });
 
     res.status(200).send({
       error: false,
       message: 'Create attendee success!',
-      data: null,
+      data: {
+        accesstoken,
+        uid: accountData.uid,
+        role: accountData.role,
+      },
     });
   } catch (error) {
     next(error);

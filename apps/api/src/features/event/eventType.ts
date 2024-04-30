@@ -32,6 +32,7 @@ export interface ICreateEventParams {
   emailPIC: string;
   description: string;
   promotorUid: string;
+  imageLink: string;
 }
 
 export interface ICreateTicketParams {
