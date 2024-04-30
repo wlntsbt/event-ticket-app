@@ -3,11 +3,11 @@ Manually post these data on POSTMAN
 POST @ http://localhost:8000/register/user
 [
 {
-firstName: 'Wulan',
-lastName: 'Tsabita',
-username: 'wlntsbt',
-email: 'wulan@test.com',
-password: 'wulan123',
+"firstName": 'Wulan',
+"lastName": 'Tsabita',
+"username": 'wlntsbt',
+"email": 'wulan@test.com',
+"password": 'wulan123',
 },
 {
 firstName: 'Bogi',
@@ -39,7 +39,7 @@ password: 'delia123',
 },
 ];
 
-POST @ http://localhost:8000/register/promotor
+POST @ http://localhost:8000/register/promoter
 const promotorData = [
 {
 name: 'Plainsong Live',
