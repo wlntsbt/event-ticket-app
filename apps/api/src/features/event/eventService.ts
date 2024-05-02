@@ -45,12 +45,25 @@ import { ICreateEventParams, ICreateTicketParams } from './eventType';
   }
 }; */
 
-export const createEvent = async (eventData: ICreateEventParams) => {
-  const event = await prisma.event.create({
-    data: eventData,
-  });
+export const createEvent = async (
+  eventData: ICreateEventParams,
+  ticketData: ICreateTicketParams[],
+  images: any,
+) => {
+  console.log('ini filenya', images.image[0].path);
+  eventData.imageLink = images.image[0].path;
+  return prisma.$transaction(async (tx) => {
+    const event = await tx.event.create({
+      data: eventData,
+    });
 
-  return event.id;
+    for (let ticket of ticketData) {
+      ticket.eventId = event.id;
+      await tx.ticket.create({
+        data: ticket,
+      });
+    }
+  });
 };
 
 export const createTicket = async (

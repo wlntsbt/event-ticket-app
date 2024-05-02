@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/api/useCreateAccountMutation.jsx", "src/hooks/useCreateAccount.jsx", "src/app/auth/register/page.jsx", "src/app/auth/register/user/page.jsx", "src/app/page.jsx", "src/app/layout.jsx", "src/components/cores/Header.jsx", "src/components/cores/Footer.jsx", "src/providers/nextUIProvider.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/api/useCreateAccountMutation.jsx", "src/hooks/useLogin.jsx", "src/app/auth/register/page.jsx", "src/app/auth/register/user/page.jsx", "src/app/page.jsx", "src/app/layout.jsx", "src/components/cores/Header.jsx", "src/components/cores/Footer.jsx", "src/providers/nextUIProvider.jsx"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,5 @@
 import { prisma } from '@/connection';
+
 export const findAccountbyEmail = async (email: string) => {
   const findUser = await prisma.attendee.findUnique({
     where: {
