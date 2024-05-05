@@ -35,7 +35,7 @@ export interface ICreateEventParams {
   imageLink: string;
 }
 
-export interface ICreateTicketParams {
+export interface ICreateTicketParams extends ICreateEventParams {
   ticketName: string;
   ticketAmount: number;
   ticketPrice: number;

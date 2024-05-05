@@ -3,14 +3,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { Form, Formik, Field } from 'formik';
-import { useAuthLogin } from '@/hooks/useCreateAccount';
+import { useAuthLogin } from '@/hooks/useLogin';
 
 export default function LoginPage() {
   const { mutationAuth } = useAuthLogin();
 
   return (
     <section className="min-h-screen flex items-stretch text-white ">
+<<<<<<< HEAD
       <div className="w-1/2 hidden bg-purple-400 bg-no-repeat bg-cover relative items-center lg:flex">
+=======
+      <div className="w-1/2 hidden bg-violet-300 bg-no-repeat bg-cover relative items-center lg:flex">
+>>>>>>> ed91918ae3d8d80e8d4734c4bc2051e17e24f19c
         <div className="w-full px-24">
           <h1 className="tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-5xl hover:text-black font-bold font-[Poppins]">
             LETSGOIN!
@@ -40,6 +44,7 @@ export default function LoginPage() {
               WELCOME TO LESGOIN!
             </h1>
 
+<<<<<<< HEAD
             <div className='px-5'>
             <Form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
               <div className="relative h-10 w-full min-w-[200px]">
@@ -80,6 +85,40 @@ export default function LoginPage() {
               </div>
             </Form>
             </div>
+=======
+            <Form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+              <div className="pb-2 pt-4">
+                <Field
+                  type="text"
+                  name="email"
+                  placeholder="Input Your Email"
+                  className="w-full p-4 text-lg rounded-xl border-black border bg-white text-black"
+                />
+              </div>
+
+              <div className="pb-2 pt-4">
+                <Field
+                  type="pasword"
+                  name="password"
+                  placeholder="Input Your Password"
+                  className="w-full p-4 text-lg rounded-xl border-black border bg-white text-black"
+                />
+              </div>
+
+              <div className="text-right text-teal-400 hover:underline hover:text-red-500">
+                <a href="#">Forgot your password?</a>
+              </div>
+
+              <div className="px-4 pb-2 pt-4">
+                <button
+                  type="submit"
+                  className="w-full p-4 text-lg rounded-full bg-teal-700 hover:bg-teal-500 focus:outline-none"
+                >
+                  SIGN IN
+                </button>
+              </div>
+            </Form>
+>>>>>>> ed91918ae3d8d80e8d4734c4bc2051e17e24f19c
           </div>
         </Formik>
       </div>
