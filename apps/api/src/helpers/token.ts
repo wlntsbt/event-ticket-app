@@ -17,7 +17,7 @@ export interface IReqAccessToken extends Request {
 
 export const createToken = (data: ITokenizedData) => {
   return jwt.sign(data, process.env.JWT_SECRET_KEY as string, {
-    expiresIn: '1h',
+    expiresIn: '1d',
   });
 };
 
@@ -37,7 +37,7 @@ export const tokenVerify = (
       process.env.JWT_SECRET_KEY as string,
     );
 
-    console.log('middleware token verify. check payload:', payload);
+    // console.log('middleware token verify. check payload:', payload);
     reqToken.payload = payload;
     next();
   } catch (error) {

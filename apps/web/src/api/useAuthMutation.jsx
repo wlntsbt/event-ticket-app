@@ -18,3 +18,17 @@ export const useAuthMutation = ({ onSuccess, onError }) => {
     mutate,
   };
 };
+
+export const usePersistLoginMutation = ({ onSuccess, onError }) => {
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      return await axiosInstance.post('/auth/persist');
+    },
+    onSuccess,
+    onError,
+  });
+
+  return {
+    mutate,
+  };
+};

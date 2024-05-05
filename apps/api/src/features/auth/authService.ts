@@ -1,11 +1,11 @@
 import { prisma } from '@/connection';
+
 export const findAccountbyEmail = async (email: string) => {
   const findUser = await prisma.attendee.findUnique({
     where: {
       email,
     },
   });
-  console.log(findUser)
 
   const findPromoter = await prisma.promotor.findUnique({
     where: {

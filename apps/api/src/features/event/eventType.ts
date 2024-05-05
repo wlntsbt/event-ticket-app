@@ -32,9 +32,10 @@ export interface ICreateEventParams {
   emailPIC: string;
   description: string;
   promotorUid: string;
+  imageLink: string;
 }
 
-export interface ICreateTicketParams {
+export interface ICreateTicketParams extends ICreateEventParams {
   ticketName: string;
   ticketAmount: number;
   ticketPrice: number;

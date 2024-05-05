@@ -5,7 +5,6 @@ const promoterRouter = Router();
 promoterRouter.use(express.json()); // Body Parser
 
 import EventRouter from '../features/event/eventRouter';
-import { tokenVerify } from '@/helpers/token';
 
 promoterRouter.use('/event', EventRouter);
 
