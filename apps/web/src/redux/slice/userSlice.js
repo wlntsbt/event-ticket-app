@@ -10,7 +10,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (prevState = initialState, action) => {
-      console.log("action payload",action.payload);
+      // console.log("action payload",action.payload);
       prevState.uid = action.payload.uid;
       prevState.role = action.payload.role;
     },
