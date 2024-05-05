@@ -54,9 +54,11 @@ export const usePersistLogin = () => {
 };
 
 export const useLogout = () => {
-  const router = useRouter();
+  const navigate = useRouter();
+  const dispatch = useDispatch();
   const logout = () => {
     deleteCookie();
+    navigate.push('/');
     window.location.reload();
   };
 

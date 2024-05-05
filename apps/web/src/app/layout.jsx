@@ -7,6 +7,8 @@ import { Footer } from '@/components/cores/Footer';
 import TanstackProvider from '@/providers/tanstackProvider';
 import ReduxProvider from '@/providers/reduxProvider';
 import ProtectedRoute from '@/components/protectedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Create Next App',
@@ -19,6 +21,7 @@ export default function RootLayout({ children }) {
       <ReduxProvider>
         <TanstackProvider>
           <body className={inter.className}>
+            <ToastContainer />
             <ProtectedRoute>
               <Header />
               {children}

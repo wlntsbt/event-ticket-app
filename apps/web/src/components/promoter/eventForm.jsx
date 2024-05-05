@@ -1,10 +1,28 @@
+'use client';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import CreateTicket from './ticketForm';
-import { useFormContext } from '../../utils/formContext';
-
+import { useEffect, useState } from 'react';
+import { useFormContext } from '@/utils/formContext';
+import TicketCategoryComponent from './ticketCategoryComponent';
+import { useCreateEvent } from '@/hooks/promoter/useEvent';
+import { useRouter } from 'next/router';
 export default function EventForm() {
-  const { formValues } = useFormContext();
+  const { formValues, updateFormValues } = useFormContext();
+  const [showModal, setShowModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const { mutationCreateEvent } = useCreateEvent();
+  const router = useRouter()
+  let ticketData;
+
+  useEffect(() => {
+    ticketData = localStorage.getItem('ticket');
+    if (ticketData) {
+      updateFormValues(JSON.parse(ticketData));
+    } else {
+      localStorage.setItem('ticket', JSON.stringify([]));
+    }
+  }, []);
+
   const onSetFiles = (event) => {
     try {
       const acceptedFormat = ['jpg', 'jpeg', 'webp', 'png'];
@@ -35,6 +53,7 @@ export default function EventForm() {
 
   return (
     <div>
+      <div>{ticketData}</div>
       <Formik
         initialValues={{
           name: '',
@@ -47,7 +66,6 @@ export default function EventForm() {
           namePIC: '',
           emailPIC: '',
           description: '',
-          ticketData: [],
         }}
         onSubmit={(values) => {
           const fd = new FormData();
@@ -61,10 +79,15 @@ export default function EventForm() {
             location: values.location,
             namePIC: values.namePIC,
             emailPIC: values.emailPIC,
+            phonePIC: values.phonePIC,
             description: values.description,
-            ticketData: [],
+            ticketData: formValues,
           };
           fd.append('image', selectedFiles[0]);
+          fd.append('data', JSON.stringify(data));
+          mutationCreateEvent(fd);
+          localStorage.removeItem('ticket');
+          router.push('/promoter/event')
         }}
       >
         <Form>
@@ -173,6 +196,7 @@ export default function EventForm() {
                 className="input input-bordered p-2 rounded-xl w-full"
               />
             </label>
+
             <div className="flex flex-col items-center w-full gap-3">
               <div className="w-full ">Contact Person Info</div>
               <label className="form-control w-full p-3 border rounded-xl">
@@ -206,18 +230,31 @@ export default function EventForm() {
                 />
               </label>
             </div>
-            <div
-              onClick={() => setShowModal(true)}
-              className="items-center w-full hover:cursor-pointer relative bg-purple-700 rounded-lg h-12 before:absolute before:inset-0 before:bg-purple-400 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-lg"
-            >
-              <span className="relative text-white tracking-widest text-lg">
-                CREATE TICKET
-              </span>
+
+            <div className="w-full">
+              <div>Ticket</div>
+              {formValues
+                ? formValues.map((x, i) => (
+                    <TicketCategoryComponent
+                      key={i}
+                      ticketName={x.ticketName}
+                      ticketAmount={x.ticketAmount}
+                      ticketPrice={x.ticketPrice}
+                      ticketDescription={x.ticketDescription}
+                      salesStart={x.salesStart}
+                      salesEnd={x.salesEnd}
+                    ></TicketCategoryComponent>
+                  ))
+                : null}
+              <div
+                onClick={() => setShowModal(true)}
+                className="items-center w-full hover:cursor-pointer relative bg-purple-700 rounded-lg h-12 before:absolute before:inset-0 before:bg-purple-400 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-lg"
+              >
+                <span className="relative text-white tracking-widest text-lg">
+                  CREATE TICKET
+                </span>
+              </div>
             </div>
-            <CreateTicket
-              onClose={() => setShowModal(false)}
-              visible={showModal}
-            ></CreateTicket>
             <button
               type="submit"
               className="btn bg-indigo-500 text-white w-full rounded-full p-3"
@@ -227,6 +264,11 @@ export default function EventForm() {
           </div>
         </Form>
       </Formik>
+
+      <CreateTicket
+        close={() => setShowModal(false)}
+        open={showModal}
+      ></CreateTicket>
     </div>
   );
 }

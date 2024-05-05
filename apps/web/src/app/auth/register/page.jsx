@@ -1,6 +1,6 @@
 import React from 'react';
-import OptionAttendee from '@/components/optionRegister/optionAttendee'
-import OptionPromoter from '@/components/optionRegister/optionPromoter'
+import OptionAttendee from '@/components/general/optionRegister/optionAttendee';
+import OptionPromoter from '@/components/general/optionRegister/optionPromoter';
 
 export default function RegistrationPage() {
   return (
@@ -9,8 +9,8 @@ export default function RegistrationPage() {
         SELECT YOUR ROLE
       </h1>
       <div className="grid justify-center text-center m-5 gap-[50px] lg:flex lg:gap-[100px]">
-       <OptionAttendee className="hover:shadow-xl transform hover:scale-110 transition duration-500"/>
-       <OptionPromoter className="hover:shadow-xl transform hover:scale-110 transition duration-500"/>
+        <OptionAttendee className="hover:shadow-xl transform hover:scale-110 transition duration-500" />
+        <OptionPromoter className="hover:shadow-xl transform hover:scale-110 transition duration-500" />
       </div>
     </div>
   );

@@ -111,8 +111,8 @@ model Event {
   promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
   promotorUid String
   imageLink   String
+  isPublished Boolean   @default(false)
   Ticket      Ticket[]
-  Bill        Bill[]
   Review      Review[]
 }
 
@@ -134,6 +134,7 @@ model Voucher {
   amount      Decimal     @db.Decimal(10, 2)
   description String?     @db.Text
   status      PointStatus @default(AVAILABLE)
+  Bill        Bill[]
 }
 
 model Discount {
@@ -161,6 +162,7 @@ model Ticket {
   deletedAt             DateTime?
   Discount              Discount[]
   AttendeeTicket        AttendeeTicket[]
+  Booking               Booking[]
 }
 
 model AttendeeTicket {
@@ -173,16 +175,27 @@ model AttendeeTicket {
 
 model Bill {
   id             String           @id @default(uuid())
-  eventName      Event            @relation(fields: [eventId], references: [id])
-  eventId        Int
   attendee       Attendee         @relation(fields: [attendeeUid], references: [uid])
   attendeeUid    String
-  qty            Int
-  total          Int
-  usePromo       Boolean          @default(false)
+  total          Int?
+  usePoint       Boolean          @default(false)
+  useVoucher     Boolean          @default(false)
+  voucher        Voucher?         @relation(fields: [voucherId], references: [id])
   status         BillingStatus    @default(PENDING)
   createdAt      DateTime         @default(now())
   AttendeeTicket AttendeeTicket[]
+  Booking        Booking[]
+  voucherId      Int?
+}
+
+model Booking {
+  bill     Bill   @relation(fields: [billId], references: [id])
+  billId   String
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId Int
+  qty      Int
+
+  @@id([billId, ticketId])
 }
 
 model Review {
