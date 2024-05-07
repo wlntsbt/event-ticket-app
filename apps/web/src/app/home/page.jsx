@@ -23,7 +23,7 @@ export default function HomePage() {
           endDate={x.endDate}
           location={x.location}
           promoter={x.promotor?.name}
-          price={x.Ticket[0]?.ticketPrice}
+          price={x?.Ticket[0]?.ticketPrice}
           image={x.imageLink}
         ></EventCardComponent>
       ))}

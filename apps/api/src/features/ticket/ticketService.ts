@@ -6,6 +6,9 @@ import { Decimal } from '@prisma/client/runtime/library';
 export const createBill = async (data: ICreateBill) => {
   const { uid, bookingData, usePoint, voucherId } = data;
 
+  console.log('Inside Service');
+  console.log(bookingData);
+
   const bill = await prisma.bill.create({
     data: {
       attendeeUid: uid,

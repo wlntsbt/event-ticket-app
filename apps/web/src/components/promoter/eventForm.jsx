@@ -11,7 +11,7 @@ export default function EventForm() {
   const [showModal, setShowModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { mutationCreateEvent } = useCreateEvent();
-  const router = useRouter()
+  // const router = useRouter()
   let ticketData;
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function EventForm() {
           fd.append('data', JSON.stringify(data));
           mutationCreateEvent(fd);
           localStorage.removeItem('ticket');
-          router.push('/promoter/event')
+          // router.push('/promoter/event')
         }}
       >
         <Form>
