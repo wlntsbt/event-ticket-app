@@ -21,6 +21,7 @@ export const newBill = async (
       voucherId,
     };
     console.log(reqData)
+    
     const bill = await createBill(reqData);
 
     res.status(200).send({

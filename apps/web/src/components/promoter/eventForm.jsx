@@ -9,12 +9,14 @@ import SelectLocation from '../general/selectLocation/selectLocation';
 import SelectCategory from '../general/selectCategory';
 import { useCreateEvent } from '@/hooks/promoter/useEvent';
 import { useGetAllLocations } from '@/hooks/helpers/useGetEnums';
+
 export default function EventForm() {
   const { formValues, updateFormValues } = useFormContext();
   const [showModal, setShowModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { mutationCreateEvent } = useCreateEvent();
   const [isLoading, setIsLocation] = useState(true);
+
   // const router = useRouter()
   let ticketData;
   const { allLocations } = useGetAllLocations();

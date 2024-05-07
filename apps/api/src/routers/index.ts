@@ -4,6 +4,7 @@ import cors from 'cors';
 const router = Router();
 router.use(cors());
 router.use(express.json()); // Body Parser
+router.use('*/image', express.static('src/public/image'));
 
 import RegisterRouter from '../features/register/registerRouter';
 import AuthRouter from '../features/auth/authRouter';

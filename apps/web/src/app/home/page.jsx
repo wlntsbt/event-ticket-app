@@ -12,7 +12,6 @@ export default function HomePage() {
 
   if (!allPublishedEvents) return <div>Loading...</div>;
 
-  console.log('all published events', allPublishedEvents);
   return (
     <div className="py-[80px] lg:px-[100px]">
       <div>
