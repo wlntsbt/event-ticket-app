@@ -10,5 +10,5 @@ export const getCookie = () => {
 };
 
 export const deleteCookie = () => {
-  return cookies().delete('acctkn');
+  cookies().delete('acctkn');
 };

@@ -57,8 +57,14 @@ export const useLogout = () => {
   const navigate = useRouter();
   const dispatch = useDispatch();
   const logout = () => {
+    dispatch(
+      setUser({
+        uid: '',
+        role: '',
+      }),
+    );
     deleteCookie();
-    navigate.push('/');
+    // navigate.push('/');
     window.location.reload();
   };
 
