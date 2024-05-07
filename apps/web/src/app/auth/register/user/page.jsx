@@ -177,6 +177,7 @@ export default function AttendeeRegistrationPage() {
             <button
               type="submit"
               className="w-full relative bg-purple-700 rounded-[7px] h-12 before:absolute before:inset-0 before:bg-purple-400 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-[7px]"
+
             >
               <span className="relative text-white tracking-widest text-lg">
                 REGISTER
