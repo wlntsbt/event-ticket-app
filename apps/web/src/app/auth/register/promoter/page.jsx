@@ -2,7 +2,7 @@
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
 import { usePromoterRegister } from '@/hooks/useRegisterAccount';
-import SelectLocation from '@/components/selectLocation/selectLocation';
+import SelectLocation from '@/components/general/selectLocation/selectLocation';
 
 export default function PromoterRegistrationPage() {
   const { mutationPromoterRegister } = usePromoterRegister();

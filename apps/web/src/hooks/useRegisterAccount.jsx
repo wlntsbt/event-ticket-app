@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import { setCookie } from '@/utils/cookiesHelper';
 import { setUser } from '@/redux/slice/userSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   useUserRegisterMutation,
   usePromoterRegisterMutation,
@@ -47,10 +48,12 @@ export const useUserRegister = () => {
           role: res.data.data.role,
         }),
       );
+      toast.success(res.data.message)
       alert(res.data.message);
       router.push('/');
     },
     onError: (err) => {
+      toast.error(err.message)
       console.log(err);
     },
   });

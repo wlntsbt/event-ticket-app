@@ -12,32 +12,46 @@ export default function EventCardComponent({
   let eventDuration;
   if (isSameDay(new Date(startDate), new Date(endDate))) {
     const base = new Date(startDate);
-    eventDuration = base.getDate() + base.getMonth();
+    eventDuration =
+      base.getDate() + " " +
+      base.toLocaleString('default', { month: 'long' }) + " " +
+      base.getFullYear();
   } else {
     const baseStart = new Date(startDate);
     const baseEnd = new Date(endDate);
     eventDuration =
-      baseStart.getDate() +
+      baseStart.getDate() + ' ' + 
       baseStart.toLocaleString('default', { month: 'long' }) +
       ' - ' +
-      baseEnd.getDate() +
-      baseEnd.toLocaleString('default', { month: 'long' }) +
+      baseEnd.getDate() + " " +
+      baseEnd.toLocaleString('default', { month: 'long' }) + " " +
       baseEnd.getFullYear();
   }
+  // price = price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  const replaced = image.replace(/\\/g, '/');
   return (
-    <div className="w-[300px] h-auto p-6 border">
+    <div className="w-[300px] bg-white border rounded-[17px] mx-5 my-5 overflow-hidden drop-shadow-md hover:cursor-pointer">
       <Image
-        src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${image}`}
+        src={`http://localhost:8000/${image}`}
         width={100}
         height={100}
-        alt="Image"
-        className="w-[100%] h-[200px] rounded-xl"
+        unoptimized={true}
+        alt="Event Image"
+        className="w-[100%] h-[150px] rounded-t-md object-cover"
       ></Image>
-      <div className="text-xl">{name}</div>
-      <div className="text-sm">{eventDuration}</div>
-      <div className="text-sm">Location: {location}</div>
-      <div className="font-bold">IDR {price}</div>
-      <div className="mt-5 pt-1 border-t">{promoter}</div>
+
+      <div className="flex flex-col justify-between h-full pt-3">
+        <div className="flex flex-col gap-1 pl-3">
+          <h1 className="text-xl tracking-wider">{name}</h1>
+          <p className="text-sm italic">{eventDuration}</p>
+          <p className="text-sm">Location: {location}</p>
+          <p className="font-bold italic">IDR {price}</p>
+        </div>
+
+        <div className="h-full w-full pt-3">
+          <p className="p-[10px] bg-purple-200">{promoter}</p>
+        </div>
+      </div>
     </div>
   );
 }
