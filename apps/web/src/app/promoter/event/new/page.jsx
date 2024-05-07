@@ -8,13 +8,15 @@ import CreateTicket from '../../../../components/promoter/ticketForm';
 import { FormProvider } from '@/utils/formContext';
 import EventForm from '@/components/promoter/eventForm';
 
+
 export default function PromoterPage() {
   return (
-    <div className="pt-32">
+    <div className="pt-[100px] bg-[url(/confetti-doodles.svg)] from-gray-700">
       <FormProvider>
-        <div>CREATE EVENT</div>
-        <EventForm></EventForm>
-        <div className="w-[50vw] mx-12"></div>
+        <div className="flex justify-center items-center w-full bg-purple-100 h-[50px]">
+          <h1 className="text-2xl">CREATE YOUR EVENT</h1>
+        </div>
+        <EventForm />
       </FormProvider>
     </div>
   );

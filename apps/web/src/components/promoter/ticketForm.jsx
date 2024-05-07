@@ -33,9 +33,9 @@ export default function CreateTicket({ open, close }) {
         <div
           id="popup-bg"
           onClick={closeHandler}
-          className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center"
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
         >
-          <div className="bg-white p-4 rounded w-[30%] h-[60%] p-12 flex flex-col gap-8">
+          <div className="p-4 rounded w-[30%] h-[60%]flex flex-col gap-8">
             <div className="flex flex-col my-auto">
               <div className="mx-auto font-bold">DONE</div>
               <button
@@ -52,10 +52,10 @@ export default function CreateTicket({ open, close }) {
         <div
           id="popup-bg"
           onClick={closeHandler}
-          className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center"
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
         >
-          <div className="bg-white p-4 rounded w-[30%] h-[60%] p-12 flex flex-col gap-8">
-            <div className="font-bold mx-auto">Create New Employee Data</div>
+          <div className="p-4 rounded h-[60%] flex flex-col gap-8">
+            <div className="font-bold mx-auto text-white text-xl">Create Ticket</div>
             <Formik
               initialValues={{
                 ticketName: '',
@@ -70,7 +70,7 @@ export default function CreateTicket({ open, close }) {
               {({ dirty }) => {
                 return (
                   <Form>
-                    <div className="bg-yellow-50 py-[50px] px-5 rounded-xl">
+                    <div className="bg-yellow-50 py-[50px] px-5 rounded-xl w-full ">
                       <div className="relative h-10 w-full min-w-[200px]">
                         <Field
                           type="text"
@@ -145,14 +145,15 @@ export default function CreateTicket({ open, close }) {
                           </label>
                         </div>
                       </div>
+                      
                       <button
-                        type="submit"
-                        className="pt-5 w-full relative bg-purple-700 rounded-lg h-12 before:absolute before:inset-0 before:bg-purple-400 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-lg"
-                      >
-                        <span className="relative text-white tracking-widest text-lg">
-                          CREATE
-                        </span>
-                      </button>
+                type="submit"
+                className="mt-5 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
+              >
+                <span className="relative text-white tracking-widest text-lg">
+                  CREATE
+                </span>
+              </button>
                     </div>
                   </Form>
                 );

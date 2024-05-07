@@ -1,18 +1,46 @@
 'use client';
-import { Formik, Form, Field, useFormikContext } from 'formik';
-import CreateTicket from './ticketForm';
 import { useEffect, useState } from 'react';
-import { useFormContext } from '@/utils/formContext';
-import TicketCategoryComponent from './ticketCategoryComponent';
-import { useCreateEvent } from '@/hooks/promoter/useEvent';
 import { useRouter } from 'next/router';
+import { Formik, Form, Field, useFormikContext } from 'formik';
+import { useFormContext } from '@/utils/formContext';
+import CreateTicket from './ticketForm';
+import TicketCategoryComponent from './ticketCategoryComponent';
+import SelectLocation from '../general/selectLocation/selectLocation';
+import SelectCategory from '../general/selectCategory';
+import { useCreateEvent } from '@/hooks/promoter/useEvent';
+import { useGetAllLocations } from '@/hooks/helpers/useGetEnums';
+
 export default function EventForm() {
   const { formValues, updateFormValues } = useFormContext();
   const [showModal, setShowModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { mutationCreateEvent } = useCreateEvent();
+  const [isLoading, setIsLocation] = useState(true);
+
   // const router = useRouter()
   let ticketData;
+  const { allLocations } = useGetAllLocations();
+  /* 
+  if (isLoading == true) return <div>Loading...</div>;
+
+  if (allLocations) {
+    setIsLocation(false);
+  }
+
+  console.log('INI HASIL FETCH HOOKS BARU', allLocations);
+
+  for (let i in allLocations) {
+    console.log('isi dari all location', allLocations[i].i);
+  }
+
+  let a = allLocations;
+  const locationArray = [];
+
+  Object.keys(a).forEach(function (key, index) {
+    locationArray.push(a[key]);
+  });
+
+  console.log(locationArray); */
 
   useEffect(() => {
     ticketData = localStorage.getItem('ticket');
@@ -36,7 +64,7 @@ export default function EventForm() {
         ) {
           throw { message: `${file.name} Format Not Acceptable` };
         }
-        if (file.size > 10000000000000) {
+        if (file.size > 1000000) {
           throw {
             message: `${file.name} is too Large! Maximum Filesize is 1Kb`,
           };
@@ -52,8 +80,9 @@ export default function EventForm() {
   };
 
   return (
-    <div>
+    <div className="bg-white flex-col my-5 mx-[30px] h-full border rounded-xl lg:mx-[500px]">
       <div>{ticketData}</div>
+
       <Formik
         initialValues={{
           name: '',
@@ -69,6 +98,7 @@ export default function EventForm() {
         }}
         onSubmit={(values) => {
           const fd = new FormData();
+          console.log('ini values', values);
           const data = {
             name: values.name,
             startDate: values.startDate,
@@ -91,148 +121,191 @@ export default function EventForm() {
         }}
       >
         <Form>
-          <div className="flex flex-col items-center px-5 py-10 gap-3">
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Event Image</span>
-              </div>
+          <div className="flex flex-col items-center px-5 py-5 gap-3">
+            <p className="w-full mb-2 text-xl tracking-wide">Event Detail</p>
+            <div className="relative h-15 w-full">
               <input
                 type="file"
                 name="imageUrl"
                 accept="image/*"
                 onChange={(e) => onSetFiles(e)}
-                className="input input-bordered p-2 rounded-xl w-full"
+                className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
               />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Event Title</span>
-              </div>
-              <Field
-                type="text"
-                name="name"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Start Date</span>
-              </div>
-              <Field
-                type="date"
-                name="startDate"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">End Date</span>
-              </div>
-              <Field
-                type="date"
-                name="endDate"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Start Time</span>
-              </div>
-              <Field
-                type="time"
-                name="startTime"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">End Time</span>
-              </div>
-              <Field
-                type="time"
-                name="endTime"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Location</span>
-              </div>
-              <Field
-                as="select"
-                name="location"
-                placeholder="Select city"
-                className="input input-bordered p-2 rounded-xl w-full"
-              >
-                <option defaultChecked>Select City</option>
-                <option value="JAKARTA">Jakarta</option>
-                <option value="BALI">Bali</option>
-                <option value="Bandung">Bandung</option>
-              </Field>
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Category</span>
-              </div>
-              <Field
-                as="select"
-                name="category"
-                placeholder="Select category"
-                className="input input-bordered p-2 rounded-xl w-full"
-              >
-                <option defaultChecked>Select category</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Workshop">Workshop</option>
-                <option value="Others">Others</option>
-              </Field>
-            </label>
-            <label className="form-control w-full p-3 border rounded-xl">
-              <div className="label">
-                <span className="label-text">Description</span>
-              </div>
-              <Field
-                type="text"
-                name="description"
-                className="input input-bordered p-2 rounded-xl w-full"
-              />
-            </label>
-
-            <div className="flex flex-col items-center w-full gap-3">
-              <div className="w-full ">Contact Person Info</div>
-              <label className="form-control w-full p-3 border rounded-xl">
-                <div className="label">
-                  <span className="label-text">Email</span>
-                </div>
-                <Field
-                  type="text"
-                  name="emailPIC"
-                  className="input input-bordered p-2 rounded-xl w-full"
-                />
-              </label>
-              <label className="form-control w-full p-3 border rounded-xl">
-                <div className="label">
-                  <span className="label-text">Name</span>
-                </div>
-                <Field
-                  type="text"
-                  name="namePIC"
-                  className="input input-bordered p-2 rounded-xl w-full"
-                />
-              </label>
-              <label className="form-control w-full p-3 border rounded-xl">
-                <div className="label">
-                  <span className="label-text">Phone</span>
-                </div>
-                <Field
-                  type="text"
-                  name="phonePIC"
-                  className="input input-bordered p-2 rounded-xl w-full"
-                />
+              <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                Event Image
               </label>
             </div>
 
-            <div className="w-full">
-              <div>Ticket</div>
+            <div className="relative h-10 w-full mt-2">
+              <Field
+                type="text"
+                name="name"
+                className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                placeholder=" "
+              />
+              <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                Event Name
+              </label>
+            </div>
+
+            <div className="flex flex-row mt-2 gap-5 w-full">
+              <div className="relative h-10 w-full">
+                <Field
+                  type="date"
+                  name="startDate"
+                  className="text-center peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=""
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Start Date
+                </label>
+              </div>
+
+              <div className="relative h-10 w-full">
+                <Field
+                  type="date"
+                  name="endDate"
+                  className="text-center peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=""
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  End Date
+                </label>
+              </div>
+            </div>
+
+            <div className="flex flex-row mt-2 gap-5 w-full">
+              <div className="relative h-10 w-full">
+                <Field
+                  type="time"
+                  name="startTime"
+                  className="text-center peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=""
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Start Time
+                </label>
+              </div>
+
+              <div className="relative h-10 w-full">
+                <Field
+                  type="time"
+                  name="endTime"
+                  className="text-center peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=""
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  End Time
+                </label>
+              </div>
+            </div>
+
+            <div className="relative h-10 w-full mt-2">
+              {/* <SelectCategory /> */}
+                <Field
+                  as="select"
+                  name="location"
+                  placeholder="Select Location"
+                  className="peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-black outline outline-0 transition-all  empty:!bg-gray-500 focus:border-2  focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500
+      border border-black border-t-transparent placeholder-shown:border placeholder-shown:border-purple-500 placeholder-shown:border-t-purple-500 focus:border-purple-500"
+                >
+                  <option defaultChecked value="">Select Location</option>
+                  <option value="JAKARTA">JAKARTA</option>
+                  <option value="BANDUNG">BANDUNG</option>
+                  <option value="YOGYAKARTA">YOGYAKARTA</option>
+                  <option value="BALI">BALI</option>
+                  <option value="SEMARANG">SEMARANG</option>
+                  <option value="SURABAYA">SURABAYA</option>
+                  <option value="BOGOR">BOGOR</option>
+                  <option value="DEPOK">DEPOK</option>
+                  <option value="TANGERANG">TANGERANG</option>
+                  <option value="BEKASI">BEKASI</option>
+                </Field>
+                <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-black transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-purple-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-gray-500">
+                  Select Location
+                </label>
+              
+            </div>
+
+            <div className="relative h-10 w-full mt-2">
+              {/* <SelectCategory /> */}
+              <Field
+                as="select"
+                name="category"
+                className="peer h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-black outline outline-0 transition-all  empty:!bg-gray-500 focus:border-2  focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500
+      border border-black border-t-transparent placeholder-shown:border placeholder-shown:border-purple-500 placeholder-shown:border-t-purple-500 focus:border-purple-500"
+              >
+                <option defaultChecked>Select Category</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Seminar">Seminar</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Social">Social</option>
+                <option value="Other">Other</option>
+              </Field>
+              <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-black transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-purple-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-gray-500">
+                Select Category
+              </label>
+            </div>
+
+            <div className="relative h-10 w-full mt-2">
+              <div className="relative w-full min-w-[200px]">
+                <Field
+                  as="textarea"
+                  type="text"
+                  name="description"
+                  className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=" "
+                ></Field>
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Description
+                </label>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center w-full gap-3 mt-[80px]">
+              <p className="w-full mb-2 text-xl tracking-wide">
+                Contact Person Info
+              </p>
+
+              <div className="relative h-10 w-full mt-2">
+                <Field
+                  type="text"
+                  name="namePIC"
+                  className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=" "
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Name
+                </label>
+              </div>
+
+              <div className="relative h-10 w-full mt-2">
+                <Field
+                  type="text"
+                  name="emailPIC"
+                  className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=" "
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Email
+                </label>
+              </div>
+
+              <div className="relative h-10 w-full mt-2">
+                <Field
+                  type="text"
+                  name="phonePIC"
+                  className="peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
+                  placeholder=" "
+                />
+                <label className="absolute left-0 -top-1.5 flex h-full w-full after:content[' '] before:content[' '] before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l pointer-events-none select-none text-[11px] leading-tight text-black transition-all before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-purple-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-purple-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-purple-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
+                  Phone
+                </label>
+              </div>
+            </div>
+
+            <div className="w-full mt-5">
+              <p className="w-full mb-2 text-xl tracking-wide">Ticket</p>
               {formValues
                 ? formValues.map((x, i) => (
                     <TicketCategoryComponent
@@ -246,21 +319,29 @@ export default function EventForm() {
                     ></TicketCategoryComponent>
                   ))
                 : null}
-              <div
-                onClick={() => setShowModal(true)}
-                className="items-center w-full hover:cursor-pointer relative bg-purple-700 rounded-lg h-12 before:absolute before:inset-0 before:bg-purple-400 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-lg"
-              >
-                <span className="relative text-white tracking-widest text-lg">
-                  CREATE TICKET
-                </span>
+
+              <div>
+                <div
+                  onClick={() => setShowModal(true)}
+                  className="border-purple-500 border-2 w-full relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100"
+                >
+                  <span className="font-medium w-full flex h-full justify-center items-center tracking-widest text-md">
+                    CREATE TICKET
+                  </span>
+                </div>
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn bg-indigo-500 text-white w-full rounded-full p-3"
-            >
-              Create Event
-            </button>
+
+            <div className="flex-col mx-[30px] h-full w-full rounded-xl lg:mx-[500px]">
+              <button
+                type="submit"
+                className="font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
+              >
+                <span className="relative text-white tracking-widest text-lg">
+                  SEND TO DRAFT
+                </span>
+              </button>
+            </div>
           </div>
         </Form>
       </Formik>

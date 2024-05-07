@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
             <ToastContainer />
             <ProtectedRoute>
               <Header />
-              {children}
-              <Footer />
+              <div className="min-h-screen">{children}</div>
+              <Footer className="fixed bottom-0" />
             </ProtectedRoute>
           </body>
         </TanstackProvider>

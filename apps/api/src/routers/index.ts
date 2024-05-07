@@ -15,6 +15,8 @@ import EnumsRouter from '@/features/enums/enumRouter';
 import GeneralRouter from '@/features/general/generalRouter';
 import userRouter from './userRouter';
 
+router.use('*/image',express.static('src/public/image'))
+
 router.use('/public', GeneralRouter);
 router.use('/enums', EnumsRouter);
 router.use('/register', RegisterRouter);

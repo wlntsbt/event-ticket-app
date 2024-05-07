@@ -13,7 +13,7 @@ export const Header = () => {
   const stateUser = useSelector((state) => state.user);
   const { logout } = useLogout();
   return (
-    <div className="fixed z-50 border-b border-black bg-transparent backdrop-blur-sm w-full h-[50px] px-[25px] flex justify-between items-center lg:px-[100px]">
+    <div className="fixed z-50 border-b border-black bg-purple-700 bg-opacity-10 backdrop-blur-sm w-full h-[50px] px-[25px] flex justify-between items-center lg:px-[100px]">
       <Link href="/">
         <div
           className="text-white tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-lg hover:text-black font-bold"
@@ -28,15 +28,15 @@ export const Header = () => {
           <Link href={stateUser.role == 'PROMOTER' ? '/promoter' : '/user'}>
             <div>{stateUser.uid}</div>
           </Link>
-          <button onClick={logout}>Log Out</button>
+          <button onClick={logout} className='font-bold hover:text-purple-500 hover:cursor-pointer'>LOG OUT</button>
         </div>
       ) : (
         <div className="hidden md:flex lg:gap-10">
           <Link href={'/auth/login'}>
-            <div className="font-bold hover:text-slate-500">LOGIN</div>
+            <div className="font-bold hover:text-slate-500 hover:cursor-pointer">LOG IN</div>
           </Link>
           <Link href={'/auth/register'}>
-            <div className="font-bold hover:text-teal-500">REGISTER</div>
+            <div className="font-bold hover:text-purple-500 hover:cursor-pointer">REGISTER</div>
           </Link>
         </div>
       )}
@@ -59,11 +59,11 @@ export const Header = () => {
             />
           )}
           {toggleMenu && (
-            <ul className="fixed bg-transparent backdrop-blur-lg backdrop-grayscale flex flex-col w-screen h-screen inset-0 mt-[50px] pt-5 text-center text-2xl leading-[100px]">
+            <ul className="fixed flex flex-col w-full h-screen inset-0 mt-[50px] pt-5 text-center text-2xl leading-[100px] bg-black bg-opacity-40">
               <Link href={'/auth/login'}>
                 <li
                   onClick={() => setToggleMenu(false)}
-                  className="font-bold hover:text-white"
+                  className="font-bold hover:text-purple-500"
                 >
                   LOGIN
                 </li>
@@ -71,7 +71,7 @@ export const Header = () => {
               <Link href={'/auth/register'}>
                 <li
                   onClick={() => setToggleMenu(false)}
-                  className="font-bold hover:text-teal-500"
+                  className="font-bold hover:text-violet-500"
                 >
                   REGISTER
                 </li>
