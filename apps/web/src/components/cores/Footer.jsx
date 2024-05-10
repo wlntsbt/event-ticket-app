@@ -11,7 +11,7 @@ import { RiInstagramFill } from 'react-icons/ri';
 
 export const Footer = () => {
   return (
-    <div className="h-[300px] text-white pt-10">
+    <div className="h-[300px] text-white">
       <div className="bg-purple-500 py-5 w-full">
         <div className="grid-cols-2 grid gap-5 px-10 lg:px-[80px] lg:justify-center lg:grid lg:grid-cols-4 lg:m-10">
           <div>
@@ -49,7 +49,7 @@ export const Footer = () => {
                 <li>SURABAYA</li>
                 <li>BOGOR</li>
                 <li>DEPOK</li>
-                <li>TANEGRANG</li>
+                <li>TANGERANG</li>
                 <li>BEKASI</li>
               </div>
             </ul>

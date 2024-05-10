@@ -1,6 +1,4 @@
 // import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
 import './globals.css';
 import { Header } from '@/components/cores/Header';
 import { Footer } from '@/components/cores/Footer';
@@ -20,12 +18,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <ReduxProvider>
         <TanstackProvider>
-          <body className={inter.className}>
+          <body className="font-Karla">
             <ToastContainer />
             <ProtectedRoute>
               <Header />
               <div className="min-h-screen">{children}</div>
-              <Footer className="fixed bottom-0" />
+              <Footer className="bottom-0" />
             </ProtectedRoute>
           </body>
         </TanstackProvider>
