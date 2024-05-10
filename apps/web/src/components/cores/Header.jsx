@@ -25,7 +25,7 @@ export const Header = () => {
 
       {stateUser.uid ? (
         <div className="flex gap-3">
-          <Link href={stateUser.role == 'PROMOTER' ? '/promoter' : '/user'}>
+          <Link href={stateUser.role == 'PROMOTER' ? '/promoter/dashboard' : '/user'}>
             <div>{stateUser.uid}</div>
           </Link>
           <button onClick={logout} className='font-bold hover:text-purple-500 hover:cursor-pointer'>LOG OUT</button>

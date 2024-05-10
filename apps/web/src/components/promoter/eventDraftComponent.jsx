@@ -1,5 +1,6 @@
 import { usePublishEvent } from '@/hooks/promoter/useEvent';
 import { FiEdit } from "react-icons/fi";
+import { BsPatchCheck } from "react-icons/bs";
 import Image from 'next/image';
 export default function EventDraftComponent({
   ticketId,
@@ -28,7 +29,7 @@ export default function EventDraftComponent({
       <div>Created at: {new Date(createdAt).toDateString()}</div>
       </div>
       {isPublished ? (
-        <div className="p-3 text-purple-400">Status: Published</div>
+        <p className="p-3 text-purple-400 flex items-center gap-2" title='Status'><BsPatchCheck /> Published</p>
       ) : (
         <div className="flex flex-col gap-3 m-4">
           <button className="border-purple-500 border-2 relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100">
