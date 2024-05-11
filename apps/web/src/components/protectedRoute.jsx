@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children }) {
   const { mutationPersist } = usePersistLogin();
   const userState = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
-  console.log("user state",)
+
   const authorizeUser = (user) => {
     const persisting = mutationPersist();
     if (!loading) {

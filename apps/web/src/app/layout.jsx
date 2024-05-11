@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             <ToastContainer />
             <ProtectedRoute>
               <Header />
-              <div className="min-h-screen">{children}</div>
+              <div className="pt-16 min-h-screen">{children}</div>
               <Footer className="fixed bottom-0" />
             </ProtectedRoute>
           </body>

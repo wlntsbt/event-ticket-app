@@ -1,8 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 
-import { getUserPointsAndVouchers } from './userController';
+import { getUserPointsAndVouchers, getAllUserTransactions } from './userController';
 
-router.get('/', getUserPointsAndVouchers);
+router.get('/promos', getUserPointsAndVouchers);
+router.get('/transactions', getAllUserTransactions);
 
 export default router;

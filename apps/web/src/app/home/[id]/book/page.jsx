@@ -7,9 +7,10 @@ import TicketComponent from '@/components/general/ticketCard';
 import { useSelector } from 'react-redux';
 import { useRouter, usePathname } from 'next/navigation';
 import { Formik, Field, Form } from 'formik';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { isPast } from 'date-fns';
 import VoucherComponent from '@/components/general/voucherComponent';
+import { useCreatePurchase } from '@/hooks/user/useTicket';
 
 export default function BookingPage() {
   const pathname = usePathname();
@@ -17,8 +18,11 @@ export default function BookingPage() {
   let { bookingData } = JSON.parse(localStorage.getItem('ticket'));
   const [usePoints, setUsePoints] = useState(false);
   const [useVouchers, setUseVouchers] = useState(0);
+  const [voucherAmount, setVoucherAmount] = useState(0);
   const { userPromo } = useGetUserPromo();
+  const voucherRef = useRef(null);
 
+  const { mutationPurchaseTicket } = useCreatePurchase();
   const router = useRouter();
 
   if (!publishedEvent || !userPromo)
@@ -30,7 +34,8 @@ export default function BookingPage() {
   );
 
   console.log('useVoucher', useVouchers);
-  bookingData
+  const bookingDataCopy = JSON.parse(JSON.stringify(bookingData));
+  bookingDataCopy
     .filter((x) => x.qty > 0)
     .map(
       (x) =>
@@ -77,6 +82,18 @@ export default function BookingPage() {
       currency: 'IDR',
     });
   }
+
+  const handleVoucherSet = (id, amount) => {
+    if (useVouchers === 0) {
+      setUseVouchers(id);
+      setVoucherAmount(amount);
+    } else {
+      setUseVouchers(0);
+      setVoucherAmount(0);
+    }
+  };
+
+  console.log(voucherAmount);
   return (
     <div className="pt-16 grid grid-rows-2 gap-3 grid-flow-col w-[80%]">
       <div className="bg-pink-50 ">
@@ -96,7 +113,7 @@ export default function BookingPage() {
                 {publishedEvent.location} | {eventDuration}
               </div>
             </div>
-            {bookingData.map((x) => (
+            {bookingDataCopy.map((x) => (
               <div className="flex justify-between">
                 <div>
                   <div>{x.details.ticketName}</div>
@@ -190,7 +207,7 @@ export default function BookingPage() {
         <div className="font-bold">Pricing Details</div>
         <div>
           <div className="bg-pink-100">Tickets</div>
-          {bookingData.map((x) => (
+          {bookingDataCopy.map((x) => (
             <div className="text-sm flex justify-between">
               <div>
                 {x.details.ticketName} ({x.qty})
@@ -211,18 +228,35 @@ export default function BookingPage() {
             <div>Total Price</div>
             <div>
               {toCurrency(
-                bookingData.reduce(
+                bookingDataCopy.reduce(
                   (acc, x) => acc + x.details.ticketPrice * x.qty,
                   0,
-                ) - (usePoints ? points.length * 10000 : 0),
+                ) *
+                  (voucherAmount > 0 ? 1 - voucherAmount : 1) -
+                  (usePoints ? points.length * 10000 : 0),
               )}
             </div>
           </div>
 
+          {useVouchers ? (
+            <div className="text-sm flex justify-between">
+              <div>Vouchers</div>
+              <div>
+                -{' '}
+                {toCurrency(
+                  bookingDataCopy.reduce(
+                    (acc, x) => acc + x.details.ticketPrice * x.qty,
+                    0,
+                  ) * voucherAmount,
+                )}
+              </div>
+            </div>
+          ) : null}
+
           {usePoints ? (
             <div className="text-sm flex justify-between">
               <div>Points</div>
-              <div> -{toCurrency(points.length * 10000)} </div>
+              <div> - {toCurrency(points.length * 10000)} </div>
             </div>
           ) : null}
 
@@ -243,7 +277,10 @@ export default function BookingPage() {
               Use Voucher
             </div>
             {vouchers.map((x, i) => (
-              <div onClick={() => setUseVouchers(x.id)}>
+              <div
+                ref={voucherRef}
+                onClick={() => handleVoucherSet(x.id, Number(x.amount))}
+              >
                 <VoucherComponent
                   key={i}
                   expiredAt={x.expiredAt}
@@ -254,6 +291,19 @@ export default function BookingPage() {
             ))}
           </div>
         </div>
+
+        <button
+          className="p-3 align-center bg-purple-600 text-white rounded-lg"
+          onClick={() =>
+            mutationPurchaseTicket({
+              bookingData,
+              usePoint: usePoints,
+              voucherId: useVouchers,
+            })
+          }
+        >
+          Make Payment
+        </button>
       </div>
     </div>
   );
