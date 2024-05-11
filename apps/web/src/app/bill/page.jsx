@@ -7,7 +7,7 @@ export default function BillPage() {
   if (!billInfo.billId) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pt-32">
       <div>Bill ID: {billInfo.billId}</div>
       <div className="text-sm">
         <div>Details</div>

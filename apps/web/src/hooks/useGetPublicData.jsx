@@ -1,6 +1,7 @@
 import {
   useGetAllPublishedEventsQuery,
   useGetPublishedEventQuery,
+  useSearchPublishedEventQuery,
 } from '../api/usePublishedEventsQuery';
 
 export const useGetAllPublishedEvents = () => {
@@ -24,5 +25,18 @@ export const useGetPublishedEvent = (id) => {
 
   return {
     publishedEvent: publishedEvent?.data.data,
+  };
+};
+
+export const useGetSearchedEvents = (query) => {
+  const {
+    data: searchedEvents,
+    isSuccess,
+    isError,
+    isLoading,
+  } = useSearchPublishedEventQuery(query);
+
+  return {
+    searchedEvents: searchedEvents?.data.data,
   };
 };

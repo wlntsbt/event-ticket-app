@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useGetAllPublishedEventsQuery = () => {
   const { data, isSuccess, isError } = useQuery({
+    queryKey: ['AllPublishedEvents'],
     queryFn: async () => {
       return await axiosInstance.get('/public/all-events');
     },
@@ -29,3 +30,19 @@ export const useGetPublishedEventQuery = (id) => {
     isError,
   };
 };
+
+export const useSearchPublishedEventQuery = (query) => {
+  query = encodeURIComponent(query)
+  const { data, isSuccess, isError, isLoading } = useQuery({
+    queryKey: ['searchedEvents'],
+    queryFn: async () => {
+      return await axiosInstance.get(`/public/search?q=${query}`);
+    },
+  });
+
+  return {
+    data,
+    isSuccess,
+    isError,
+  };
+}

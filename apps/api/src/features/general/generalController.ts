@@ -1,4 +1,9 @@
-import { getPublishedEvents, getPublishedEventById } from './generalService';
+import { City } from '@prisma/client';
+import {
+  getPublishedEvents,
+  getPublishedEventById,
+  getPublishedEventBySearch,
+} from './generalService';
 import { NextFunction, Request, Response } from 'express';
 
 export const getAllEvents = async (
@@ -35,5 +40,26 @@ export const getEvent = async (
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const getEventSearch = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    let { q, location } = req.query;
+    let event;
+    if (typeof q === 'string') {
+      event = await getPublishedEventBySearch(q);
+    }
+    res.status(200).send({
+      error: false,
+      message: `Fetch event success!`,
+      data: event,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
