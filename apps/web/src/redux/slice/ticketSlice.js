@@ -24,6 +24,11 @@ export const ticketSlice = createSlice({
       const updatedBooking = prevState.bookingData.find(
         (booking) => booking.ticketId === ticketId,
       );
+      if (updatedBooking && qty === 0) {
+        prevState.bookingData = prevState.bookingData.filter(
+          (x) => x !== updatedBooking,
+        );
+      }
       if (updatedBooking) {
         updatedBooking.qty = qty;
       }

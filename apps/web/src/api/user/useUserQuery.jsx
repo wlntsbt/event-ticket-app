@@ -1,10 +1,11 @@
 import { axiosInstance } from '@/config/axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-export const useGetAllPublishedEventsQuery = () => {
+export const useGetUserPromoQuery = () => {
   const { data, isSuccess, isError } = useQuery({
+    queryKey: ['userPromo'],
     queryFn: async () => {
-      return await axiosInstance.get('/public/all-events');
+      return await axiosInstance.get('/user/data/promos');
     },
   });
 
@@ -15,11 +16,11 @@ export const useGetAllPublishedEventsQuery = () => {
   };
 };
 
-export const useGetPublishedEventQuery = (id) => {
+export const useGetUserTransactionQuery = () => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ['publishedEvent'],
+    queryKey: ['userTransaction'],
     queryFn: async () => {
-      return await axiosInstance.get(`/public/event/${id}`);
+      return await axiosInstance.get('/user/data/transactions');
     },
   });
 

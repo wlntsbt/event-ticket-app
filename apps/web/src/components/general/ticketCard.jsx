@@ -19,7 +19,7 @@ export default function TicketComponent({
 }) {
   const ticketState = useSelector((state) => state.ticket);
   const dispatch = useDispatch();
-  console.log('ticketState', ticketState, ticketId);
+  // console.log('ticketState', ticketState, ticketId);
   const [numOfTicket, setNumOfTicket] = useState(0);
 
   const handleAdd = () => {

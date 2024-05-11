@@ -95,12 +95,19 @@ export const createBill = async (data: ICreateBill) => {
       });
     }
 
-    await tx.bill.update({
+    return await tx.bill.update({
       where: {
         id: bill.id,
       },
       data: {
         total: total,
+      },
+      include: {
+        Booking: {
+          include: {
+            ticket: true,
+          },
+        },
       },
     });
   });
@@ -118,11 +125,13 @@ export const payBill = async (id: string) => {
     });
 
     const ticketData: IAttendeeTicketData[] = [];
+
     const bookingData = await tx.booking.findMany({
       where: {
         billId: id,
       },
     });
+
     bookingData.forEach((x) => {
       for (let i = 0; i < x.qty; i++) {
         ticketData.push({
@@ -136,10 +145,25 @@ export const payBill = async (id: string) => {
       data: ticketData,
     });
 
-    await tx.booking.deleteMany({
-      where: {
-        billId: id,
+    const ticket = await tx.ticket.findMany({
+      include: {
+        AttendeeTicket: true,
       },
     });
+
+    for (let book of bookingData) {
+      await tx.ticket.update({
+        where: {
+          id: book.ticketId,
+        },
+        data: {
+          ticketAmount: {
+            decrement: book.qty,
+          },
+        },
+      });
+    }
+
+    return ticket;
   });
 };

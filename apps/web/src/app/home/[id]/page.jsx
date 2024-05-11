@@ -3,13 +3,18 @@ import { useGetAllPublishedEvents } from '@/hooks/useGetPublicData';
 import Image from 'next/image';
 import { isSameDay } from 'date-fns';
 import TicketComponent from '@/components/general/ticketCard';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 export default function brandPage({ params }) {
   const { allPublishedEvents } = useGetAllPublishedEvents();
   let eventData = allPublishedEvents;
-  console.log('all published events', allPublishedEvents);
-  console.log(eventData);
-  console.log(params);
+  const userState = useSelector((state) => state.user);
+  const ticketState = useSelector((state) => state.ticket);
+  console.log('ticket state', ticketState);
+  console.log('user state', userState);
+  console.log('user state uid', typeof userState.uid);
+  const router = useRouter();
   if (!eventData) return <div className="pt-16">Loading...</div>;
 
   eventData = eventData.filter((x) => x.id == params.id);
@@ -40,6 +45,20 @@ export default function brandPage({ params }) {
       ' ' +
       baseEnd.getFullYear();
   }
+
+  const handleBuy = () => {
+    if (!userState.uid) {
+      router.push(`/auth/register/user`);
+    } else if (userState.role === 'PROMOTER') {
+      alert(
+        'You are using promoter account. Tickets can only be purchased through attendee account!',
+      );
+      router.push(`/`);
+    } else {
+      localStorage.setItem('ticket', JSON.stringify(ticketState));
+      router.push(`${params.id}/book`);
+    }
+  };
 
   return (
     <div className="w-full h-full pt-[80px] pb-10 flex-col items-center mx-auto md:w-[80%]">
@@ -99,6 +118,13 @@ export default function brandPage({ params }) {
             />
           ))}
         </div>
+        <button
+          onClick={handleBuy}
+          disabled={ticketState.bookingData.length == 0 ? true : false}
+          className="disabled:bg-slate-400 align-right text-white px-3 py-2 rounded-full bg-purple-500 hover:bg-purple-400"
+        >
+          Buy Ticket
+        </button>
       </div>
 
     </div>

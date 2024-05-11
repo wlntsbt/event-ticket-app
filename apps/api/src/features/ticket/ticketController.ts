@@ -13,15 +13,15 @@ export const newBill = async (
 
     const { usePoint, voucherId, bookingData } = req.body;
     console.log(req.body);
-    console.log(usePoint)
+    console.log(usePoint);
     const reqData = {
       uid,
       bookingData,
       usePoint,
       voucherId,
     };
-    console.log(reqData)
-    
+    console.log(reqData);
+
     const bill = await createBill(reqData);
 
     res.status(200).send({
@@ -42,7 +42,7 @@ export const billPayment = async (
   try {
     const bill = req.params.bill;
 
-    await payBill(bill);
+    const paymentDetails = await payBill(bill);
 
     res.status(200).send({
       error: false,

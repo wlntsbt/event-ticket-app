@@ -64,7 +64,8 @@ export const useLogout = () => {
       }),
     );
     deleteCookie();
-    // navigate.push('/');
+    localStorage.clear();
+    navigate.push('/');
     window.location.reload();
   };
 
