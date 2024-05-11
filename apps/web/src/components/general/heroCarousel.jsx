@@ -19,7 +19,7 @@ export default function HeroCarousel() {
     cssEase: "linear",
   };
   return (
-    <div className="h-full w-full my-5 lg:my-[50px]">
+    <div className="h-full w-full my-5 lg:my-[20px]">
       <Slider {...settings}>
         <div className="px-5">
         <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData1.png"></img>

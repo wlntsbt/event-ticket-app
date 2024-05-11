@@ -11,7 +11,7 @@ export default function PromoterPage() {
   console.log('page fetch', allEventsData);
 
   return (
-    <div className="pt-[50px]">
+    <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
         EVENT DRAFT
       </h1>

@@ -16,7 +16,7 @@ export default function Promotor({ children }) {
   return (
     <div>
       {pathname == '/promoter/event/new' ? null : (
-        <div className="pt-[80px] pl-5">
+        <div className="pt-[70px] pl-10">
           <Drawer
             open={isOpen}
             onClose={toggleDrawer}
@@ -31,7 +31,7 @@ export default function Promotor({ children }) {
           </Drawer>
           <button
             onClick={toggleDrawer}
-            className="w-[200px] border-purple-500 border-2 relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100"
+            className="w-[150px] border-purple-500 border-2 relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100"
           >
             <span className="font-medium flex h-full justify-center items-center gap-2">
               <FaChevronLeft />

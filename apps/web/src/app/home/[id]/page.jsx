@@ -26,16 +26,23 @@ export default function brandPage({ params }) {
   ) {
     const base = new Date(eventData[0].startDate);
     eventDate =
-      base.getDate() + base.toLocaleString('default', { month: 'long' });
+      base.getDate() +
+      ' ' +
+      base.toLocaleString('default', { month: 'long' }) +
+      ' ' +
+      base.getFullYear();
   } else {
     const baseStart = new Date(eventData[0].startDate);
     const baseEnd = new Date(eventData[0].endDate);
     eventDate =
       baseStart.getDate() +
+      ' ' +
       baseStart.toLocaleString('default', { month: 'long' }) +
       ' - ' +
       baseEnd.getDate() +
+      ' ' +
       baseEnd.toLocaleString('default', { month: 'long' }) +
+      ' ' +
       baseEnd.getFullYear();
   }
 
@@ -54,44 +61,51 @@ export default function brandPage({ params }) {
   };
 
   return (
-    <div className="mx-auto flex lg:w-[70%] md:w-[80%] flex-col gap-5 pt-32">
-      <Image
-        src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${eventData[0].imageLink}`}
-        width={100}
-        height={100}
-        alt="Image"
-        unoptimized={true}
-        className="w-full  h-[300px] lg:h-[25vw] rounded-xl object-cover"
-      ></Image>
-      <div className="text-2xl lg:text-4xl font-medium">
-        {eventData[0].name}
+    <div className="w-full h-full pt-[80px] pb-10 flex-col items-center mx-auto md:w-[80%]">
+      <div className="w-full">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${eventData[0].imageLink}`}
+          width={100}
+          height={100}
+          alt="Event Banner"
+          unoptimized={true}
+          className="w-full h-[300px] object-cover lg:rounded-[17px] lg:h-[400px]"
+        ></Image>
       </div>
-      <div id="details">
-        <div>{eventDate}</div>
+
+      <h1 className="text-2xl font-medium pt-3 tracking-wide px-5 lg:px-0 lg:text-4xl">
+        {eventData[0].name}
+      </h1>
+
+      <div className="px-5 lg:px-0">
+        <p className="lg:text-xl">{eventDate}</p>
         <div>
           {eventData[0].startTime} - {eventData[0].endTime}
         </div>
-        <div>{eventData[0].location}</div>
-      </div>
-      <div>
-        Promoted by <span>{eventData[0].promotor.name}</span>
-      </div>
-      <div>
-        <div className="font-bold">Description</div>
-        <div>{eventData[0].description}</div>
-      </div>
-      <div>
-        <div className="font-bold">Terms & Condition</div>
+        <div className='underline'>{eventData[0].location}</div>
+
+        <div className="text-[14px] lg:text-[18px]">
+          Promoted by <span className='italic'>{eventData[0].promotor.name}</span>
+        </div>
         <div>
-          Para pemegang tiket wajib mengikuti peraturan yang sudah dibuat oleh
-          pihak penyelenggara dan apabila terdapat pelanggaran dari peraturan
-          tersebut, pihak penyelenggara berwewenang untuk mengeluarkan dan
-          menghanguskan tiket ybs.
+          <h1 className="font-bold pt-5">Description</h1>
+          <p className="text-[14px] lg:text-[18px]">{eventData[0].description}</p>
+        </div>
+        <div>
+          <h1 className="font-bold pt-5">Terms & Condition</h1>
+          <p className="text-[14px] lg:text-[18px]">
+            Para pemegang tiket wajib mengikuti peraturan yang sudah dibuat oleh
+            pihak penyelenggara dan apabila terdapat pelanggaran dari peraturan
+            tersebut, pihak penyelenggara berwewenang untuk mengeluarkan dan
+            menghanguskan tiket ybs.
+          </p>
         </div>
       </div>
-      <div>
-        <div className="font-bold">Ticket</div>
-        <div className="flex flex-col gap-3">
+
+      <div className="pt-5 px-5 lg:px-0">
+        <h1 className="font-bold">Ticket</h1>
+
+        <div className="flex flex-col pt-2 w-full">
           {eventData[0].Ticket.map((x, i) => (
             <TicketComponent
               key={i}
@@ -112,6 +126,7 @@ export default function brandPage({ params }) {
           Buy Ticket
         </button>
       </div>
+
     </div>
   );
 }
