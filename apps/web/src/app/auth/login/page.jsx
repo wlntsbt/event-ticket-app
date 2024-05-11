@@ -10,14 +10,14 @@ export default function LoginPage() {
   const { mutationAuth } = useAuthLogin();
 
   return (
-    <section className="min-h-screen flex items-stretch text-white ">
-      <div className="w-1/2 hidden gradient bg-no-repeat bg-cover relative items-center lg:flex">
+    <section className="w-full min-h-screen flex items-stretch text-white ">
+      <div className="gradient w-1/2 hidden relative items-center lg:flex">
         <div className="w-full px-24">
           <h1 className="tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-5xl hover:text-black font-bold font-[Poppins]">
             LETSGOIN!
           </h1>
-          <p className="text-3xl my-4 italic text-black">
-            "Lalala? <span className='text-purple-500'>Yeyeye</span>"
+          <p className="text-3xl my-4 italic text-white">
+            "Lalala? <span className='text-purple-300'>Yeyeye</span>"
           </p>
         </div>
         <div className="bottom-0 absolute p-4 text-center right-0 left-0 flex justify-center space-x-4">
