@@ -5,17 +5,18 @@ import { isSameDay } from 'date-fns';
 import TicketComponent from '@/components/general/ticketCard';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/general/spinner';
 
 export default function brandPage({ params }) {
   const { allPublishedEvents } = useGetAllPublishedEvents();
   let eventData = allPublishedEvents;
   const userState = useSelector((state) => state.user);
   const ticketState = useSelector((state) => state.ticket);
-  console.log('ticket state', ticketState);
-  console.log('user state', userState);
-  console.log('user state uid', typeof userState.uid);
+  // console.log('ticket state', ticketState);
+  // console.log('user state', userState);
+  // console.log('user state uid', typeof userState.uid);
   const router = useRouter();
-  if (!eventData) return <div className="pt-16">Loading...</div>;
+  if (!eventData) return <Spinner/>;
 
   eventData = eventData.filter((x) => x.id == params.id);
   console.log(eventData);
@@ -82,14 +83,17 @@ export default function brandPage({ params }) {
         <div>
           {eventData[0].startTime} - {eventData[0].endTime}
         </div>
-        <div className='underline'>{eventData[0].location}</div>
+        <div className="underline">{eventData[0].location}</div>
 
         <div className="text-[14px] lg:text-[18px]">
-          Promoted by <span className='italic'>{eventData[0].promotor.name}</span>
+          Promoted by{' '}
+          <span className="italic">{eventData[0].promotor.name}</span>
         </div>
         <div>
           <h1 className="font-bold pt-5">Description</h1>
-          <p className="text-[14px] lg:text-[18px]">{eventData[0].description}</p>
+          <p className="text-[14px] lg:text-[18px]">
+            {eventData[0].description}
+          </p>
         </div>
         <div>
           <h1 className="font-bold pt-5">Terms & Condition</h1>
@@ -118,15 +122,20 @@ export default function brandPage({ params }) {
             />
           ))}
         </div>
-        <button
-          onClick={handleBuy}
-          disabled={ticketState.bookingData.length == 0 ? true : false}
-          className="disabled:bg-slate-400 align-right text-white px-3 py-2 rounded-full bg-purple-500 hover:bg-purple-400"
-        >
-          Buy Ticket
-        </button>
-      </div>
 
+        <div className="h-full w-full lg:w-[500px]">
+          <button
+            onClick={handleBuy}
+            type="submit"
+            disabled={ticketState.bookingData.length == 0 ? true : false}
+            className="disabled:bg-slate-400 disabled:before:bg-slate-400 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
+          >
+            <span className="relative text-white tracking-widest text-lg">
+              BUY TICKET
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
