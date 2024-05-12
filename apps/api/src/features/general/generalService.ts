@@ -36,7 +36,7 @@ export const getPublishedEventById = async (id: number) => {
 
 export const getPublishedEventBySearch = async (
   query: string,
-  location?: City | undefined 
+  location?: City | undefined,
 ) => {
   return await prisma.event.findMany({
     where: {
@@ -73,6 +73,24 @@ export const getPublishedEventBySearch = async (
         },
       },
       promotor: true,
+    },
+  });
+};
+
+export const getPublishedEventByPromotor = async (username: string) => {
+  return await prisma.promotor.findUnique({
+    where: {
+      username,
+    },
+    include: {
+      Event: {
+        where: {
+          isPublished: true
+        },
+        include: {
+          Review: true,
+        },
+      },
     },
   });
 };
