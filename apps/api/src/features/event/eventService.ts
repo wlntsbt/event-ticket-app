@@ -49,6 +49,13 @@ export const getEventByPromoter = async (promotorUid: string) => {
     where: {
       promotorUid,
     },
+    include: {
+      Ticket: {
+        include: {
+          AttendeeTicket: true,
+        },
+      },
+    },
   });
 };
 
