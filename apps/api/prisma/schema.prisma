@@ -90,6 +90,7 @@ model Promotor {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   Event     Event[]
+  Review    Review[]
 }
 
 model Event {
@@ -166,11 +167,12 @@ model Ticket {
 }
 
 model AttendeeTicket {
-  id       String @id @default(uuid())
-  ticket   Ticket @relation(fields: [ticketId], references: [id])
-  ticketId Int
-  bill     Bill   @relation(fields: [billId], references: [id])
-  billId   String
+  id        String   @id @default(uuid())
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+  bill      Bill     @relation(fields: [billId], references: [id])
+  billId    String
+  createdAt DateTime @default(now())
 }
 
 model Bill {
@@ -189,11 +191,11 @@ model Bill {
 }
 
 model Booking {
-  bill     Bill   @relation(fields: [billId], references: [id])
-  billId   String
-  ticket   Ticket @relation(fields: [ticketId], references: [id])
-  ticketId Int
-  qty      Int
+  bill      Bill     @relation(fields: [billId], references: [id])
+  billId    String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+  qty       Int
 
   @@id([billId, ticketId])
 }
@@ -205,8 +207,10 @@ model Review {
   attendee    Attendee  @relation(fields: [attendeeUid], references: [uid])
   attendeeUid String
   rating      Int
+  promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
   feedback    String    @db.Text
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+  promotorUid String
 }
