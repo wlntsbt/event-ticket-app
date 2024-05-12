@@ -23,6 +23,7 @@ enum Category {
   Seminar
   Workshop
   Social
+  Bazaar
   Other
 }
 
@@ -153,7 +154,7 @@ model Ticket {
   ticketAmount          Int
   ticketPrice           Int
   ticketPriceDiscounted Int?
-  ticketDescription     String
+  ticketDescription     String           @db.LongText
   event                 Event            @relation(fields: [eventId], references: [id])
   eventId               Int
   salesStart            DateTime
@@ -185,17 +186,18 @@ model Bill {
   voucher        Voucher?         @relation(fields: [voucherId], references: [id])
   status         BillingStatus    @default(PENDING)
   createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   AttendeeTicket AttendeeTicket[]
   Booking        Booking[]
   voucherId      Int?
 }
 
 model Booking {
-  bill      Bill     @relation(fields: [billId], references: [id])
-  billId    String
-  ticket    Ticket   @relation(fields: [ticketId], references: [id])
-  ticketId  Int
-  qty       Int
+  bill     Bill   @relation(fields: [billId], references: [id])
+  billId   String
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId Int
+  qty      Int
 
   @@id([billId, ticketId])
 }

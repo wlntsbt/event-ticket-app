@@ -12,9 +12,6 @@ ALTER TABLE `attendeeticket` ADD COLUMN `createdAt` DATETIME(3) NOT NULL DEFAULT
 ALTER TABLE `bill` ADD COLUMN `updatedAt` DATETIME(3) NOT NULL;
 
 -- AlterTable
-ALTER TABLE `booking` ADD COLUMN `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
-
--- AlterTable
 ALTER TABLE `review` ADD COLUMN `promotorUid` VARCHAR(191) NOT NULL;
 
 -- AddForeignKey
