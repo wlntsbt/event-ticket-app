@@ -1,6 +1,5 @@
 import { prisma, billingStatus, pointStatus } from '@/connection';
 import { IBookingData, IAttendeeTicketData, ICreateBill } from './ticketType';
-import { Prisma } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 export const createBill = async (data: ICreateBill) => {

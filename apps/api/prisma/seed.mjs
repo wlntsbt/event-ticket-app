@@ -352,7 +352,7 @@ const events = [
       {
         ticketName: 'Daily Entry Pass',
         ticketAmount: 30,
-        ticketPrice: 1200000,
+        ticketPrice: 90000,
         ticketDescription: 'Ticket valid for 1 day of entry',
         salesStart: new Date('2024-05-12'),
         salesEnd: new Date('2024-06-30'),
@@ -554,360 +554,486 @@ const transactions = [
   {
     attendeeUsername: 'wlntsbt',
     bookingData: [
-      {
-        ticketId: 1,
-        qty: 3,
-      },
-      {
-        ticketId: 3,
-        qty: 1,
-      },
-      {
-        ticketId: 4,
-        qty: 1,
-      },
-      {
-        ticketId: 9,
-        qty: 3,
-      },
-      {
-        ticketId: 13,
-        qty: 5,
-      },
+      [
+        {
+          ticketId: 1,
+          qty: 3,
+        },
+        {
+          ticketId: 3,
+          qty: 1,
+        },
+      ],
+      [
+        {
+          ticketId: 4,
+          qty: 1,
+        },
+      ],
+      [
+        {
+          ticketId: 9,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 13,
+          qty: 5,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'bogz',
     bookingData: [
-      {
-        ticketId: 2,
-        qty: 2,
-      },
-      {
-        ticketId: 6,
-        qty: 2,
-      },
-      {
-        ticketId: 19,
-        qty: 2,
-      },
-      {
-        ticketId: 11,
-        qty: 2,
-      },
-      {
-        ticketId: 12,
-        qty: 4,
-      },
+      [
+        {
+          ticketId: 2,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 6,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 19,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 11,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 12,
+          qty: 4,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'alicesmith',
     bookingData: [
-      {
-        ticketId: 2,
-        qty: 2,
-      },
-      {
-        ticketId: 5,
-        qty: 4,
-      },
-      {
-        ticketId: 19,
-        qty: 2,
-      },
-      {
-        ticketId: 11,
-        qty: 2,
-      },
-      {
-        ticketId: 9,
-        qty: 1,
-      },
+      [
+        {
+          ticketId: 2,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 5,
+          qty: 4,
+        },
+      ],
+      [
+        {
+          ticketId: 19,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 11,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 9,
+          qty: 1,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'barentnolimit',
     bookingData: [
-      {
-        ticketId: 3,
-        qty: 5,
-      },
-      {
-        ticketId: 10,
-        qty: 3,
-      },
-      {
-        ticketId: 14,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 3,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 10,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 14,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'iqbaale',
     bookingData: [
-      {
-        ticketId: 1,
-        qty: 2,
-      },
-      {
-        ticketId: 2,
-        qty: 2,
-      },
-      {
-        ticketId: 3,
-        qty: 4,
-      },
-      {
-        ticketId: 12,
-        qty: 5,
-      },
-      {
-        ticketId: 14,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 1,
+          qty: 2,
+        },
+        {
+          ticketId: 2,
+          qty: 2,
+        },
+        {
+          ticketId: 3,
+          qty: 4,
+        },
+      ],
+      [
+        {
+          ticketId: 12,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 14,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'raihanp',
     bookingData: [
-      {
-        ticketId: 1,
-        qty: 2,
-      },
-      {
-        ticketId: 3,
-        qty: 2,
-      },
-      {
-        ticketId: 5,
-        qty: 3,
-      },
-      {
-        ticketId: 9,
-        qty: 2,
-      },
-      {
-        ticketId: 14,
-        qty: 2,
-      },
-      {
-        ticketId: 18,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 1,
+          qty: 2,
+        },
+        {
+          ticketId: 3,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 5,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 9,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 14,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 18,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'davidg',
     bookingData: [
-      {
-        ticketId: 4,
-        qty: 2,
-      },
-      {
-        ticketId: 6,
-        qty: 2,
-      },
-      {
-        ticketId: 8,
-        qty: 3,
-      },
-      {
-        ticketId: 11,
-        qty: 3,
-      },
-      {
-        ticketId: 18,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 4,
+          qty: 2,
+        },
+        {
+          ticketId: 6,
+          qty: 2,
+        },
+        {
+          ticketId: 8,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 11,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 18,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'nauran',
     bookingData: [
-      {
-        ticketId: 2,
-        qty: 2,
-      },
-      {
-        ticketId: 6,
-        qty: 2,
-      },
-      {
-        ticketId: 8,
-        qty: 3,
-      },
-      {
-        ticketId: 14,
-        qty: 2,
-      },
-      {
-        ticketId: 15,
-        qty: 3,
-      },
-      {
-        ticketId: 20,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 2,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 6,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 8,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 14,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 15,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 20,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'farisanu',
     bookingData: [
-      {
-        ticketId: 1,
-        qty: 1,
-      },
-      {
-        ticketId: 7,
-        qty: 3,
-      },
-      {
-        ticketId: 16,
-        qty: 5,
-      },
-      {
-        ticketId: 20,
-        qty: 1,
-      },
+      [
+        {
+          ticketId: 1,
+          qty: 1,
+        },
+      ],
+      [
+        {
+          ticketId: 7,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 16,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 20,
+          qty: 1,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'alyasari',
     bookingData: [
-      {
-        ticketId: 7,
-        qty: 3,
-      },
-      {
-        ticketId: 9,
-        qty: 2,
-      },
-      {
-        ticketId: 10,
-        qty: 5,
-      },
-      {
-        ticketId: 15,
-        qty: 3,
-      },
+      [
+        {
+          ticketId: 7,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 9,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 10,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 15,
+          qty: 3,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'fathanr',
     bookingData: [
-      {
-        ticketId: 5,
-        qty: 2,
-      },
-      {
-        ticketId: 6,
-        qty: 2,
-      },
-      {
-        ticketId: 12,
-        qty: 3,
-      },
-      {
-        ticketId: 15,
-        qty: 3,
-      },
+      [
+        {
+          ticketId: 5,
+          qty: 2,
+        },
+        {
+          ticketId: 6,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 12,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 15,
+          qty: 3,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'aurorad',
     bookingData: [
-      {
-        ticketId: 14,
-        qty: 1,
-      },
-      {
-        ticketId: 4,
-        qty: 2,
-      },
-      {
-        ticketId: 1,
-        qty: 2,
-      },
-      {
-        ticketId: 16,
-        qty: 5,
-      },
+      [
+        {
+          ticketId: 14,
+          qty: 1,
+        },
+      ],
+      [
+        {
+          ticketId: 4,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 1,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 16,
+          qty: 5,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'denisa',
     bookingData: [
-      {
-        ticketId: 3,
-        qty: 4,
-      },
-      {
-        ticketId: 4,
-        qty: 3,
-      },
-      {
-        ticketId: 8,
-        qty: 1,
-      },
-      {
-        ticketId: 10,
-        qty: 5,
-      },
-      {
-        ticketId: 18,
-        qty: 3,
-      },
+      [
+        {
+          ticketId: 3,
+          qty: 4,
+        },
+      ],
+      [
+        {
+          ticketId: 4,
+          qty: 3,
+        },
+        {
+          ticketId: 8,
+          qty: 1,
+        },
+      ],
+      [
+        {
+          ticketId: 10,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 18,
+          qty: 3,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'kevinp',
     bookingData: [
-      {
-        ticketId: 1,
-        qty: 2,
-      },
-      {
-        ticketId: 5,
-        qty: 5,
-      },
-      {
-        ticketId: 9,
-        qty: 2,
-      },
-      {
-        ticketId: 11,
-        qty: 4,
-      },
-      {
-        ticketId: 17,
-        qty: 3,
-      },
-      {
-        ticketId: 18,
-        qty: 2,
-      },
+      [
+        {
+          ticketId: 1,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 5,
+          qty: 5,
+        },
+      ],
+      [
+        {
+          ticketId: 9,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 11,
+          qty: 4,
+        },
+      ],
+      [
+        {
+          ticketId: 17,
+          qty: 3,
+        },
+      ],
+      [
+        {
+          ticketId: 18,
+          qty: 2,
+        },
+      ],
     ],
   },
   {
     attendeeUsername: 'williamm',
     bookingData: [
-      {
-        ticketId: 14,
-        qty: 2,
-      },
-      {
-        ticketId: 7,
-        qty: 2,
-      },
-      {
-        ticketId: 15,
-        qty: 2,
-      },
-      {
-        ticketId: 19,
-        qty: 3,
-      },
+      [
+        {
+          ticketId: 14,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 7,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 15,
+          qty: 2,
+        },
+      ],
+      [
+        {
+          ticketId: 19,
+          qty: 3,
+        },
+      ],
     ],
   },
 ];
@@ -955,70 +1081,70 @@ async function main() {
         },
       });
 
-      const bill = await tx.bill.create({
-        data: {
-          attendeeUid: attendee.uid,
-          Booking: {
-            create: transaction.bookingData,
-          },
-        },
-      });
-
-      console.log('INI BILL', bill);
-
-      const bookingItems = await tx.booking.findMany({
-        where: {
-          billId: bill.id,
-        },
-        include: {
-          ticket: true,
-        },
-      });
-
-      const total = bookingItems.reduce(
-        (acc, x) => acc + x.ticket.ticketPrice * x.qty,
-        0,
-      );
-
-      await tx.bill.update({
-        where: {
-          id: bill.id,
-        },
-        data: {
-          total: total,
-          status: 'PAID',
-        },
-      });
-
-      const ticketData = [];
-
-      bookingItems.forEach((x) => {
-        for (let i = 0; i < x.qty; i++) {
-          ticketData.push({
-            ticketId: x.ticketId,
-            billId: x.billId,
-            createdAt: randomDate(x.ticket.salesStart, x.ticket.salesEnd),
-          });
-        }
-      });
-
-      const newTicketsResult = await tx.attendeeTicket.createMany({
-        data: ticketData,
-      });
-
-      console.log(newTicketsResult);
-
-      for (let book of bookingItems) {
-        await tx.ticket.update({
-          where: {
-            id: book.ticketId,
-          },
+      for (let booking of transaction.bookingData) {
+        const bill = await tx.bill.create({
           data: {
-            ticketAmount: {
-              decrement: book.qty,
+            attendeeUid: attendee.uid,
+            Booking: {
+              create: booking,
             },
           },
         });
+
+        console.log('INI BILL', bill);
+
+        const bookingItems = await tx.booking.findMany({
+          where: {
+            billId: bill.id,
+          },
+          include: {
+            ticket: true,
+          },
+        });
+
+        const total = bookingItems.reduce(
+          (acc, x) => acc + x.ticket.ticketPrice * x.qty,
+          0,
+        );
+
+        await tx.bill.update({
+          where: {
+            id: bill.id,
+          },
+          data: {
+            total: total,
+            status: 'PAID',
+          },
+        });
+
+        const ticketData = [];
+
+        bookingItems.forEach((x) => {
+          for (let i = 0; i < x.qty; i++) {
+            const date = randomDate(x.ticket.salesStart, x.ticket.salesEnd);
+            ticketData.push({
+              ticketId: x.ticketId,
+              billId: x.billId,
+              createdAt: date,
+            });
+          }
+        });
+
+        const newTicketsResult = await tx.attendeeTicket.createMany({
+          data: ticketData,
+        });
+        for (let book of bookingItems) {
+          await tx.ticket.update({
+            where: {
+              id: book.ticketId,
+            },
+            data: {
+              ticketAmount: {
+                decrement: book.qty,
+              },
+            },
+          });
+        }
       }
     }
   });

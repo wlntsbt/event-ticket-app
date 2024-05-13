@@ -20,11 +20,17 @@ export default function ProtectedRoute({ children }) {
       const userPath = ['/user'];
       const publicPath = ['/'];
 
-      if (userState.role !== 'PROMOTER' && promoterPath.includes(path)) {
+      if (
+        (userState.role == '' || userState.role !== 'PROMOTER') &&
+        promoterPath.includes(path)
+      ) {
         alert('Access Denied! Promoter Route!');
         navigate.push('/');
       }
-      if (userState.role !== 'USER' && userPath.includes(path)) {
+      if (
+        (userState.role == '' || userState.role !== 'USER') &&
+        userPath.includes(path)
+      ) {
         alert('Access Denied! User Route!');
         navigate.push('/');
       }
@@ -36,6 +42,7 @@ export default function ProtectedRoute({ children }) {
       setLoading(false);
       authorizeUser(userState);
     }
+    authorizeUser(userState);
   }, [userState, loading]);
 
   return <>{children}</>;
