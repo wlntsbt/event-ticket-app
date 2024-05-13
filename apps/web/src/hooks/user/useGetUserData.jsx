@@ -2,6 +2,7 @@ import {
   useGetUserPromoQuery,
   useGetUserTransactionQuery,
   useGetUserInfoQuery,
+  useGetUserReviewQuery,
 } from '../../api/user/useUserQuery';
 
 export const useGetUserPromo = () => {
@@ -29,5 +30,13 @@ export const useGetUserInfo = () => {
 
   return {
     userInfo: userInfo?.data?.data,
+  };
+};
+
+export const useGetUserReview = () => {
+  const { data: userReview, isSuccess, isError } = useGetUserReviewQuery();
+
+  return {
+    userReview: userReview?.data?.data,
   };
 };

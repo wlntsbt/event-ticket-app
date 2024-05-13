@@ -1,4 +1,6 @@
 import { isPast } from 'date-fns';
+import CreateReview from './reviewForm';
+import { useState } from 'react';
 
 export default function TransactionComponent({
   billId,
@@ -7,7 +9,13 @@ export default function TransactionComponent({
   total,
   status,
   startDate,
+  eventId,
+  eventName,
+  isReviewPublished,
 }) {
+  const [showModal, setShowModal] = useState(false);
+
+  console.log('isreviewed', isReviewPublished, eventName);
   return (
     <>
       <div className="flex">
@@ -32,10 +40,19 @@ export default function TransactionComponent({
             })}
           </div>
         </div>
-        {status === 'PAID' && isPast(new Date(startDate)) ? (
-          <div>Write a review</div>
-        ) : null}
+        {status === 'PAID' &&
+        !isPast(new Date(startDate)) ? null : isReviewPublished ? (
+          <div>Review Published</div>
+        ) : (
+          <div onClick={() => setShowModal(true)}>Write a review</div>
+        )}
       </div>
+      <CreateReview
+        close={() => setShowModal(false)}
+        open={showModal}
+        eventId={eventId}
+        eventName={eventName}
+      ></CreateReview>
     </>
   );
 }

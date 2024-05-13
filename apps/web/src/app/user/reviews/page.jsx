@@ -1,6 +1,12 @@
+'use client';
 import React from 'react';
+import { useGetUserReview } from '@/hooks/user/useGetUserData';
 
-function page() {
+function ReviewPage() {
+  const { userReview } = useGetUserReview();
+
+  if (!userReview) return <div>Loading...</div>;
+  console.log(userReview);
   return (
     <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
@@ -10,4 +16,4 @@ function page() {
   );
 }
 
-export default page;
+export default ReviewPage;

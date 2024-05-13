@@ -55,6 +55,7 @@ export const getEventByPromoter = async (promotorUid: string) => {
           AttendeeTicket: true,
         },
       },
+      Review: true,
     },
   });
 };
