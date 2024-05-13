@@ -2,10 +2,12 @@
 
 import { useGetUserTransaction } from '@/hooks/user/useGetUserData';
 import TransactionComponent from '@/components/user/transactionHistory';
+import { useSelector } from 'react-redux';
 import Spinner from '@/components/general/spinner';
 
 export default function TransactionPage() {
   const { userTransaction } = useGetUserTransaction();
+  const userState = useSelector((state) => state.user);
 
   if (!userTransaction) return <Spinner />;
 
@@ -27,6 +29,7 @@ export default function TransactionPage() {
             bookingData={x.Booking}
             total={x.total}
             status={x.status}
+            startDate={x['Booking'][0]?.ticket.event.startDate}
           ></TransactionComponent>
         ))}
       </div>

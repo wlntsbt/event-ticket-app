@@ -91,7 +91,6 @@ model Promotor {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   Event     Event[]
-  Review    Review[]
 }
 
 model Event {
@@ -209,10 +208,8 @@ model Review {
   attendee    Attendee  @relation(fields: [attendeeUid], references: [uid])
   attendeeUid String
   rating      Int
-  promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
   feedback    String    @db.Text
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
-  promotorUid String
 }

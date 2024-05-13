@@ -70,7 +70,12 @@ export default function EventCardComponent({
             </span>
             {location}
           </p>
-          <p className="font-bold italic">IDR {price}</p>
+          <p className="font-bold italic">
+            {price.toLocaleString('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+            })}
+          </p>
         </div>
 
         <div className="h-full w-full pt-3">
