@@ -1,6 +1,7 @@
 import {
   useGetUserPromoQuery,
   useGetUserTransactionQuery,
+  useGetUserInfoQuery,
 } from '../../api/user/useUserQuery';
 
 export const useGetUserPromo = () => {
@@ -20,5 +21,13 @@ export const useGetUserTransaction = () => {
 
   return {
     userTransaction: userTransaction?.data?.data,
+  };
+};
+
+export const useGetUserInfo = () => {
+  const { data: userInfo, isSuccess, isError } = useGetUserInfoQuery();
+
+  return {
+    userInfo: userInfo?.data?.data,
   };
 };

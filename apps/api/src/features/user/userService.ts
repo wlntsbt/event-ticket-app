@@ -47,3 +47,20 @@ export const getUserTransactions = async (uid: string) => {
     },
   });
 };
+
+export const getUserData = async (uid: string) => {
+  return await prisma.attendee.findUnique({
+    where: {
+      uid,
+    },
+  });
+};
+
+// export const patchUserData = async (uid: string, data) => {
+//   return await prisma.attendee.update({
+//     where: {
+//       uid,
+//     },
+//     data: 
+//   });
+// };

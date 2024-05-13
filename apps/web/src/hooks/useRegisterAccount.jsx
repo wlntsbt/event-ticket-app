@@ -20,6 +20,7 @@ export const usePromoterRegister = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
       alert(res.data.message);
@@ -46,14 +47,15 @@ export const useUserRegister = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
-      toast.success(res.data.message)
+      toast.success(res.data.message);
       alert(res.data.message);
       router.push('/');
     },
     onError: (err) => {
-      toast.error(err.message)
+      toast.error(err.message);
       console.log(err);
     },
   });

@@ -19,6 +19,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (allPublishedEvents !== null) {
+      console.log(allPublishedEvents)
       console.log('lokasinya di', location);
       console.log('search value dr child', searchValue);
     }
