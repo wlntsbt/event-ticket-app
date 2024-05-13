@@ -36,6 +36,7 @@ export default function ProtectedRoute({ children }) {
       setLoading(false);
       authorizeUser(userState);
     }
+    authorizeUser(userState);
   }, [userState, loading]);
 
   return <>{children}</>;

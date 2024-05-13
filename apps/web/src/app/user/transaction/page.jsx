@@ -1,16 +1,20 @@
 'use client';
+
 import { useGetUserTransaction } from '@/hooks/user/useGetUserData';
 import TransactionComponent from '@/components/user/transactionHistory';
+import Spinner from '@/components/general/spinner';
 
 export default function TransactionPage() {
   const { userTransaction } = useGetUserTransaction();
 
-  if (!userTransaction) return <div>Loading...</div>;
+  if (!userTransaction) return <Spinner />;
 
   console.log(userTransaction);
   return (
-    <div>
-      User Transaction Page
+    <div className="pt-[20px] scroll-smooth">
+      <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
+        Transaction
+      </h1>
       <div>
         {userTransaction.map((x, i) => (
           <TransactionComponent
