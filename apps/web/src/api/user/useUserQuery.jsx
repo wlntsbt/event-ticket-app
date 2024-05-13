@@ -30,3 +30,18 @@ export const useGetUserTransactionQuery = () => {
     isError,
   };
 };
+
+export const useGetUserInfoQuery = () => {
+  const { data, isSuccess, isError } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: async () => {
+      return await axiosInstance.get('/user/data');
+    },
+  });
+
+  return {
+    data,
+    isSuccess,
+    isError,
+  };
+};
