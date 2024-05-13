@@ -1,7 +1,9 @@
 'use client';
+
 import { useSelector } from 'react-redux';
 import PromoterMenuBar from '@/components/promoter/menuBar';
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
+import Spinner from '@/components/general/spinner';
 import {
   LineChart,
   Line,
@@ -16,7 +18,7 @@ import {
 export default function Dashboard() {
   const { allEventsData } = useGetAllEvents();
 
-  if (!allEventsData) return <div>Loading...</div>;
+  if (!allEventsData) return <Spinner />;
 
   const salesData = [
     {
@@ -123,8 +125,8 @@ export default function Dashboard() {
 
   return (
     <div className="pt-32">
-      <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
-        <ResponsiveContainer width="50%" height={300}>
+      <h1 className="flex justify-center items-center w-full h-[50px] text-2xl lg:w-1/2">
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart
             width={100}
             height={100}

@@ -23,20 +23,35 @@ export const Header = () => {
         </div>
       </Link>
 
-      {stateUser.uid ? (
+      {stateUser.role ? (
         <div className="flex gap-3">
-          <Link href={stateUser.role == 'PROMOTER' ? '/promoter/dashboard' : '/user'}>
-            <div>{stateUser.uid}</div>
+          <Link
+            href={
+              stateUser.role == 'PROMOTER'
+                ? '/promoter/dashboard'
+                : '/user/tickets'
+            }
+          >
+            <div>Hello, {stateUser.username}</div>
           </Link>
-          <button onClick={logout} className='font-bold hover:text-purple-500 hover:cursor-pointer'>LOG OUT</button>
+          <button
+            onClick={logout}
+            className="font-bold hover:text-purple-500 hover:cursor-pointer"
+          >
+            LOG OUT
+          </button>
         </div>
       ) : (
         <div className="hidden md:flex lg:gap-10">
           <Link href={'/auth/login'}>
-            <div className="font-bold hover:text-slate-500 hover:cursor-pointer">LOG IN</div>
+            <div className="font-bold hover:text-slate-500 hover:cursor-pointer">
+              LOG IN
+            </div>
           </Link>
           <Link href={'/auth/register'}>
-            <div className="font-bold hover:text-purple-500 hover:cursor-pointer">REGISTER</div>
+            <div className="font-bold hover:text-purple-500 hover:cursor-pointer">
+              REGISTER
+            </div>
           </Link>
         </div>
       )}

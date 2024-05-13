@@ -1,4 +1,5 @@
 'use client';
+
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { FaChevronLeft } from 'react-icons/fa6';
@@ -6,6 +7,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PromoterMenuBar from '@/components/promoter/menuBar';
 import { usePathname } from 'next/navigation';
+
 export default function Promotor({ children }) {
   const pathname = usePathname();
   const stateUser = useSelector((state) => state.user);

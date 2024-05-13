@@ -6,6 +6,7 @@ dotenv.config();
 export interface ITokenizedData {
   uid: string;
   role: string;
+  username: string;
 }
 
 export interface IReqAccessToken extends Request {

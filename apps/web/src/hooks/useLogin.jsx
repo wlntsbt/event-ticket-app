@@ -18,6 +18,7 @@ export const useAuthLogin = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
       alert(res.data.message);
@@ -40,6 +41,7 @@ export const usePersistLogin = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
     },
@@ -61,11 +63,12 @@ export const useLogout = () => {
       setUser({
         uid: '',
         role: '',
+        username: '',
       }),
     );
     deleteCookie();
     localStorage.clear();
-    alert('Logged Out')
+    alert('Logged Out');
     navigate.push('/');
     // window.location.reload();
   };
