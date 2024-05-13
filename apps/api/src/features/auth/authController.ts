@@ -24,6 +24,7 @@ export const login = async (
     const accesstoken = await createToken({
       uid: accountData.uid,
       role: accountData.role,
+      username: accountData.username,
     });
 
     res.status(200).send({
@@ -33,6 +34,7 @@ export const login = async (
         accesstoken,
         uid: accountData.uid,
         role: accountData.role,
+        username: accountData.username,
       },
     });
   } catch (error) {
@@ -47,12 +49,12 @@ export const persist = async (
 ) => {
   try {
     const reqToken = req as IReqAccessToken;
-    const { uid, role } = reqToken.payload;
-    
+    const { uid, role, username } = reqToken.payload;
+
     res.status(200).send({
       error: false,
       message: 'jwt token validated',
-      data: { uid, role },
+      data: { uid, role, username },
     });
   } catch (error) {
     next(error);

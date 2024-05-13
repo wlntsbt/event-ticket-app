@@ -1,19 +1,22 @@
 'use client';
+
 import { useGetUserTransaction } from '@/hooks/user/useGetUserData';
 import TransactionComponent from '@/components/user/transactionHistory';
 import { useSelector } from 'react-redux';
+import Spinner from '@/components/general/spinner';
 
 export default function TransactionPage() {
   const { userTransaction } = useGetUserTransaction();
   const userState = useSelector((state) => state.user);
 
-  console.log('userState', userState);
-  if (!userTransaction) return <div>Loading...</div>;
+  if (!userTransaction) return <Spinner />;
 
   console.log(userTransaction);
   return (
-    <div className="pt-32">
-      User Transaction Page
+    <div className="pt-[20px] scroll-smooth">
+      <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
+        Transaction
+      </h1>
       <div>
         {userTransaction.map((x, i) => (
           <TransactionComponent

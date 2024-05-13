@@ -29,31 +29,30 @@ export default function HomePage() {
   };
 
   if (!allPublishedEvents) {
-    return (
-      <Spinner/>
-    );
+    return <Spinner />;
   } else {
     return (
-      <div className="w-full py-[80px] px-[20px] lg:px-[100px]">
+      <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-violet-200">
         <div>
           <h1 className="text-center text-2xl">
             How's it goin!?
-            <span className="hover:text-purple-500">LESGOIN!</span>
+            <span className="hover:text-purple-500"> LESGOIN!</span>
           </h1>
           <div className="lg:w-[500px] mx-auto">
             <SearchBar childValue={handleSearchValue} />
           </div>
 
           {searchValue ? (
-            <MockComponent query={searchValue}/>
+            <MockComponent query={searchValue} />
           ) : (
             <div>
               <div>
                 <HeroCarousel />
               </div>
-              <div className="w-full flex justify-center lg:justify-start">
-                <h1 className="w-[180px] pt-5 text-center text-2xl text-purple-700 relative after:bg-purple-500 after:absolute after:h-[3px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer lg:pl-10 lg:text-left lg:text-3xl lg:w-[230px] lg:hover:after:w-[200px] lg:hover:after:ml-[35px]">
+              <div className="w-full flex justify-center">
+                <h1 className="group pt-7 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
                   LATEST EVENT
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
                 </h1>
               </div>
 
@@ -74,14 +73,16 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="w-full flex justify-center lg:justify-start">
-                <div className="flex w-[180px] pt-5 text-center text-2xl text-purple-700 relative after:bg-purple-500 after:absolute after:h-[3px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer lg:pl-10 lg:text-left lg:text-3xl lg:w-full lg:hover:after:w-[200px] lg:hover:after:ml-[35px]">
-                  FIND EVENT IN
-                </div>
+              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-end">
+                <h1 className="group bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit text-[22px] font-bold tracking-widest">
+                  BASED ON LOCATION
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
+                </h1>
                 <select
                   onChange={(e) => setLocation(e.target.value)}
                   id="location"
                   name="location"
+                  className="border rounded-xl w-fit h-fit p-[5px] bg-purple-50"
                 >
                   <option value="JAKARTA">JAKARTA</option>
                   <option value="BALI">BALI</option>
@@ -108,14 +109,16 @@ export default function HomePage() {
                   ))}
               </div>
 
-              <div className="w-full flex justify-center lg:justify-start">
-                <div className="flex w-[180px] pt-5 text-center text-2xl text-purple-700 relative after:bg-purple-500 after:absolute after:h-[3px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-500 cursor-pointer lg:pl-10 lg:text-left lg:text-3xl lg:w-full lg:hover:after:w-[200px] lg:hover:after:ml-[35px]">
+              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-end">
+                <h1 className="group text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit text-[20px] font-bold tracking-widest">
                   BASED ON CATEGORY
-                </div>
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
+                </h1>
                 <select
                   onChange={(e) => setCategory(e.target.value)}
                   id="category"
                   name="category"
+                  className="border rounded-xl w-fit h-fit p-[5px] bg-purple-50"
                 >
                   <option value="Entertainment">Entertainment</option>
                   <option value="Social">Social</option>
