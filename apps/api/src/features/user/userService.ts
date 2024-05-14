@@ -70,5 +70,12 @@ export const getUserReview = async (uid: string) => {
     where: {
       attendeeUid: uid,
     },
+    include: {
+      eventName: {
+        include: {
+          promotor: true,
+        },
+      },
+    },
   });
 };

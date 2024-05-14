@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import PromoterMenuBar from '@/components/promoter/menuBar';
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 import Spinner from '@/components/general/spinner';
+import PromoterReviewComponent from '@/components/promoter/reviewComponent';
+
 import {
   LineChart,
   Line,
@@ -144,6 +146,19 @@ export default function Dashboard() {
           </LineChart>
         </ResponsiveContainer>
       </h1>
+      <div className="pt-32">
+        {allEventsData.map((x, i) =>
+          x.Review.map((j, k) => (
+            <PromoterReviewComponent
+              key={k}
+              username={j.attendee.username}
+              eventName={j.eventName.name}
+              rating={j.rating}
+              feedback={j.feedback}
+            />
+          )),
+        )}
+      </div>
     </div>
   );
 }
