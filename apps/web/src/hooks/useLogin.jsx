@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { setCookie, deleteCookie } from '@/utils/cookiesHelper';
 import { setUser } from '@/redux/slice/userSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 export const useAuthLogin = () => {
   const dispatch = useDispatch();
@@ -21,10 +22,12 @@ export const useAuthLogin = () => {
           username: res.data.data.username,
         }),
       );
-      alert(res.data.message);
+     
+      toast.success(res.data.message);
       router.push('/');
     },
     onError: (err) => {
+      toast.error("Login Failed, input correct email and password");
       console.log(err);
     },
   });

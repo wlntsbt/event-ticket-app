@@ -52,7 +52,7 @@ export default function TransactionComponent({
           </p>
           {/* {status === 'PAID' &&
           !isPast(new Date(startDate)) ? null : isReviewPublished ? (
-            <p className="outline outline-purple-500 p-[8px] rounded-full font-bold text-[11px] bg-white">
+            <p className="border border-purple-500 p-[8px] rounded-full font-bold text-[11px] bg-white">
               Review Published!
             </p>
           ) : (
