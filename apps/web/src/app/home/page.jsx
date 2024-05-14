@@ -19,7 +19,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (allPublishedEvents !== null) {
-      console.log(allPublishedEvents)
+      console.log(allPublishedEvents);
       console.log('lokasinya di', location);
       console.log('search value dr child', searchValue);
     }
@@ -47,9 +47,8 @@ export default function HomePage() {
             <MockComponent query={searchValue} />
           ) : (
             <div>
-              <div>
-                <HeroCarousel />
-              </div>
+              <HeroCarousel />
+
               <div className="w-full flex justify-center">
                 <h1 className="group pt-7 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
                   LATEST EVENT

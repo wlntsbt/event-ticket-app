@@ -9,6 +9,18 @@ export default function UserMenuBar() {
   const pathname_menu = usePathname();
   return (
     <div className="grid gap-8 mx-8 my-5">
+      {pathname_menu == '/user/profile' ? (
+        <div className="bg-purple-500 text-white p-2 rounded-full text-center">
+          Profile
+        </div>
+      ) : (
+        <Link
+          href={'/user/profile'}
+          className="bg-white border-2 border-purple-500 hover:bg-purple-50 rounded-full p-2 text-center"
+        >
+          Profile
+        </Link>
+      )}
       {pathname_menu == '/user/tickets' ? (
         <div className="bg-purple-500 text-white p-2 rounded-full text-center">
           Tickets

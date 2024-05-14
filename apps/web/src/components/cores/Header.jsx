@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { MdOutlineSearch } from 'react-icons/md';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
@@ -12,6 +11,10 @@ export const Header = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const stateUser = useSelector((state) => state.user);
   const { logout } = useLogout();
+  const handleClickLogout = () => {
+    logout();
+    setToggleMenu(false);
+  };
   return (
     <div className="fixed z-50 border-b border-black bg-purple-700 bg-opacity-10 backdrop-blur-sm w-full h-[50px] px-[25px] flex justify-between items-center lg:px-[100px]">
       <Link href="/">
@@ -24,15 +27,17 @@ export const Header = () => {
       </Link>
 
       {stateUser.role ? (
-        <div className="flex gap-3">
+        <div className="gap-3 hidden lg:flex">
           <Link
             href={
               stateUser.role == 'PROMOTER'
                 ? '/promoter/dashboard'
-                : '/user/tickets'
+                : '/user/profile'
             }
           >
-            <div>Hello, {stateUser.username}</div>
+            <h1 className="font-bold uppercase text-purple-700">
+              {stateUser.username}
+            </h1>
           </Link>
           <button
             onClick={logout}
@@ -58,9 +63,6 @@ export const Header = () => {
 
       <div className="flex gap-5 items-center lg:hidden md:hidden">
         <div>
-          <MdOutlineSearch className="text-2xl" />
-        </div>
-        <div>
           {!toggleMenu && (
             <RxHamburgerMenu
               className="cursor-pointer text-2xl"
@@ -74,24 +76,47 @@ export const Header = () => {
             />
           )}
           {toggleMenu && (
-            <ul className="fixed flex flex-col w-full h-screen inset-0 mt-[50px] pt-5 text-center text-2xl leading-[100px] bg-black bg-opacity-40">
-              <Link href={'/auth/login'}>
-                <li
-                  onClick={() => setToggleMenu(false)}
-                  className="font-bold hover:text-purple-500"
-                >
-                  LOGIN
-                </li>
-              </Link>
-              <Link href={'/auth/register'}>
-                <li
-                  onClick={() => setToggleMenu(false)}
-                  className="font-bold hover:text-violet-500"
-                >
-                  REGISTER
-                </li>
-              </Link>
-              <li className="font-bold hover:text-white"> ABOUT US</li>
+            <ul className="fixed flex flex-col w-full h-screen inset-0 mt-[50px] pt-5 text-center text-2xl leading-[100px] bg-black bg-opacity-70">
+              {stateUser.role ? (
+                <div>
+                  <Link
+                    href={
+                      stateUser.role == 'PROMOTER'
+                        ? '/promoter/dashboard'
+                        : '/user/profile'
+                    }
+                  >
+                    <h1
+                      className="font-bold uppercase text-white"
+                      onClick={() => setToggleMenu(false)}
+                    >
+                      {stateUser.username}
+                    </h1>
+                  </Link>
+                  <button
+                    onClick={handleClickLogout}
+                    className="font-bold text-purple-500 hover:cursor-pointer hover:text-red-500"
+                  >
+                    LOG OUT
+                  </button>
+                </div>
+              ) : (
+                <div className="md:flex lg:gap-10">
+                  <Link href={'/auth/login'}>
+                    <div
+                      className="font-bold hover:text-slate-500 hover:cursor-pointer"
+                      onClick={() => setToggleMenu(false)}
+                    >
+                      LOG IN
+                    </div>
+                  </Link>
+                  <Link href={'/auth/register'}>
+                    <div className="font-bold hover:text-purple-500 hover:cursor-pointer">
+                      REGISTER
+                    </div>
+                  </Link>
+                </div>
+              )}
             </ul>
           )}
         </div>
