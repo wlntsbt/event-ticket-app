@@ -21,7 +21,8 @@ export default function TransactionPage() {
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
         Transaction
       </h1>
-      <div>
+
+      <div className='flex flex-col p-5 gap-5 mx-auto lg:w-1/2 '>
         {userTransaction.map((x, i) => (
           <TransactionComponent
             billId={x.id}

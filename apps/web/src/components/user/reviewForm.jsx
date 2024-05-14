@@ -27,11 +27,11 @@ export default function CreateReview({ open, close, eventId, eventName }) {
         <div
           id="popup-bg"
           onClick={closeHandler}
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
+          className="inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
         >
           <div className="p-4 rounded w-[30%] h-[60%]flex flex-col gap-8">
             <div className="flex flex-col my-auto">
-              <h1 className="mx-auto font-bold text-white text-xl">
+              <h1 className="mx-auto font-bold text-white text-xl w-full">
                 Review Sent!
               </h1>
               <button
@@ -75,23 +75,25 @@ export default function CreateReview({ open, close, eventId, eventName }) {
               {({ dirty }) => {
                 return (
                   <Form>
-                    <div className="bg-white border-purple-500 border py-[20px] px-5 rounded-xl w-full ">
-                      <div className="font-bold mx-auto text-xl text-center py-2 text-purple-900">
-                        Review for {eventName}
-                      </div>
-                      <div className="relative h-10 w-full min-w-[200px]">
+                    <div className="bg-white border-purple-500 border py-[20px] px-5 rounded-xl">
+                      <h1 className="font-bold mx-auto text-xl text-center py-2 text-purple-900">
+                        Review for "{eventName}"
+                      </h1>
+                      <div className="relative h-10 w-full min-w-[200px] flex-col flex items-center justify-center">
+                        <label className="">
+                          How's your experience with the Event?
+                        </label>
                         <Rating
                           name="rating"
                           value={rating}
                           onChange={(value) => setRating(value)}
-                          unratedColor="amber"
-                          ratedColor="amber"
+                          className='text-purple-400'
                         />
-                        <label className="">Rating</label>
                       </div>
 
                       <div className="relative h-10 w-full min-w-[200px] mt-5">
                         <Field
+                          as="textarea"
                           type="text"
                           name="feedback"
                           className="bg-white peer h-full w-full rounded-[7px] border border-t-transparent border-black bg-transparent px-3 py-2.5 text-md font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-purple-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-gray-500"
@@ -103,9 +105,9 @@ export default function CreateReview({ open, close, eventId, eventName }) {
                       </div>
                       <button
                         type="submit"
-                        className="mt-5 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
+                        className="mt-5 font-bold w-full relative bg-purple-500 rounded-full h-10 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
                       >
-                        <span className="relative text-white tracking-widest text-lg">
+                        <span className="relative text-white tracking-widest text-md">
                           SEND REVIEW
                         </span>
                       </button>
