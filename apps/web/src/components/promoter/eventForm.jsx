@@ -17,30 +17,8 @@ export default function EventForm() {
   const { mutationCreateEvent } = useCreateEvent();
   const [isLoading, setIsLocation] = useState(true);
 
-  // const router = useRouter()
   let ticketData;
   const { allLocations } = useGetAllLocations();
-  /* 
-  if (isLoading == true) return <div>Loading...</div>;
-
-  if (allLocations) {
-    setIsLocation(false);
-  }
-
-  console.log('INI HASIL FETCH HOOKS BARU', allLocations);
-
-  for (let i in allLocations) {
-    console.log('isi dari all location', allLocations[i].i);
-  }
-
-  let a = allLocations;
-  const locationArray = [];
-
-  Object.keys(a).forEach(function (key, index) {
-    locationArray.push(a[key]);
-  });
-
-  console.log(locationArray); */
 
   useEffect(() => {
     ticketData = localStorage.getItem('ticket');

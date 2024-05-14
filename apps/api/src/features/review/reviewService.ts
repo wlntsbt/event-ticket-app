@@ -7,13 +7,6 @@ export const createReview = async (reviewData: IReviewData) => {
   });
 };
 
-// export const getReviewByUser = async (uid: string) => {
-//   return await prisma.review.findMany({
-//     where: {
-//       attendeeUid: uid,
-//     },
-//   });
-// };
 
 // export const getReviewByPromoter = async (uid: string) => {
 //   return await prisma.review.findMany({

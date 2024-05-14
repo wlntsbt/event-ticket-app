@@ -212,4 +212,6 @@ model Review {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+
+  @@unique([eventId, attendeeUid])
 }

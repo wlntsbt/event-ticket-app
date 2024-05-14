@@ -1098,7 +1098,11 @@ async function main() {
             billId: bill.id,
           },
           include: {
-            ticket: true,
+            ticket: {
+              include: {
+                event: true,
+              },
+            },
           },
         });
 

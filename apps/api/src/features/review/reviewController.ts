@@ -11,7 +11,7 @@ export const newReview = async (
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload;
 
-    const { promotorUid, rating, feedback, eventId } = req.body;
+    const { rating, feedback, eventId } = req.body;
 
     const reqData = {
       attendeeUid: uid,

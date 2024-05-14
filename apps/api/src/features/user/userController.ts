@@ -1,4 +1,9 @@
-import { getUserPromo, getUserTransactions, getUserData } from './userService';
+import {
+  getUserPromo,
+  getUserTransactions,
+  getUserData,
+  getUserReview,
+} from './userService';
 import { NextFunction, Request, Response } from 'express';
 import { IReqAccessToken } from '@/helpers/token';
 
@@ -59,6 +64,46 @@ export const getUserInfo = async (
       error: false,
       message: 'fetch user info success',
       data: userData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUserReview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const reqToken = req as IReqAccessToken;
+    const { uid } = reqToken.payload;
+
+    const review = await getUserReview(uid);
+
+    res.status(200).send({
+      error: false,
+      message: 'fetch user reviews success',
+      data: review,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUserTickets = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const reqToken = req as IReqAccessToken;
+    const { uid } = reqToken.payload;
+
+    res.status(200).send({
+      error: false,
+      message: 'fetch user reviews success',
+      data: null,
     });
   } catch (error) {
     next(error);

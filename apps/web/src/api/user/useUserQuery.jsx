@@ -45,3 +45,18 @@ export const useGetUserInfoQuery = () => {
     isError,
   };
 };
+
+export const useGetUserReviewQuery = () => {
+  const { data, isSuccess, isError } = useQuery({
+    queryKey: ['userReview'],
+    queryFn: async () => {
+      return await axiosInstance.get('/user/data/reviews');
+    },
+  });
+
+  return {
+    data,
+    isSuccess,
+    isError,
+  };
+}

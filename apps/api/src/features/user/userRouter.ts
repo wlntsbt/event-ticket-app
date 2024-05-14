@@ -5,11 +5,12 @@ import {
   getUserPointsAndVouchers,
   getAllUserTransactions,
   getUserInfo,
+  getAllUserReview,
 } from './userController';
 
 router.get('/promos', getUserPointsAndVouchers);
 router.get('/transactions', getAllUserTransactions);
 router.get('/', getUserInfo);
-
+router.get('/reviews', getAllUserReview);
 
 export default router;

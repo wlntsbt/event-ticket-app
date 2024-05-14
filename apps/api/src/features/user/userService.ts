@@ -61,6 +61,21 @@ export const getUserData = async (uid: string) => {
 //     where: {
 //       uid,
 //     },
-//     data: 
+//     data:
 //   });
 // };
+
+export const getUserReview = async (uid: string) => {
+  return await prisma.review.findMany({
+    where: {
+      attendeeUid: uid,
+    },
+    include: {
+      eventName: {
+        include: {
+          promotor: true,
+        },
+      },
+    },
+  });
+};
