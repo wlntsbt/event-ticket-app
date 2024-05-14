@@ -1,7 +1,7 @@
 'use client';
 import { useGetAllPublishedEvents } from '@/hooks/useGetPublicData';
 import Image from 'next/image';
-import { isSameDay } from 'date-fns';
+import { isSameDay, isPast } from 'date-fns';
 import TicketComponent from '@/components/general/ticketCard';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ export default function brandPage({ params }) {
   // console.log('user state', userState);
   // console.log('user state uid', typeof userState.uid);
   const router = useRouter();
-  if (!eventData) return <Spinner/>;
+  if (!eventData) return <Spinner />;
 
   eventData = eventData.filter((x) => x.id == params.id);
   console.log(eventData);
@@ -127,11 +127,19 @@ export default function brandPage({ params }) {
           <button
             onClick={handleBuy}
             type="submit"
-            disabled={ticketState.bookingData.length == 0 ? true : false}
+            disabled={
+              ticketState.bookingData.length == 0
+                ? true
+                : isPast(new Date(eventData[0].endDate))
+                  ? true
+                  : false
+            }
             className="disabled:bg-slate-400 disabled:before:bg-slate-400 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
           >
             <span className="relative text-white tracking-widest text-lg">
-              BUY TICKET
+              {isPast(new Date(eventData[0].endDate))
+                ? 'EVENT HAS ENDED'
+                : 'BUY TICKET'}
             </span>
           </button>
         </div>

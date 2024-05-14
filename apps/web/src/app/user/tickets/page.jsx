@@ -9,7 +9,7 @@ function TicketPage() {
   const { userTransaction } = useGetUserTransaction();
 
   if (!userTransaction) return <Spinner />
-  console.log(userTransaction);
+
   return (
     // 
     <div className="pt-[20px] scroll-smooth">

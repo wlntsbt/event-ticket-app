@@ -27,7 +27,7 @@ export default function CreateReview({ open, close, eventId, eventName }) {
         <div
           id="popup-bg"
           onClick={closeHandler}
-          className="inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
+          className="bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
         >
           <div className="p-4 rounded w-[30%] h-[60%]flex flex-col gap-8">
             <div className="flex flex-col my-auto">
@@ -53,7 +53,7 @@ export default function CreateReview({ open, close, eventId, eventName }) {
         <div
           id="popup-bg"
           onClick={closeHandler}
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
+          className="fixed z-50 inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
         >
           <div className="p-4 rounded h-[60%] flex flex-col gap-8">
             <Formik
@@ -87,7 +87,7 @@ export default function CreateReview({ open, close, eventId, eventName }) {
                           name="rating"
                           value={rating}
                           onChange={(value) => setRating(value)}
-                          className='text-purple-400'
+                          className="text-purple-400"
                         />
                       </div>
 
