@@ -1,5 +1,4 @@
 'use client';
-
 import { useSelector } from 'react-redux';
 import PromoterMenuBar from '@/components/promoter/menuBar';
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
@@ -25,53 +24,181 @@ export default function Dashboard() {
   const salesData = [
     {
       name: 'Jan',
-      totalPurchase: 4000,
+      totalTicketPurchased: 4000,
     },
     {
       name: 'Feb',
-      totalPurchase: 3000,
+      totalTicketPurchased: 3000,
     },
     {
       name: 'Mar',
-      totalPurchase: 9800,
+      totalTicketPurchased: 9800,
     },
     {
       name: 'Apr',
-      totalPurchase: 3908,
+      totalTicketPurchased: 3908,
     },
     {
       name: 'May',
-      totalPurchase: 4800,
+      totalTicketPurchased: 4800,
     },
     {
       name: 'Jun',
-      totalPurchase: 3800,
+      totalTicketPurchased: 3800,
     },
     {
       name: 'Jul',
-      totalPurchase: 4000,
+      totalTicketPurchased: 4000,
     },
     {
       name: 'Aug',
-      totalPurchase: 40000,
+      totalTicketPurchased: 40000,
     },
     {
       name: 'Sept',
-      totalPurchase: 40000,
+      totalTicketPurchased: 40000,
     },
     {
       name: 'Oct',
-      totalPurchase: 40000,
+      totalTicketPurchased: 40000,
     },
     {
       name: 'Nov',
-      totalPurchase: 40000,
+      totalTicketPurchased: 40000,
     },
     {
       name: 'Dec',
-      totalPurchase: 40000,
+      totalTicketPurchased: 40000,
     },
   ];
+
+  const revenueData = [
+    {
+      name: 'Jan',
+      totalRevenue: 4000,
+    },
+    {
+      name: 'Feb',
+      totalRevenue: 3000,
+    },
+    {
+      name: 'Mar',
+      totalRevenue: 9800,
+    },
+    {
+      name: 'Apr',
+      totalRevenue: 3908,
+    },
+    {
+      name: 'May',
+      totalRevenue: 4800,
+    },
+    {
+      name: 'Jun',
+      totalRevenue: 3800,
+    },
+    {
+      name: 'Jul',
+      totalRevenue: 4000,
+    },
+    {
+      name: 'Aug',
+      totalRevenue: 40000,
+    },
+    {
+      name: 'Sept',
+      totalRevenue: 40000,
+    },
+    {
+      name: 'Oct',
+      totalRevenue: 40000,
+    },
+    {
+      name: 'Nov',
+      totalRevenue: 40000,
+    },
+    {
+      name: 'Dec',
+      totalRevenue: 40000,
+    },
+  ];
+
+  const monthCounter = {
+    0: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    1: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    2: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    3: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    4: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    5: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    6: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    7: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    8: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    9: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    10: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+    11: {
+      totalTicket: 0,
+      totalRevenue: 0,
+    },
+  };
+
+  // console.log('apakah ada rev', allEventsData);
+
+  allEventsData.forEach((x, i) =>
+    x.Ticket.forEach((j, k) =>
+      j.AttendeeTicket.forEach((m, n) => {
+        monthCounter[new Date(m.createdAt).getMonth().toString()].totalTicket +=
+          1;
+        monthCounter[
+          new Date(m.createdAt).getMonth().toString()
+        ].totalRevenue += 1 * j.ticketPrice;
+      }),
+    ),
+  );
+
+  // console.log('INI MONTH COUNTER', monthCounter);
+
+  salesData.map((x, i) => {
+    x.totalTicketPurchased = monthCounter[i].totalTicket;
+  });
+
+  revenueData.map((x, i) => {
+    x.totalRevenue = monthCounter[i].totalRevenue;
+  });
+
+  console.log(salesData);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -87,46 +214,8 @@ export default function Dashboard() {
     }
   };
 
-  const monthCounter = {
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0,
-    8: 0,
-    9: 0,
-    10: 0,
-    11: 0,
-  };
-
-  // console.log(
-  //   allEventsData.map((x, i) =>
-  //     x.Ticket.map((j, k) =>
-  //       j.AttendeeTicket.map((m, n) => new Date(m.createdAt)),
-  //     ),
-  //   ),
-  // );
-
-  allEventsData.forEach((x, i) =>
-    x.Ticket.forEach((j, k) =>
-      j.AttendeeTicket.forEach(
-        (m, n) =>
-          (monthCounter[new Date(m.createdAt).getMonth().toString()] += 1),
-      ),
-    ),
-  );
-
-  console.log('INI MONTH COUNTER', monthCounter);
-
-  salesData.map((x, i) => (x.totalPurchase = monthCounter[i]));
-
-  console.log(salesData);
-
   return (
-    <div className="pt-32">
+    <div className="pt-32 px-16">
       <h1 className="flex justify-center items-center w-full h-[50px] text-2xl lg:w-1/2">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
@@ -142,7 +231,11 @@ export default function Dashboard() {
             <YAxis />
             <Tooltip content={<CustomTooltip />} />
             <Legend verticalAlign="bottom" />
-            <Line type="monotone" dataKey="totalPurchase" stroke="#3b82f6" />
+            <Line
+              type="monotone"
+              dataKey="totalTicketPurchased"
+              stroke="#3b82f6"
+            />
           </LineChart>
         </ResponsiveContainer>
       </h1>
