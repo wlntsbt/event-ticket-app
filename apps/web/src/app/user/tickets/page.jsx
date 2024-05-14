@@ -8,6 +8,7 @@ function TicketPage() {
   const { userTransaction } = useGetUserTransaction();
 
   if (!userTransaction) return <div>Loading...</div>;
+
   console.log(userTransaction);
   return (
     <div className="pt-[20px] scroll-smooth">
@@ -16,7 +17,7 @@ function TicketPage() {
       </h1>
       {userTransaction.map((x, i) => (
         <AttendeeTicketComponent
-          eventName={x.AttendeeTicket[0].ticket.event.name}
+          eventName={x.AttendeeTicket[0]?.ticket.event.name}
           key={i}
           tickets={x.AttendeeTicket}
         />

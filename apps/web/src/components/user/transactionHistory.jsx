@@ -13,13 +13,10 @@ export default function TransactionComponent({
   eventName,
   isReviewPublished,
 }) {
-  const [showModal, setShowModal] = useState(false);
-
-  console.log('isreviewed', isReviewPublished, eventName);
   return (
-    <div className="border border-purple-500 rounded-lg bg-gradient-to-r from-purple-300 drop-shadow-md">
-      <div className="flex-row flex justify-between">
-        <div className="flex flex-col w-[70%] p-5">
+    <div className="border border-purple-500 w-[70%] rounded-lg bg-gradient-to-r from-purple-200 drop-shadow-md">
+      <div className="flex justify-between">
+        <div className="flex flex-col p-5 w-[70%]">
           <div>
             <h1 className="font-mono text-[10px]">Bill ID: {billId}</h1>
             <p className="text-xl truncate font-medium" title={ticketName}>
@@ -45,15 +42,15 @@ export default function TransactionComponent({
           </p>
         </div>
 
-        <div className="flex-col flex justify-between items-center py-5 w-[30%]">
+        <div className="flex-col flex justify-center items-center p-5 w-[30%]">
           <p
             className={`${
               status == 'PAID' ? 'bg-green-600' : 'bg-red-500'
-            } border px-[5px] rounded text-white font-bold rotate-12`}
+            } border rounded-full text-white font-bold px-3 py-[2px]`}
           >
             {status}
           </p>
-          {status === 'PAID' &&
+          {/* {status === 'PAID' &&
           !isPast(new Date(startDate)) ? null : isReviewPublished ? (
             <p className="outline outline-purple-500 p-[8px] rounded-full font-bold text-[11px] bg-white">
               Review Published!
@@ -68,17 +65,9 @@ export default function TransactionComponent({
                 Write a Review
               </span>
             </button>
-          )}
+          )} */}
         </div>
       </div>
-
-      <CreateReview
-        close={() => setShowModal(false)}
-        open={showModal}
-        eventId={eventId}
-        eventName={eventName}
-        className="z-10"
-      ></CreateReview>
     </div>
   );
 }

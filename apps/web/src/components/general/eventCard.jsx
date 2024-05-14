@@ -71,10 +71,12 @@ export default function EventCardComponent({
             {location}
           </p>
           <p className="font-bold italic">
-            {price.toLocaleString('id-ID', {
-              style: 'currency',
-              currency: 'IDR',
-            })}
+            {price > 0
+              ? price.toLocaleString('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                })
+              : 'FREE'}
           </p>
         </div>
 

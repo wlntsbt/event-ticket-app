@@ -1,8 +1,6 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
 import { useGetAllPublishedEvents } from '@/hooks/useGetPublicData';
 import EventCardComponent from '@/components/general/eventCard';
 import HeroCarousel from '@/components/general/heroCarousel';
@@ -10,6 +8,7 @@ import SearchBar from '@/components/general/searchBar';
 import { useEffect, useState } from 'react';
 import MockComponent from '@/app/mock/page';
 import Spinner from '@/components/general/spinner';
+import { isPast } from 'date-fns';
 
 export default function HomePage() {
   const { allPublishedEvents } = useGetAllPublishedEvents();
@@ -19,9 +18,6 @@ export default function HomePage() {
 
   useEffect(() => {
     if (allPublishedEvents !== null) {
-      console.log(allPublishedEvents);
-      console.log('lokasinya di', location);
-      console.log('search value dr child', searchValue);
     }
   }, [location, allPublishedEvents, category, searchValue]);
 
@@ -32,6 +28,8 @@ export default function HomePage() {
   if (!allPublishedEvents) {
     return <Spinner />;
   } else {
+    allPublishedEvents
+      .sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
     return (
       <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-violet-200">
         <div>

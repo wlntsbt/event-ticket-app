@@ -85,7 +85,7 @@ export const getPublishedEventByPromotor = async (username: string) => {
     include: {
       Event: {
         where: {
-          isPublished: true
+          isPublished: true,
         },
         include: {
           Review: true,
