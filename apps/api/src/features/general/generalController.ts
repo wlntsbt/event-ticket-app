@@ -49,10 +49,22 @@ export const getEventSearch = async (
   next: NextFunction,
 ) => {
   try {
-    let { q, location } = req.query;
+    let { q, location, take, skip } = req.query;
     let event;
-    if (typeof q === 'string') {
-      event = await getPublishedEventBySearch(q);
+
+    let toTake = Number(take)
+    let toSkip = Number(skip)
+
+    if (
+      typeof q === 'string' &&
+      typeof toTake === 'number' &&
+      typeof toSkip === 'number'
+    ) {
+      event = await getPublishedEventBySearch(
+        q,
+        toTake,
+        toSkip,
+      );
     }
     res.status(200).send({
       error: false,

@@ -21,14 +21,14 @@ export default function ProtectedRoute({ children }) {
       const publicPath = ['/'];
 
       if (
-        (userState.role == '' || userState.role !== 'PROMOTER') &&
+        (userState.role !== 'PROMOTER') &&
         promoterPath.includes(path)
       ) {
         alert('Access Denied! Promoter Route!');
         navigate.push('/');
       }
       if (
-        (userState.role == '' || userState.role !== 'USER') &&
+        (userState.role !== 'USER') &&
         userPath.includes(path)
       ) {
         alert('Access Denied! User Route!');
