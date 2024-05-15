@@ -37,12 +37,15 @@ export default function TicketComponent({
       <div className="h-[150px] bg-yellow-200 border-2 border-b-0 border-slate-500 rounded-b-lg rounded-t-md lg:w-[500px] lg:border-b-2 lg:border-r-0 lg:rounded-r-lg lg:rounded-md lg:h-[183px]">
         <div className="text-left p-5">
           <h1 className="text-2xl underline">{ticketName}</h1>
-          <p className="text-[14px]">{ticketDescription}</p>
-          <p className="italic font-medium">Price: IDR {ticketPrice}</p>
+          <p className="text-[14px] truncate cursor-help" title={ticketDescription}>{ticketDescription}</p>
+          <p className="italic font-medium">Price: {ticketPrice.toLocaleString('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                })}</p>
         </div>
       </div>
 
-      <div className="border-slate-500 mx-[9px] border-dashed border lg:w-0 lg:mx-0 lg:rounded-l-lg lg:border-t-0 lg:border-b-0 lg:border-r-0 lg:h-[155px] lg:mt-[18px] lg:border-2"></div>
+      <div className="border-slate-500 mx-[9px] border-dotted border lg:w-0 lg:mx-0 lg:rounded-l-lg lg:border-t-0 lg:border-b-0 lg:border-r-0 lg:h-[162px] lg:mt-[10px] lg:border-2"></div>
 
       <div className="h-[120px] bg-yellow-100 border-slate-500 border-2 rounded-t-lg rounded-b-md border-t-0 lg:w-[220px] lg:border-l-0 lg:border-t-2 lg:rounded-l-lg lg:rounded-r-md lg:h-[183px]">
         <div className="flex gap-2 p-2 lg:flex-col lg:gap-0">

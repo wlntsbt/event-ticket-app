@@ -1,6 +1,7 @@
 import { isPast } from 'date-fns';
 import CreateReview from './reviewForm';
 import { useState } from 'react';
+import { IoTicketOutline } from "react-icons/io5";
 
 export default function TransactionComponent({
   billId,
@@ -18,15 +19,16 @@ export default function TransactionComponent({
       <div className="flex justify-between">
         <div className="flex flex-col p-5 w-[70%]">
           <div>
-            <h1 className="font-mono text-[10px]">Bill ID: {billId}</h1>
-            <p className="text-xl truncate font-medium" title={ticketName}>
+            <h1 className="font-mono text-[10px] text-stone-800">Bill ID: {billId}</h1>
+            <p className="text-lg truncate font-medium flex items-center gap-1 lg:text-xl" title={ticketName}>
+              <span><IoTicketOutline className='text-[15px]'/></span>
               {ticketName}
             </p>
           </div>
 
           <div>
             {bookingData.map((x, i) => (
-              <p className="italic">
+              <p className="italic text-[14px]">
                 {x.ticket.ticketName} -{' '}
                 <span className="text-red-500">x{x.qty}</span>
               </p>
@@ -50,22 +52,6 @@ export default function TransactionComponent({
           >
             {status}
           </p>
-          {/* {status === 'PAID' &&
-          !isPast(new Date(startDate)) ? null : isReviewPublished ? (
-            <p className="border border-purple-500 p-[8px] rounded-full font-bold text-[11px] bg-white">
-              Review Published!
-            </p>
-          ) : (
-            <button
-              onClick={() => setShowModal(true)}
-              type="submit"
-              className="p-[8px] mt-5 font-bold relative w-[113px] bg-purple-500 rounded-full h-[35px] before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full "
-            >
-              <span className="relative text-white tracking-wide font-bold flex justify-center text-[11px] hover:text-black">
-                Write a Review
-              </span>
-            </button>
-          )} */}
         </div>
       </div>
     </div>

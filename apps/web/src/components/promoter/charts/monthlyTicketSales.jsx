@@ -136,7 +136,7 @@ export default function MonthlyTicketSales() {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="p-4 bg-white flex flex-col gap-4 rounded-md">
+        <div className="p-1 flex flex-col rounded-md bg-purple-50">
           <p className="text-medium text-lg">{label}</p>
           <p className="text-sm text-blue-400">
             Ticket Purchase

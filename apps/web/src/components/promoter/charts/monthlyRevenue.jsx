@@ -1,7 +1,8 @@
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
+  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -16,51 +17,51 @@ export default function MonthlyRevenue() {
   const revenueData = [
     {
       name: 'Jan',
-      totalRevenue: 4000,
+      totalRevenue: 4.000,
     },
     {
       name: 'Feb',
-      totalRevenue: 3000,
+      totalRevenue: 3.000,
     },
     {
       name: 'Mar',
-      totalRevenue: 9800,
+      totalRevenue: 9.800,
     },
     {
       name: 'Apr',
-      totalRevenue: 3908,
+      totalRevenue: 3.908,
     },
     {
       name: 'May',
-      totalRevenue: 4800,
+      totalRevenue: 4.800,
     },
     {
       name: 'Jun',
-      totalRevenue: 3800,
+      totalRevenue: 3.800,
     },
     {
       name: 'Jul',
-      totalRevenue: 4000,
+      totalRevenue: 4.000,
     },
     {
       name: 'Aug',
-      totalRevenue: 40000,
+      totalRevenue: 40.000,
     },
     {
       name: 'Sept',
-      totalRevenue: 40000,
+      totalRevenue: 40.000,
     },
     {
       name: 'Oct',
-      totalRevenue: 40000,
+      totalRevenue: 40.000,
     },
     {
       name: 'Nov',
-      totalRevenue: 40000,
+      totalRevenue: 40.000,
     },
     {
       name: 'Dec',
-      totalRevenue: 40000,
+      totalRevenue: 40.000,
     },
   ];
 
@@ -128,17 +129,20 @@ export default function MonthlyRevenue() {
   );
   
   revenueData.map((x, i) => {
-    x.totalRevenue = monthCounter[i].totalRevenue;
+    x.totalRevenue = monthCounter[i].totalRevenue
   });
 
   const CustomTooltip2 = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="p-4 bg-white flex flex-col gap-4 rounded-md">
+        <div className="p-1 flex flex-col rounded-md bg-purple-50">
           <p className="text-medium text-lg">{label}</p>
           <p className="text-sm text-purple-500">
             Total Revenue
-            <span className="ml-2">{payload[0].value}</span>
+            <span className="ml-2">{payload[0].value.toLocaleString(('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                }))}</span>
           </p>
         </div>
       );
@@ -147,22 +151,24 @@ export default function MonthlyRevenue() {
   return (
     <div className='w-full'>
       <h1 className="text-left pl-5">Total Revenue per month</h1>
-      <ResponsiveContainer width="100%" height={300} className="pt-5">
-        <LineChart
+      <ResponsiveContainer width="100%" height={300} className="pt-5 pl-5">
+        <BarChart
+          barSize={20}
           width={100}
           height={100}
           data={revenueData}
           margin={{
-            right: 50,
+            right: 10,
+            left: 50
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis tickSize={5} tickFormatter={value => `${value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}`}/>
           <Tooltip content={<CustomTooltip2 />} />
           <Legend verticalAlign="bottom" />
-          <Line type="monotone" dataKey="totalRevenue" stroke="violet" />
-        </LineChart>
+          <Bar dataKey="totalRevenue" fill="#82ca9d" activeBar={<Rectangle fill="pink" stroke="pink" />} />
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
