@@ -94,27 +94,28 @@ model Promotor {
 }
 
 model Event {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
-  startDate   DateTime  @db.Date
-  endDate     DateTime  @db.Date
-  startTime   DateTime  @db.Time()
-  endTime     DateTime  @db.Time()
-  category    Category  @default(Other)
-  location    City      @default(JAKARTA)
+  startDate   DateTime   @db.Date
+  endDate     DateTime   @db.Date
+  startTime   DateTime   @db.Time()
+  endTime     DateTime   @db.Time()
+  category    Category   @default(Other)
+  location    City       @default(JAKARTA)
   namePIC     String
   phonePIC    String
   emailPIC    String
-  description String    @db.LongText
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  description String     @db.LongText
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   deletedAt   DateTime?
-  promotor    Promotor  @relation(fields: [promotorUid], references: [uid])
+  promotor    Promotor   @relation(fields: [promotorUid], references: [uid])
   promotorUid String
   imageLink   String
-  isPublished Boolean   @default(false)
+  isPublished Boolean    @default(false)
   Ticket      Ticket[]
   Review      Review[]
+  Discount    Discount[]
 }
 
 model Point {
@@ -139,12 +140,14 @@ model Voucher {
 }
 
 model Discount {
-  id        Int      @id @default(autoincrement())
-  ticket    Ticket   @relation(fields: [ticketId], references: [id])
-  ticketId  Int
-  amount    Decimal  @db.Decimal(10, 2)
-  startDate DateTime
-  endDate   DateTime
+  id          Int      @id @default(autoincrement())
+  event       Event    @relation(fields: [eventId], references: [id])
+  eventId     Int
+  amount      Decimal  @db.Decimal(10, 2)
+  stock       Int
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  expiredAt   DateTime
 }
 
 model Ticket {
@@ -161,7 +164,6 @@ model Ticket {
   createdAt             DateTime         @default(now())
   updatedAt             DateTime         @updatedAt
   deletedAt             DateTime?
-  Discount              Discount[]
   AttendeeTicket        AttendeeTicket[]
   Booking               Booking[]
 }
@@ -182,6 +184,7 @@ model Bill {
   total          Int?
   usePoint       Boolean          @default(false)
   useVoucher     Boolean          @default(false)
+  useDiscount    Int              @default(0)
   voucher        Voucher?         @relation(fields: [voucherId], references: [id])
   status         BillingStatus    @default(PENDING)
   createdAt      DateTime         @default(now())

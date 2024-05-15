@@ -3,6 +3,7 @@ import {
   getUserTransactions,
   getUserData,
   getUserReview,
+  getEventDiscount,
 } from './userService';
 import { NextFunction, Request, Response } from 'express';
 import { IReqAccessToken } from '@/helpers/token';
@@ -15,13 +16,16 @@ export const getUserPointsAndVouchers = async (
   try {
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload;
+    const { id } = req.params;
 
     const userPointsAndVouchers = await getUserPromo(uid);
+
+    const eventPromo = await getEventDiscount(parseInt(id));
 
     res.status(200).send({
       error: false,
       message: 'fetch user promo success',
-      data: userPointsAndVouchers,
+      data: { userPromo: userPointsAndVouchers, eventPromo },
     });
   } catch (error) {
     next(error);

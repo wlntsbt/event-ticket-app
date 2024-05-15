@@ -8,10 +8,16 @@ import Spinner from '@/components/general/spinner';
 function TicketPage() {
   const { userTransaction } = useGetUserTransaction();
 
-  if (!userTransaction) return <Spinner />
+  if (!userTransaction) return <Spinner />;
+
+  userTransaction.sort(
+    (a, b) =>
+      new Date(b.AttendeeTicket[0]?.createdAt) -
+      new Date(a.AttendeeTicket[0]?.createdAt),
+  );
 
   return (
-    // 
+    //
     <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
         Tickets

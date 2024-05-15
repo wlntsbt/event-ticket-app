@@ -8,7 +8,7 @@ import {
   getAllUserReview,
 } from './userController';
 
-router.get('/promos', getUserPointsAndVouchers);
+router.get('/promos/:id', getUserPointsAndVouchers);
 router.get('/transactions', getAllUserTransactions);
 router.get('/', getUserInfo);
 router.get('/reviews', getAllUserReview);

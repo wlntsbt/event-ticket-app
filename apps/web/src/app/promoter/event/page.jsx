@@ -25,6 +25,14 @@ export default function PromoterPage() {
               </span>
             </button>
           </Link>
+          <Link href={'/promoter/event/promo'}>
+            <button className="w-[200px] font-bold relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full">
+              <span className="relative text-white tracking-widest flex items-center justify-center gap-2">
+                <FaPlus />
+                CREATE PROMO
+              </span>
+            </button>
+          </Link>
         </div>
 
         <div className="grid w-full justify-center lg:flex lg:flex-wrap pt-5 lg:gap-x-[85px] lg:justify-start">

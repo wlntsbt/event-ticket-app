@@ -42,3 +42,24 @@ export const usePublishEventMutation = ({ onSuccess, onError }) => {
     mutate,
   };
 };
+
+export const useCreatePromoMutation = ({ onSuccess, onError }) => {
+  const { mutate } = useMutation({
+    mutationKey: ['createPromo'],
+    mutationFn: async ({ eventId, stock, amount, description, expiredAt }) => {
+      return await axiosInstance.post('/promoter/promo', {
+        eventId,
+        stock,
+        amount,
+        description,
+        expiredAt,
+      });
+    },
+    onSuccess,
+    onError,
+  });
+
+  return {
+    mutate,
+  };
+};

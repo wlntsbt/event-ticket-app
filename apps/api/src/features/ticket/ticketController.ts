@@ -11,14 +11,17 @@ export const newBill = async (
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload;
 
-    const { usePoint, voucherId, bookingData } = req.body;
+    const { usePoint, voucherId, discountId, bookingData } = req.body;
     console.log(req.body);
     console.log(usePoint);
+    console.log(discountId);
+
     const reqData = {
       uid,
       bookingData,
       usePoint,
       voucherId,
+      discountId,
     };
     console.log(reqData);
 

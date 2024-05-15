@@ -2,6 +2,7 @@ import {
   useCreateEventMutation,
   useGetAllEventsQuery,
   usePublishEventMutation,
+  useCreatePromoMutation,
 } from '../../api/promoter/useEventMutation';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -47,5 +48,22 @@ export const usePublishEvent = () => {
 
   return {
     mutationPublishEvent,
+  };
+};
+
+export const useCreatePromo = () => {
+  const router = useRouter();
+  const { mutate: mutationCreateDiscount } = useCreatePromoMutation({
+    onSuccess: (res) => {
+      console.log(res?.data);
+      toast.success(res?.data.message);
+      router.push('/promoter/event');
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+  return {
+    mutationCreateDiscount,
   };
 };
