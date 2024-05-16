@@ -4,6 +4,7 @@ import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 import { isPast } from 'date-fns';
 import { useCreatePromo } from '@/hooks/promoter/useEvent';
 import Spinner from '../general/spinner';
+import Link from 'next/link';
 
 export default function PromoForm() {
   const { mutationCreateDiscount } = useCreatePromo();
