@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useGetAllEvents } from '../../../hooks/promoter/useEvent';
+import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 import EventDraftComponent from '@/components/promoter/eventDraftComponent';
-import { FaPlus } from 'react-icons/fa6';
+import PromoComponent from '@/components/promoter/promoComponent';
 import Spinner from '@/components/general/spinner';
-import { isPast } from 'date-fns';
+import { FaPlus } from 'react-icons/fa6';
+
 export default function PromoterPage() {
   const { allEventsData } = useGetAllEvents();
 
@@ -37,23 +38,16 @@ export default function PromoterPage() {
           </Link>
         </div>
 
-        <div className="flex">
+        <div className="flex p-7">
           {allEventsData?.map((x, i) =>
             x.Discount.map((j, k) => (
-              <div>
-                <div>{isPast(new Date(j.expiredAt)) ? 'DONE' : 'On-going'}</div>
-                <div>{x.name}</div>
-                <div>{j.amount * 100}%</div>
-                <div>{j.description}</div>
-                <div>{j.stock}</div>
-                <div>
-                  {new Date(j.expiredAt).toLocaleDateString('us-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </div>
-              </div>
+              <PromoComponent
+                expiredAt={j.expiredAt}
+                eventName={x.name}
+                amount={j.amount}
+                description={j.description}
+                stock={j.stock}
+              />
             )),
           )}
         </div>
