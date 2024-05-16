@@ -1,10 +1,14 @@
+'use client';
 import React from 'react';
 import Spinner from '@/components/general/spinner';
 import { Form, Formik, Field } from 'formik';
-
+import { useGetPromoterInfo } from '../../../hooks/promoter/useGetPromoterData';
 export default function PromoterProfile() {
+  const { promoterInfo } = useGetPromoterInfo();
 
+  if (!promoterInfo) return <div>Loading...</div>;
 
+  console.log(promoterInfo);
   return (
     <div>
       <div className="pt-[20px] scroll-smooth">
@@ -15,7 +19,13 @@ export default function PromoterProfile() {
       <div>
         <Formik
           initialValues={{
-            }}
+            email: promoterInfo.email,
+            location: promoterInfo.location,
+            password: promoterInfo.password,
+            phone: promoterInfo.location,
+            username: promoterInfo.username,
+            name: promoterInfo.name,
+          }}
         >
           {({ dirty }) => {
             return (
@@ -92,7 +102,6 @@ export default function PromoterProfile() {
           }}
         </Formik>
       </div>
-
     </div>
   );
 }
