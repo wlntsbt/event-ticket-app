@@ -6,7 +6,7 @@ import { useGetPromoterInfo } from '../../../hooks/promoter/useGetPromoterData';
 export default function PromoterProfile() {
   const { promoterInfo } = useGetPromoterInfo();
 
-  if (!promoterInfo) return <div>Loading...</div>;
+  if (!promoterInfo) return <Spinner />;
 
   console.log(promoterInfo);
   return (
@@ -19,28 +19,22 @@ export default function PromoterProfile() {
       <div>
         <Formik
           initialValues={{
+            name: promoterInfo.name,
+            username: promoterInfo.username,
             email: promoterInfo.email,
             location: promoterInfo.location,
-            password: promoterInfo.password,
             phone: promoterInfo.location,
-            username: promoterInfo.username,
-            name: promoterInfo.name,
+            password: promoterInfo.password,
           }}
         >
           {({ dirty }) => {
             return (
               <Form>
                 <div className="flex flex-col px-10 gap-1 h-full lg:w-1/2 lg:mx-auto">
-                  <label>First Name</label>
+                  <label>Promoter Name</label>
                   <Field
                     type="text"
-                    name="firstName"
-                    className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
-                  />
-                  <label>Last Name</label>
-                  <Field
-                    type="text"
-                    name="lastName"
+                    name="name"
                     className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
                   />
                   <label>Username</label>
@@ -56,30 +50,29 @@ export default function PromoterProfile() {
                     disabled={true}
                     className="disabled:text-purple-500 disabled:bg-gray-200 border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
                   />
-                  <label>Date of Birth</label>
+                  <label>Location</label>
                   <Field
-                    type="date"
-                    name="dob"
+                    as="select"
+                    name="location"
                     className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
-                  />
+                  >
+                    <option defaultChecked value="">Select Location</option>
+                    <option value="JAKARTA">JAKARTA</option>
+                    <option value="BANDUNG">BANDUNG</option>
+                    <option value="YOGYAKARTA">YOGYAKARTA</option>
+                    <option value="BALI">BALI</option>
+                    <option value="SEMARANG">SEMARANG</option>
+                    <option value="SURABAYA">SURABAYA</option>
+                    <option value="BOGOR">BOGOR</option>
+                    <option value="DEPOK">DEPOK</option>
+                    <option value="TANGERANG">TANGERANG</option>
+                    <option value="BEKASI">BEKASI</option>
+                  </Field>
                   <label>Phone</label>
                   <Field
                     type="text"
                     name="phone"
                     className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
-                  />
-                  <label>ID Card Number</label>
-                  <Field
-                    type="text"
-                    name="idCardNumber"
-                    className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
-                  />
-                  <label>Member Code</label>
-                  <Field
-                    type="text"
-                    name="referralCode"
-                    disabled={true}
-                    className="disabled:text-purple-500 disabled:bg-gray-200 border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
                   />
                   <label>Password</label>
                   <Field
