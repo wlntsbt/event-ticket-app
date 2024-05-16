@@ -9,8 +9,6 @@ import MonthlyRevenue from '@/components/promoter/charts/monthlyRevenue';
 export default function Dashboard() {
   const { allEventsData } = useGetAllEvents();
   if (!allEventsData) return <Spinner />;
-
-  console.log('>>>>>>', allEventsData);
   return (
     <div className="pt-10">
       <h1 className="flex justify-center items-center w-full h-[50px] bg-purple-600 font-bold text-xl text-white uppercase tracking-wider">
