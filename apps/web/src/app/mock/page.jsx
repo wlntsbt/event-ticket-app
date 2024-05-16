@@ -44,7 +44,7 @@ export default function MockComponent({ query }) {
     return (
       <div className="py-16 flex flex-col items-center gap-8 w-full">
         <div>Search result for "{query}"</div>
-        <div className="flex flex-wrap w-[80%]">
+        <div className="min-h-screen flex flex-wrap w-[80%]">
           {searchedEvents.perPage
             .sort((a, b) => new Date(b.endDate) - new Date(a.endDate))
             .map((x, i) => (

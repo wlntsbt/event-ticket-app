@@ -40,7 +40,9 @@ export default function CreateReview({ open, close, eventId, eventName }) {
                 className="mt-5 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
               >
                 <span
-                  onClick={window.location.reload()}
+                  onClick={setTimeout(() => {
+                    window.location.reload();
+                  }, 2000)}
                   className="relative text-white tracking-widest text-lg"
                 >
                   Close
@@ -67,8 +69,7 @@ export default function CreateReview({ open, close, eventId, eventName }) {
                   feedback: values.feedback,
                   eventId: eventId,
                 };
-                console.log(data);
-                const res = mutationReviewEvent(data);
+                mutationReviewEvent(data);
                 setSubmissionSuccess(true);
               }}
             >
@@ -90,7 +91,7 @@ export default function CreateReview({ open, close, eventId, eventName }) {
                           className="text-purple-400"
                         />
                       </div>
-                      <div className='flex flex-col justify-between h-full'>
+                      <div className="flex flex-col justify-between h-full">
                         <div className="relative h-full w-full min-w-[200px] mt-5">
                           <Field
                             as="textarea"

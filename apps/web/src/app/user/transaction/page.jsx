@@ -20,6 +20,16 @@ export default function TransactionPage() {
   const reviewed = [];
   userReview.forEach((x, i) => reviewed.push(x.eventId));
 
+  userTransaction.sort((a, b) => {
+    if (a.status === 'PENDING' && b.status !== 'PENDING') {
+      return -1;
+    }
+    if (a.status !== 'PENDING' && b.status === 'PENDING') {
+      return 1;
+    }
+    return 0;
+  });
+  
   return (
     <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
@@ -57,7 +67,7 @@ export default function TransactionPage() {
                 <p className="outline outline-purple-500 mt-5 relative w-[113px] rounded-full h-[35px] font-bold text-[10px] bg-purple-50 flex items-center justify-center">
                   Review Published!
                 </p>
-              ) : (
+              ) : x.status === 'PENDING' ? null : (
                 <button
                   onClick={() => setActiveReviewIndex(i)}
                   type="submit"
