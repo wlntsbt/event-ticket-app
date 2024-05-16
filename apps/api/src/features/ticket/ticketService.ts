@@ -3,10 +3,7 @@ import { IBookingData, IAttendeeTicketData, ICreateBill } from './ticketType';
 import { Decimal } from '@prisma/client/runtime/library';
 
 export const createBill = async (data: ICreateBill) => {
-  const { uid, bookingData, usePoint, voucherId } = data;
-
-  console.log('Inside Service');
-  console.log(bookingData);
+  const { uid, bookingData, usePoint, voucherId, discountId } = data;
 
   const bill = await prisma.bill.create({
     data: {
@@ -53,6 +50,18 @@ export const createBill = async (data: ICreateBill) => {
     }
   }
 
+  if (discountId) {
+    const discount = await prisma.discount.findUnique({
+      where: {
+        id: discountId,
+      },
+    });
+
+    if (discount) {
+      total = total - total * new Decimal(discount.amount).toNumber();
+    }
+  }
+
   return prisma.$transaction(async (tx) => {
     if (usePoint) {
       await tx.point.updateMany({
@@ -94,6 +103,17 @@ export const createBill = async (data: ICreateBill) => {
       });
     }
 
+    if (discountId) {
+      await tx.bill.update({
+        where: {
+          id: bill.id,
+        },
+        data: {
+          useDiscount: discountId,
+        },
+      });
+    }
+
     return await tx.bill.update({
       where: {
         id: bill.id,
@@ -114,7 +134,7 @@ export const createBill = async (data: ICreateBill) => {
 
 export const payBill = async (id: string) => {
   return prisma.$transaction(async (tx) => {
-    await tx.bill.update({
+    const updatedBill = await tx.bill.update({
       where: {
         id,
       },
@@ -122,6 +142,19 @@ export const payBill = async (id: string) => {
         status: billingStatus.PAID,
       },
     });
+
+    if (updatedBill.useDiscount) {
+      await tx.discount.update({
+        where: {
+          id: updatedBill.useDiscount,
+        },
+        data: {
+          stock: {
+            decrement: 1,
+          },
+        },
+      });
+    }
 
     const ticketData: IAttendeeTicketData[] = [];
 

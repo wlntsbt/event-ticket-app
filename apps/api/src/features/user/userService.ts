@@ -20,6 +20,17 @@ export const getUserPromo = async (uid: string) => {
   });
 };
 
+export const getEventDiscount = async (id: number) => {
+  return await prisma.discount.findMany({
+    where: {
+      eventId: id,
+    },
+    include: {
+      event: true,
+    },
+  });
+};
+
 export const getUserTransactions = async (uid: string) => {
   return await prisma.bill.findMany({
     where: {
@@ -55,15 +66,6 @@ export const getUserData = async (uid: string) => {
     },
   });
 };
-
-// export const patchUserData = async (uid: string, data) => {
-//   return await prisma.attendee.update({
-//     where: {
-//       uid,
-//     },
-//     data:
-//   });
-// };
 
 export const getUserReview = async (uid: string) => {
   return await prisma.review.findMany({

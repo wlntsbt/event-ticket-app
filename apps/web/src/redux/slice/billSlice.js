@@ -4,9 +4,10 @@ const initialState = {
   billId: '',
   usePoint: false,
   useVoucher: false,
+  useDiscount: 0,
   status: '',
   booking: [],
-  total: 0
+  total: 0,
 };
 
 export const billSlice = createSlice({
@@ -17,6 +18,7 @@ export const billSlice = createSlice({
       prevState.billId = action.payload.billId;
       prevState.usePoint = action.payload.usePoint;
       prevState.useVoucher = action.payload.useVoucher;
+      prevState.useDiscount = action.payload.useDiscount;
       prevState.status = action.payload.status;
       prevState.booking = action.payload.booking;
       prevState.total = action.payload.total;

@@ -16,10 +16,10 @@ export const useCreatePurchase = () => {
           billId: res.data.data.id,
           usePoint: res.data.data.usePoint,
           useVoucher: res.data.data.useVoucher,
-          usePoint: res.data.data.usePoint,
+          useDiscount: res.data.data.useDiscount,
           status: res.data.data.status,
           booking: res.data.data.Booking,
-          total: res.data.data.total
+          total: res.data.data.total,
         }),
       );
       router.push('/bill');

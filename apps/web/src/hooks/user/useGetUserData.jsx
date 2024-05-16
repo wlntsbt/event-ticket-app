@@ -5,8 +5,8 @@ import {
   useGetUserReviewQuery,
 } from '../../api/user/useUserQuery';
 
-export const useGetUserPromo = () => {
-  const { data: userPromo, isSuccess, isError } = useGetUserPromoQuery();
+export const useGetUserPromo = (id) => {
+  const { data: userPromo, isSuccess, isError } = useGetUserPromoQuery(id);
 
   return {
     userPromo: userPromo?.data.data,

@@ -22,12 +22,12 @@ export const useAuthLogin = () => {
           username: res.data.data.username,
         }),
       );
-     
+
       toast.success(res.data.message);
       router.push('/');
     },
     onError: (err) => {
-      toast.error("Login Failed, input correct email and password");
+      toast.error('Login Failed, input correct email and password');
       console.log(err);
     },
   });
@@ -62,6 +62,10 @@ export const useLogout = () => {
   const navigate = useRouter();
   const dispatch = useDispatch();
   const logout = () => {
+    deleteCookie();
+    localStorage.clear();
+    alert('Logged Out');
+    navigate.push('/');
     dispatch(
       setUser({
         uid: '',
@@ -69,11 +73,6 @@ export const useLogout = () => {
         username: '',
       }),
     );
-    deleteCookie();
-    localStorage.clear();
-    alert('Logged Out');
-    navigate.push('/');
-    // window.location.reload();
   };
 
   return { logout };

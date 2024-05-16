@@ -1,11 +1,11 @@
 import { axiosInstance } from '@/config/axios';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetUserPromoQuery = () => {
+export const useGetUserPromoQuery = (id) => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['userPromo'],
     queryFn: async () => {
-      return await axiosInstance.get('/user/data/promos');
+      return await axiosInstance.get(`/user/data/promos/${id}`);
     },
   });
 

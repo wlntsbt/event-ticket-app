@@ -36,9 +36,13 @@ export const getPublishedEventById = async (id: number) => {
 
 export const getPublishedEventBySearch = async (
   query: string,
+  take: number,
+  skip: number,
   location?: City | undefined,
 ) => {
-  return await prisma.event.findMany({
+  const perPage = await prisma.event.findMany({
+    take,
+    skip,
     where: {
       isPublished: true,
       OR: [
@@ -75,6 +79,41 @@ export const getPublishedEventBySearch = async (
       promotor: true,
     },
   });
+
+  const totalContent = await prisma.event.count({
+    where: {
+      isPublished: true,
+      OR: [
+        {
+          name: {
+            contains: query,
+          },
+        },
+        {
+          promotor: {
+            name: {
+              contains: query,
+            },
+          },
+        },
+        {
+          description: {
+            contains: query,
+          },
+        },
+        {
+          location: {
+            equals: location,
+          },
+        },
+      ],
+    },
+  });
+
+  return {
+    perPage,
+    totalPage: Math.ceil(totalContent / 8),
+  };
 };
 
 export const getPublishedEventByPromotor = async (username: string) => {

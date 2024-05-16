@@ -30,7 +30,7 @@ export const usePromoterRegisterMutation = ({ onSuccess, onError }) => {
 };
 
 export const useUserRegisterMutation = ({ onSuccess, onError }) => {
-  console.log("USER REGISTER MUTATION")
+  console.log('USER REGISTER MUTATION');
   const { mutate } = useMutation({
     mutationFn: async ({
       email,

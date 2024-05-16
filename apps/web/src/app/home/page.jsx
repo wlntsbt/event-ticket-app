@@ -8,15 +8,21 @@ import SearchBar from '@/components/general/searchBar';
 import { useEffect, useState } from 'react';
 import MockComponent from '@/app/mock/page';
 import Spinner from '@/components/general/spinner';
+import { useDispatch } from 'react-redux';
+import { setPage } from '@/redux/slice/pageSlice';
 
 export default function HomePage() {
   const { allPublishedEvents } = useGetAllPublishedEvents();
   const [location, setLocation] = useState('JAKARTA');
   const [category, setCategory] = useState('Entertainment');
   const [searchValue, setSearchValue] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (allPublishedEvents !== null) {
+    // if (allPublishedEvents !== null) {
+    // }
+    if (!searchValue) {
+      dispatch(setPage({ currentPage: 0 }));
     }
   }, [location, allPublishedEvents, category, searchValue]);
 
@@ -60,7 +66,7 @@ export default function HomePage() {
               </div>
 
               <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
-                {allPublishedEvents.map((x, i) => (
+                {allPublishedEvents.slice(0, 10).map((x, i) => (
                   <Link href={`home/${x.id}`}>
                     <EventCardComponent
                       key={i}
@@ -96,6 +102,7 @@ export default function HomePage() {
               <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
                 {allPublishedEvents
                   .filter((x) => x.location === location)
+                  .slice(0, 5)
                   .map((x, i) => (
                     <Link href={`home/${x.id}`}>
                       <EventCardComponent
@@ -132,6 +139,7 @@ export default function HomePage() {
               <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
                 {allPublishedEvents
                   .filter((x) => x.category === category)
+                  .slice(0, 5)
                   .map((x, i) => (
                     <Link href={`home/${x.id}`}>
                       <EventCardComponent
