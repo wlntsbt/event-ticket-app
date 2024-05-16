@@ -1,5 +1,3 @@
-
-
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 
 import {
@@ -15,140 +13,119 @@ import {
 
 export default function MonthlyTicketSales() {
   const { allEventsData } = useGetAllEvents();
-  const salesData = [
-    {
-      name: 'Jan',
-      totalTicketPurchased: 4000,
-    },
-    {
-      name: 'Feb',
-      totalTicketPurchased: 3000,
-    },
-    {
-      name: 'Mar',
-      totalTicketPurchased: 9800,
-    },
-    {
-      name: 'Apr',
-      totalTicketPurchased: 3908,
-    },
-    {
-      name: 'May',
-      totalTicketPurchased: 4800,
-    },
-    {
-      name: 'Jun',
-      totalTicketPurchased: 3800,
-    },
-    {
-      name: 'Jul',
-      totalTicketPurchased: 4000,
-    },
-    {
-      name: 'Aug',
-      totalTicketPurchased: 40000,
-    },
-    {
-      name: 'Sept',
-      totalTicketPurchased: 40000,
-    },
-    {
-      name: 'Oct',
-      totalTicketPurchased: 40000,
-    },
-    {
-      name: 'Nov',
-      totalTicketPurchased: 40000,
-    },
-    {
-      name: 'Dec',
-      totalTicketPurchased: 40000,
-    },
-  ];
+  const salesData = [];
+
+  const eventKeys = [];
 
   const monthCounter = {
     0: {
-      totalTicket: 0,
+      name: 'Jan',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     1: {
-      totalTicket: 0,
+      name: 'Feb',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     2: {
-      totalTicket: 0,
+      name: 'Mar',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     3: {
-      totalTicket: 0,
+      name: 'Apr',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     4: {
-      totalTicket: 0,
+      name: 'May',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     5: {
-      totalTicket: 0,
+      name: 'Jun',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     6: {
-      totalTicket: 0,
+      name: 'Jul',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     7: {
-      totalTicket: 0,
+      name: 'Aug',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     8: {
-      totalTicket: 0,
+      name: 'Sept',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     9: {
-      totalTicket: 0,
+      name: 'Oct',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     10: {
-      totalTicket: 0,
+      name: 'Nov',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
     11: {
-      totalTicket: 0,
+      name: 'Dec',
+      'Total Ticket': 0,
       totalRevenue: 0,
     },
   };
 
+  for (let key in monthCounter) {
+    allEventsData.forEach((x, i) => {
+      monthCounter[key][x.name] = 0;
+      if (!eventKeys.includes(x.name)) eventKeys.push(x.name);
+    });
+  }
+
   allEventsData.forEach((x, i) =>
     x.Ticket.forEach((j, k) =>
       j.AttendeeTicket.forEach((m, n) => {
-        monthCounter[new Date(m.createdAt).getMonth().toString()].totalTicket +=
-          1;
+        monthCounter[new Date(m.createdAt).getMonth().toString()][
+          'Total Ticket'
+        ] += 1;
         monthCounter[
           new Date(m.createdAt).getMonth().toString()
         ].totalRevenue += 1 * j.ticketPrice;
+        monthCounter[new Date(m.createdAt).getMonth().toString()][x.name] += 1;
       }),
     ),
   );
 
-  salesData.map((x, i) => {
-    x.totalTicketPurchased = monthCounter[i].totalTicket;
-  });
+  for (let key in monthCounter) {
+    salesData.push(monthCounter[key]);
+  }
+
+  console.log('new sales data', salesData);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <div className="p-1 flex flex-col rounded-md bg-purple-50">
           <p className="text-medium text-lg">{label}</p>
-          <p className="text-sm text-blue-400">
-            Ticket Purchase
-            <span className="ml-2">{payload[0].value}</span>
-          </p>
+          {/* {console.log('***', payload[0].payload['Scent of Indonesia'])} */}
+          {payload.map((x, i) => (
+            <p className="text-sm text-blue-400">
+              {x.dataKey}
+              <span className="ml-2">{payload[i].payload[x.dataKey]}</span>
+            </p>
+          ))}
         </div>
       );
     }
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <h1 className="text-left pl-5">Total Ticket Purchased per month</h1>
       <ResponsiveContainer width="100%" height={300} className="pt-5">
         <LineChart
@@ -164,11 +141,10 @@ export default function MonthlyTicketSales() {
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" />
-          <Line
-            type="monotone"
-            dataKey="totalTicketPurchased"
-            stroke="#3b82f6"
-          />
+          <Line type="monotone" dataKey="Total Ticket" stroke="#3b82f6" />
+          {eventKeys?.map((x, i) => (
+            <Line type="monotone" dataKey={x} stroke="#3b82f6" />
+          ))}
         </LineChart>
       </ResponsiveContainer>
     </div>

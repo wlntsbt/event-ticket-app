@@ -1,21 +1,14 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Formik, Form, Field, useFormikContext } from 'formik';
-import { useCreateEvent } from '@/hooks/promoter/useEvent';
-import { useGetAllLocations } from '@/hooks/helpers/useGetEnums';
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 import { isPast } from 'date-fns';
 import { useCreatePromo } from '@/hooks/promoter/useEvent';
 export default function PromoForm() {
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const { mutationCreateDiscount } = useCreatePromo();
   const { allEventsData } = useGetAllEvents();
 
   if (!allEventsData) return <div>Loading...</div>;
-  console.log('>>><<<', !isPast(new Date(allEventsData[0].endDate)));
 
-  allEventsData;
   return (
     <div className="bg-white flex-col my-5 mx-[30px] h-full border rounded-xl lg:mx-[500px]">
       <Formik
