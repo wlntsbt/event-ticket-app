@@ -61,6 +61,7 @@ export const getEventByPromoter = async (promotorUid: string) => {
           eventName: true,
         },
       },
+      Discount: true,
     },
   });
 };
