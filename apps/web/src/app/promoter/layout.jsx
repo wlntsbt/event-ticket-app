@@ -17,8 +17,8 @@ export default function Promotor({ children }) {
   };
   return (
     <div>
-      {pathname == '/promoter/event/new' ? null : (
-        <div className="pt-[70px] pl-10">
+      {pathname == '/promoter/event/new' || pathname == '/promoter/event/promo' ? null : (
+        <div className="pt-[70px] pl-8">
           <Drawer
             open={isOpen}
             onClose={toggleDrawer}
@@ -35,10 +35,10 @@ export default function Promotor({ children }) {
             onClick={toggleDrawer}
             className="w-[150px] border-purple-500 border-2 relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100"
           >
-            <span className="font-medium flex h-full justify-center items-center gap-2">
+            <label className="font-medium flex h-full justify-center items-center gap-2">
               <FaChevronLeft />
               Show Menu
-            </span>
+            </label>
           </button>
         </div>
       )}

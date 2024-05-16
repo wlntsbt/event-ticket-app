@@ -37,7 +37,7 @@ export default function HomePage() {
       (a, b) => new Date(b.endDate) - new Date(a.endDate),
     );
     return (
-      <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-purple-400 from-[0.5%] lg:from-[1%] via-white via-[3%] lg:via-[10%] to-white to-100%">
+      <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-purple-400 from-[3%] lg:from-[10%] via-white via-[7%] lg:via-[20%] to-white to-100%">
         <div>
           <div className="lg:w-[500px] mx-auto">
             <h1 className="text-center text-2xl">
