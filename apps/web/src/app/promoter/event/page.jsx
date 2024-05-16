@@ -5,12 +5,11 @@ import { useGetAllEvents } from '../../../hooks/promoter/useEvent';
 import EventDraftComponent from '@/components/promoter/eventDraftComponent';
 import { FaPlus } from 'react-icons/fa6';
 import Spinner from '@/components/general/spinner';
-
+import { isPast } from 'date-fns';
 export default function PromoterPage() {
   const { allEventsData } = useGetAllEvents();
-  if (!allEventsData) return <Spinner />;
-  // console.log('page fetch', allEventsData);
 
+  if (!allEventsData) return <Spinner />;
   return (
     <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full h-[50px] bg-purple-600 font-bold text-xl text-white uppercase tracking-wider">
@@ -36,6 +35,27 @@ export default function PromoterPage() {
               </span>
             </button>
           </Link>
+        </div>
+
+        <div className="flex">
+          {allEventsData?.map((x, i) =>
+            x.Discount.map((j, k) => (
+              <div>
+                <div>{isPast(new Date(j.expiredAt)) ? 'DONE' : 'On-going'}</div>
+                <div>{x.name}</div>
+                <div>{j.amount * 100}%</div>
+                <div>{j.description}</div>
+                <div>{j.stock}</div>
+                <div>
+                  {new Date(j.expiredAt).toLocaleDateString('us-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </div>
+              </div>
+            )),
+          )}
         </div>
 
         <div className="grid w-full justify-center lg:flex lg:flex-wrap pt-5 lg:gap-x-[85px] lg:justify-start">
