@@ -13,7 +13,9 @@ export const useCreateEvent = () => {
     onSuccess: (res) => {
       console.log(res?.data);
       toast.success(res?.data.message);
-      router.push('/promoter/event');
+      setTimeout(() => {
+        router.push('/promoter/event');
+      }, 2000);
     },
     onError: (err) => {
       console.log(err);
