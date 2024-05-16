@@ -10,6 +10,13 @@ import MockComponent from '@/app/mock/page';
 import Spinner from '@/components/general/spinner';
 import { useDispatch } from 'react-redux';
 import { setPage } from '@/redux/slice/pageSlice';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 export default function HomePage() {
   const { allPublishedEvents } = useGetAllPublishedEvents();
@@ -60,7 +67,7 @@ export default function HomePage() {
 
               <div className="w-full flex justify-center">
                 <h1 className="group pt-7 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
-                  LATEST EVENT 
+                  LATEST EVENT
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
                 </h1>
               </div>
@@ -82,6 +89,19 @@ export default function HomePage() {
                 ))}
               </div>
 
+              <div className="py-16 w-1/2 lg:w-1/4 mx-auto">
+                <Link href="/">
+                  <button
+                    type="submit"
+                    className="font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
+                  >
+                    <span className="relative text-white tracking-widest text-lg">
+                      BROWSE EVENTS
+                    </span>
+                  </button>
+                </Link>
+              </div>
+
               <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-center">
                 <h1 className="group bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit text-[22px] font-bold tracking-widest">
                   BASED ON LOCATION
@@ -99,24 +119,26 @@ export default function HomePage() {
                 </select>
               </div>
 
-              <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
-                {allPublishedEvents
-                  .filter((x) => x.location === location)
-                  .slice(0, 5)
-                  .map((x, i) => (
-                    <Link href={`home/${x.id}`}>
-                      <EventCardComponent
-                        key={i}
-                        name={x.name}
-                        startDate={x.startDate}
-                        endDate={x.endDate}
-                        location={x.location}
-                        promoter={x.promotor?.name}
-                        price={x.Ticket[0]?.ticketPrice}
-                        image={x.imageLink}
-                      ></EventCardComponent>
-                    </Link>
-                  ))}
+              <div className="w-full pb-10">
+                <div className="flex overflow-x-scroll">
+                  {allPublishedEvents
+                    .filter((x) => x.location === location)
+                    .slice(0, 5)
+                    .map((x, i) => (
+                      <Link href={`home/${x.id}`}>
+                        <EventCardComponent
+                          key={i}
+                          name={x.name}
+                          startDate={x.startDate}
+                          endDate={x.endDate}
+                          location={x.location}
+                          promoter={x.promotor?.name}
+                          price={x.Ticket[0]?.ticketPrice}
+                          image={x.imageLink}
+                        ></EventCardComponent>
+                      </Link>
+                    ))}
+                </div>
               </div>
 
               <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-center">
@@ -136,24 +158,26 @@ export default function HomePage() {
                 </select>
               </div>
 
-              <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
-                {allPublishedEvents
-                  .filter((x) => x.category === category)
-                  .slice(0, 5)
-                  .map((x, i) => (
-                    <Link href={`home/${x.id}`}>
-                      <EventCardComponent
-                        key={i}
-                        name={x.name}
-                        startDate={x.startDate}
-                        endDate={x.endDate}
-                        location={x.location}
-                        promoter={x.promotor?.name}
-                        price={x.Ticket[0]?.ticketPrice}
-                        image={x.imageLink}
-                      ></EventCardComponent>
-                    </Link>
-                  ))}
+              <div className="w-full">
+                <div className="flex overflow-x-scroll">
+                  {allPublishedEvents
+                    .filter((x) => x.category === category)
+                    .slice(0, 5)
+                    .map((x, i) => (
+                      <Link href={`home/${x.id}`}>
+                        <EventCardComponent
+                          key={i}
+                          name={x.name}
+                          startDate={x.startDate}
+                          endDate={x.endDate}
+                          location={x.location}
+                          promoter={x.promotor?.name}
+                          price={x.Ticket[0]?.ticketPrice}
+                          image={x.imageLink}
+                        ></EventCardComponent>
+                      </Link>
+                    ))}
+                </div>
               </div>
             </div>
           )}
