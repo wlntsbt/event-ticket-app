@@ -1,5 +1,5 @@
 export default function Loading() {
-    return <div class="pt-[100px] grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+    return <div className="pt-[100px] grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
     <svg
       class="w-16 h-16 animate-spin text-purple-500/50"
       viewBox="0 0 64 64"

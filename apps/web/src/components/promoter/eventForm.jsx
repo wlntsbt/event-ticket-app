@@ -1,12 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Formik, Form, Field, useFormikContext } from 'formik';
+import Link from 'next/link';
+import { Formik, Form, Field } from 'formik';
 import { useFormContext } from '@/utils/formContext';
 import CreateTicket from './ticketForm';
 import TicketCategoryComponent from './ticketCategoryComponent';
-import SelectLocation from '../general/selectLocation/selectLocation';
-import SelectCategory from '../general/selectCategory';
 import { useCreateEvent } from '@/hooks/promoter/useEvent';
 import { useGetAllLocations } from '@/hooks/helpers/useGetEnums';
 
@@ -286,7 +284,7 @@ export default function EventForm() {
             <div className="w-full mt-5">
               <div className="py-5">
                 <p className="w-full mb-2 text-xl tracking-wide">Ticket</p>
-                <div className='flex-col flex gap-5'>
+                <div className="flex-col flex gap-5">
                   {formValues
                     ? formValues.map((x, i) => (
                         <TicketCategoryComponent
@@ -314,7 +312,7 @@ export default function EventForm() {
               </div>
             </div>
 
-            <div className="flex-col mx-[30px] h-full w-full rounded-xl lg:mx-[500px]">
+            <div className="flex flex-col w-full gap-3">
               <button
                 type="submit"
                 className="font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
@@ -323,6 +321,13 @@ export default function EventForm() {
                   SEND TO DRAFT
                 </span>
               </button>
+              <Link href={'/promoter/event'}>
+                <button className="border-purple-500 border-2 w-full relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100">
+                  <span className="font-medium w-full flex h-full justify-center items-center tracking-widest text-md">
+                    CANCEL
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
         </Form>

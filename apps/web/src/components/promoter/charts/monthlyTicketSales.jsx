@@ -1,5 +1,3 @@
-
-
 import { useGetAllEvents } from '@/hooks/promoter/useEvent';
 
 import {
