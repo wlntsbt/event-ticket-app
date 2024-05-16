@@ -54,7 +54,7 @@ export default function TransactionPage() {
               !isPast(
                 new Date(x['Booking'][0]?.ticket.event.startDate),
               ) ? null : reviewed.includes(x['Booking'][0]?.ticket.event.id) ? (
-                <p className="outline outline-purple-500 p-[8px] mt-5 relative w-[113px] rounded-full h-[35px] font-bold text-[11px] bg-white">
+                <p className="outline outline-purple-500 mt-5 relative w-[113px] rounded-full h-[35px] font-bold text-[10px] bg-purple-50 flex items-center justify-center">
                   Review Published!
                 </p>
               ) : (
@@ -63,7 +63,7 @@ export default function TransactionPage() {
                   type="submit"
                   className="p-[8px] mt-5 font-bold relative w-[113px] bg-purple-500 rounded-full h-[35px] before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:origin-bottom before:rounded-full"
                 >
-                  <span className="text-white tracking-wide font-bold flex justify-center text-[11px] hover:text-black">
+                  <span className="relative text-white tracking-wide font-bold flex justify-center text-[11px] hover:text-black">
                     Write a Review
                   </span>
                 </button>

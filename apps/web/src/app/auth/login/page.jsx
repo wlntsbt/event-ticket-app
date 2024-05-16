@@ -13,9 +13,11 @@ export default function LoginPage() {
     <section className="w-full min-h-screen flex items-stretch text-white">
       <div className="gradient w-1/2 hidden relative items-center lg:flex">
         <div className="w-full px-24">
-          <h1 className="tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-5xl hover:text-black font-bold font-[Poppins]">
+          <Link href="/">
+          <h1 className="tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-5xl hover:text-transparent bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
             LESGOIN!
           </h1>
+          </Link>
           <p className="text-3xl my-4 italic text-white">
             "Lalala? <span className='text-purple-300'>Yeyeye</span>"
           </p>

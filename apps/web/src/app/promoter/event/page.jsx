@@ -12,7 +12,7 @@ export default function PromoterPage() {
 
   return (
     <div className="pt-[20px] scroll-smooth">
-      <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
+      <h1 className="flex justify-center items-center w-full h-[50px] bg-purple-600 font-bold text-xl text-white uppercase tracking-wider">
         EVENT DRAFT
       </h1>
       <div className="lg:mx-[100px]">
