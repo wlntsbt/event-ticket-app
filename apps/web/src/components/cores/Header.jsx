@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AiOutlineClose } from 'react-icons/ai';
+import { MdLogout } from "react-icons/md";
 import { useSelector } from 'react-redux';
 import { useLogout } from '@/hooks/useLogin';
 
@@ -16,10 +17,10 @@ export const Header = () => {
     setToggleMenu(false);
   };
   return (
-    <div className="fixed z-50 border-b border-black bg-purple-700 bg-opacity-10 backdrop-blur-sm w-full h-[50px] px-[25px] flex justify-between items-center lg:px-[100px]">
+    <div className="fixed z-50 border-black bg-purple-400 bg-opacity-40 backdrop-blur-sm w-full h-[50px] px-[25px] flex justify-between items-center lg:px-[100px]">
       <Link href="/">
         <div
-          className="text-white tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-lg hover:text-black font-bold"
+          className="text-white tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] text-lg hover:text-transparent bg-gradient-to-r from-pink-500 to-violet-500 font-bold bg-clip-text"
           onClick={() => setToggleMenu(false)}
         >
           LESGOIN!
@@ -31,20 +32,21 @@ export const Header = () => {
           <Link
             href={
               stateUser.role == 'PROMOTER'
-                ? '/promoter/dashboard'
+                ? '/promoter/profile'
                 : '/user/profile'
             }
           >
-            <h1 className="font-bold uppercase text-purple-700">
-              {stateUser.username}
+            <h1 className="font-bold uppercase text-purple-50 hover:text-fuchsia-200">
+              {stateUser.username} 
             </h1>
           </Link>
-          <button
+
+          <h1
             onClick={logout}
-            className="font-bold hover:text-purple-500 hover:cursor-pointer"
+            className="font-bold flex items-center gap-1 hover:text-red-500 hover:cursor-pointer"
           >
-            LOG OUT
-          </button>
+            LOG OUT <MdLogout/>
+          </h1>
         </div>
       ) : (
         <div className="hidden md:flex lg:gap-10">
@@ -82,7 +84,7 @@ export const Header = () => {
                   <Link
                     href={
                       stateUser.role == 'PROMOTER'
-                        ? '/promoter/dashboard'
+                        ? '/promoter/profile'
                         : '/user/profile'
                     }
                   >

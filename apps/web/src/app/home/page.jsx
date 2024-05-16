@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { useGetAllPublishedEvents } from '@/hooks/useGetPublicData';
 import EventCardComponent from '@/components/general/eventCard';
@@ -10,6 +10,7 @@ import MockComponent from '@/app/mock/page';
 import Spinner from '@/components/general/spinner';
 import { useDispatch } from 'react-redux';
 import { setPage } from '@/redux/slice/pageSlice';
+
 export default function HomePage() {
   const { allPublishedEvents } = useGetAllPublishedEvents();
   const [location, setLocation] = useState('JAKARTA');
@@ -36,13 +37,16 @@ export default function HomePage() {
       (a, b) => new Date(b.endDate) - new Date(a.endDate),
     );
     return (
-      <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-violet-200">
+      <div className="w-full py-[80px] px-[20px] lg:px-[100px] bg-gradient-to-b from-purple-400 from-[0.5%] lg:from-[1%] via-white via-[3%] lg:via-[10%] to-white to-100%">
         <div>
-          <h1 className="text-center text-2xl">
-            How's it goin!?
-            <span className="hover:text-purple-500"> LESGOIN!</span>
-          </h1>
           <div className="lg:w-[500px] mx-auto">
+            <h1 className="text-center text-2xl">
+              How's it goin!?
+              <span className="text-transparent bg-gradient-to-r from-pink-400 to-violet-600 bg-clip-text font-bold tracking-wide">
+                {' '}
+                LESGOIN!
+              </span>
+            </h1>
             <SearchBar childValue={handleSearchValue} />
           </div>
 
@@ -50,11 +54,13 @@ export default function HomePage() {
             <MockComponent query={searchValue} />
           ) : (
             <div>
-              <HeroCarousel />
+              <div className="mx auto mx-[5px] pt-5">
+                <HeroCarousel />
+              </div>
 
               <div className="w-full flex justify-center">
                 <h1 className="group pt-7 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
-                  LATEST EVENT
+                  LATEST EVENT 
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
                 </h1>
               </div>
@@ -76,7 +82,7 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-end">
+              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-center">
                 <h1 className="group bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit text-[22px] font-bold tracking-widest">
                   BASED ON LOCATION
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
@@ -113,7 +119,7 @@ export default function HomePage() {
                   ))}
               </div>
 
-              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-end">
+              <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-center">
                 <h1 className="group text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit text-[20px] font-bold tracking-widest">
                   BASED ON CATEGORY
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>

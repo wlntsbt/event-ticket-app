@@ -15,7 +15,7 @@ export default function EventDraftComponent({
   };
 
   return (
-    <div className="w-[350px] border rounded-xl my-5 overflow-hidden lg:w-[400px]">
+    <div className="w-[350px] border rounded-xl my-5 overflow-hidden shadow-md lg:w-[400px]">
       <Image
         src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${imageLink}`}
         width={100}

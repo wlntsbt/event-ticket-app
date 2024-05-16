@@ -19,22 +19,22 @@ export default function HeroCarousel() {
     cssEase: "linear",
   };
   return (
-    <div className="h-full w-full my-5 lg:my-[20px]">
+    <div className="lg:my-[20px] px-2">
       <Slider {...settings}>
-        <div className="px-5">
-        <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData1.png"></img>
+        <div>
+        <img className="px-1 h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData1.png"></img>
         </div>
-        <div className="px-5">
-        <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData2.jpg"></img>
+        <div>
+        <img className="px-1 h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData2.jpg"></img>
         </div>
-        <div className="px-5">
-        <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData3.png"></img>
+        <div>
+        <img className="px-1 h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData3.png"></img>
         </div>
-        <div className="px-5">
-        <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData4.jpg"></img>
+        <div>
+        <img className="px-1 h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData4.jpg"></img>
         </div>
-        <div className="px-5">
-        <img className="h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData5.jpg"></img>
+        <div>
+        <img className="px-1 h-[180px] w-full rounded-2xl object-cover lg:h-full" src="/sampleData5.jpg"></img>
         </div>
       </Slider>
     </div>
