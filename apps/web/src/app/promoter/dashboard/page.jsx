@@ -10,6 +10,7 @@ export default function Dashboard() {
   const { allEventsData } = useGetAllEvents();
   if (!allEventsData) return <Spinner />;
 
+  console.log('>>>>>>', allEventsData);
   return (
     <div className="pt-10">
       <h1 className="flex justify-center items-center w-full h-[50px] bg-purple-600 font-bold text-xl text-white uppercase tracking-wider">
@@ -28,7 +29,7 @@ export default function Dashboard() {
         <div className="">
           {allEventsData.map((x, i) =>
             x.Review.map((j, k) => (
-              <div className='flex flex-col justify-center items-center'>
+              <div className="flex flex-col justify-center items-center">
                 <PromoterReviewComponent
                   key={k}
                   username={j.attendee.username}

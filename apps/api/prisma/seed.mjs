@@ -1657,7 +1657,6 @@ async function main() {
 
   await prisma.$transaction(async (tx) => {
     for (let transaction of transactions) {
-      console.log('INI USERNAME', transaction.attendeeUsername);
       const attendee = await tx.attendee.findUnique({
         where: {
           username: transaction.attendeeUsername,
@@ -1673,8 +1672,6 @@ async function main() {
             },
           },
         });
-
-        console.log('INI BILL', bill);
 
         const bookingItems = await tx.booking.findMany({
           where: {
