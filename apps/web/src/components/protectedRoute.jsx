@@ -24,12 +24,13 @@ export default function ProtectedRoute({ children }) {
         alert('Access Denied! User Route!');
         router.push('/');
       }
-    } else {
-      if (path.includes('promoter') || path.includes('user')) {
-        alert('Access Denied! You are not a registered account!');
-        router.push('/');
-      }
-    }
+    } 
+    // else {
+    //   if (path.includes('promoter') || path.includes('user')) {
+    //     alert('Access Denied! You are not a registered account!');
+    //     router.push('/');
+    //   }
+    // }
   };
 
   const checkUser = async () => {
