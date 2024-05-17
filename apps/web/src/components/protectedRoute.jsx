@@ -2,48 +2,54 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getCookie } from '@/utils/cookiesHelper';
 import { usePersistLogin } from '@/hooks/useLogin';
 import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute({ children }) {
-  const navigate = useRouter();
+  const router = useRouter();
   const path = usePathname();
   const { mutationPersist } = usePersistLogin();
   const userState = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
 
-  const authorizeUser = (user) => {
-    const persisting = mutationPersist();
-    if (!loading) {
-      const promoterPath = ['/promoter'];
-      const userPath = ['/user'];
-      const publicPath = ['/'];
-
-      if (
-        (userState.role !== 'PROMOTER') &&
-        promoterPath.includes(path)
-      ) {
+  const authorizeUser = () => {
+    if (userState.role) {
+      if (path.includes('promoter') && userState.role !== 'PROMOTER') {
         alert('Access Denied! Promoter Route!');
-        navigate.push('/');
+        router.push('/');
       }
-      if (
-        (userState.role !== 'USER') &&
-        userPath.includes(path)
-      ) {
+
+      if (path.includes('user') && userState.role !== 'USER') {
         alert('Access Denied! User Route!');
-        navigate.push('/');
+        router.push('/');
+      }
+    } else {
+      if (path.includes('promoter') || path.includes('user')) {
+        alert('Access Denied! You are not a registered account!');
+        router.push('/');
       }
     }
   };
 
-  useEffect(() => {
-    if (userState.role) {
+  const checkUser = async () => {
+    try {
+      await mutationPersist();
       setLoading(false);
-      authorizeUser(userState);
+    } catch (error) {
+      console.error('Error during persisting login:', error);
+      setLoading(false);
     }
-    authorizeUser(userState);
-  }, [userState, loading]);
+  };
 
-  return <>{children}</>;
+  useEffect(() => {
+    checkUser();
+  }, [mutationPersist]);
+
+  useEffect(() => {
+    if (!loading) {
+      authorizeUser();
+    }
+  }, [loading, path, userState.role]);
+
+  return loading ? null : <>{children}</>;
 }

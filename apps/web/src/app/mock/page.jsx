@@ -38,7 +38,7 @@ export default function MockComponent({ query }) {
 
   if (isLoading) {
     return <div>Loading...</div>;
-  } else if (!searchedEvents) {
+  } else if (searchedEvents.length === 0) {
     return <div>No result for {query}</div>;
   } else {
     return (
