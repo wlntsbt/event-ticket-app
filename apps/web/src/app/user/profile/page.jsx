@@ -27,7 +27,7 @@ export default function UserProfile() {
             phone: userInfo?.phone,
             idCardNumber: userInfo?.idCardNumber,
             referralCode: userInfo?.referralCode,
-            password: userInfo?.password,
+            password: userInfo?.password.slice(0, 7),
           }}
         >
           {({ dirty }) => {
