@@ -10,13 +10,7 @@ import MockComponent from '@/app/mock/page';
 import Spinner from '@/components/general/spinner';
 import { useDispatch } from 'react-redux';
 import { setPage } from '@/redux/slice/pageSlice';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import { isThisMonth } from 'date-fns';
 
 export default function HomePage() {
   const { allPublishedEvents } = useGetAllPublishedEvents();
@@ -100,6 +94,33 @@ export default function HomePage() {
                     </span>
                   </button>
                 </Link>
+              </div>
+
+              <div className="w-full flex justify-center">
+                <h1 className="group bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
+                  THIS MONTH'S EVENTS
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
+                </h1>
+              </div>
+
+              <div className="w-full grid justify-center lg:flex-wrap lg:flex lg:justify-normal lg:mx-[18px]">
+                {allPublishedEvents
+                  .filter((x) => isThisMonth(new Date(x.startDate)))
+                  .slice(0, 10)
+                  .map((x, i) => (
+                    <Link href={`home/${x.id}`}>
+                      <EventCardComponent
+                        key={i}
+                        name={x.name}
+                        startDate={x.startDate}
+                        endDate={x.endDate}
+                        location={x.location}
+                        promoter={x.promotor?.name}
+                        price={x.Ticket[0]?.ticketPrice}
+                        image={x.imageLink}
+                      ></EventCardComponent>
+                    </Link>
+                  ))}
               </div>
 
               <div className="pt-5 w-full border-t border-gray-400 flex justify-center items-center gap-2 lg:justify-center">

@@ -7,11 +7,9 @@ export const useCreatePurchase = () => {
 
   const { mutate: mutationReviewEvent } = useReviewEventMutation({
     onSuccess: (res) => {
-      console.log(res?.data);
       toast.success(res?.data.message);
     },
     onError: (err) => {
-      console.log(err);
       toast.error(err.message);
     },
   });

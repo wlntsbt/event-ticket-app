@@ -1,12 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useGetUserPromo } from '@/hooks/user/useGetUserData';
-import { useGetSearchedEvents } from '@/hooks/useGetPublicData';
 import EventCardComponent from '@/components/general/eventCard';
 import Link from 'next/link';
 import { axiosInstance } from '@/config/axios';
 import { CircularPagination } from '@/components/general/paginationButton';
 import { useSelector } from 'react-redux';
+import Spinner from '@/components/general/spinner';
 export default function MockComponent({ query }) {
   const pageState = useSelector((state) => state.page);
   const [searchedEvents, setSearchedEvents] = useState(null);
@@ -37,7 +36,7 @@ export default function MockComponent({ query }) {
   }, [query, pageState]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   } else if (!searchedEvents) {
     return <div>No result for {query}</div>;
   } else {
