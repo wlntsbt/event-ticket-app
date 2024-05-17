@@ -135,8 +135,15 @@ export default function HomePage() {
                   className="border rounded-xl w-fit h-fit p-[5px] bg-purple-50"
                 >
                   <option value="JAKARTA">JAKARTA</option>
-                  <option value="BALI">BALI</option>
                   <option value="BANDUNG">BANDUNG</option>
+                  <option value="YOGYAKARTA">YOGYAKARTA</option>
+                  <option value="BALI">BALI</option>
+                  <option value="SEMARANG">SEMARANG</option>
+                  <option value="SURABAYA">SURABAYA</option>
+                  <option value="BOGOR">BOGOR</option>
+                  <option value="DEPOK">DEPOK</option>
+                  <option value="TANGERANG">TANGERANG</option>
+                  <option value="BEKASI">BEKASI</option>
                 </select>
               </div>
 
@@ -174,8 +181,11 @@ export default function HomePage() {
                   className="border rounded-xl w-fit h-fit p-[5px] bg-purple-50"
                 >
                   <option value="Entertainment">Entertainment</option>
-                  <option value="Social">Social</option>
                   <option value="Seminar">Seminar</option>
+                  <option value="Workshop">Workshop</option>
+                  <option value="Social">Social</option>
+                  <option value="Bazaar">Bazaar</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 
