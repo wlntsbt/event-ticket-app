@@ -13,10 +13,8 @@ export default function EventForm() {
   const [showModal, setShowModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { mutationCreateEvent } = useCreateEvent();
-  const [isLoading, setIsLocation] = useState(true);
 
   let ticketData;
-  const { allLocations } = useGetAllLocations();
 
   useEffect(() => {
     ticketData = localStorage.getItem('ticket');
@@ -26,6 +24,10 @@ export default function EventForm() {
       localStorage.setItem('ticket', JSON.stringify([]));
     }
   }, []);
+
+  // const handleEditTicket = () => {
+  //   ticketData = lo
+  // }
 
   const onSetFiles = (event) => {
     try {
@@ -323,7 +325,10 @@ export default function EventForm() {
                 </span>
               </button>
               <Link href={'/promoter/event'}>
-                <button className="border-purple-500 border-2 w-full relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100">
+                <button
+                  onClick={() => localStorage.removeItem('ticket')}
+                  className="border-purple-500 border-2 w-full relative h-12 rounded-full hover:border-purple-500 text-purple-500 hover:bg-purple-100"
+                >
                   <span className="font-medium w-full flex h-full justify-center items-center tracking-widest text-md">
                     CANCEL
                   </span>

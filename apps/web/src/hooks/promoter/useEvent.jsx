@@ -18,6 +18,7 @@ export const useCreateEvent = () => {
       }, 2000);
     },
     onError: (err) => {
+      toast.error('Invalid Data');
       console.log(err);
     },
   });

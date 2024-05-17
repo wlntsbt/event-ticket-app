@@ -6,9 +6,11 @@ import TicketComponent from '@/components/general/ticketCard';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/general/spinner';
+import { useState } from 'react';
 
 export default function brandPage({ params }) {
   const { allPublishedEvents } = useGetAllPublishedEvents();
+  const [clicked, setClicked] = useState(false);
   let eventData = allPublishedEvents;
   const userState = useSelector((state) => state.user);
   const ticketState = useSelector((state) => state.ticket);
@@ -53,6 +55,7 @@ export default function brandPage({ params }) {
       );
       router.push(`/`);
     } else {
+      setClicked(true);
       localStorage.setItem('ticket', JSON.stringify(ticketState));
       router.push(`${params.id}/book`);
     }
@@ -139,7 +142,9 @@ export default function brandPage({ params }) {
                 ? true
                 : isPast(new Date(eventData[0].endDate))
                   ? true
-                  : false
+                  : clicked
+                    ? true
+                    : false
             }
             className="disabled:bg-slate-400 disabled:before:bg-slate-400 font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
           >
