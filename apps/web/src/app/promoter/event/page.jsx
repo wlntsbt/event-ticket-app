@@ -38,7 +38,7 @@ export default function PromoterPage() {
           </Link>
         </div>
 
-        <div className="flex p-7">
+        <div className="flex p-7 gap-5">
           {allEventsData?.map((x, i) =>
             x.Discount.map((j, k) => (
               <PromoComponent

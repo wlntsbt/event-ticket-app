@@ -16,6 +16,8 @@ export default function MonthlyTicketSales() {
   const salesData = [];
 
   const eventKeys = [];
+  const colorLines = ["#3a86ff", "#8338ec", "#ff006e","#fb5607", "#ffbe0b"]
+
 
   const monthCounter = {
     0: {
@@ -143,7 +145,7 @@ export default function MonthlyTicketSales() {
           <Legend verticalAlign="bottom" />
           <Line type="monotone" dataKey="Total Ticket" stroke="#3b82f6" />
           {eventKeys?.map((x, i) => (
-            <Line type="monotone" dataKey={x} stroke="#3b82f6" />
+            <Line type="monotone" dataKey={x} stroke={colorLines[i]} />
           ))}
         </LineChart>
       </ResponsiveContainer>
