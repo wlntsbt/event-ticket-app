@@ -24,7 +24,7 @@ export default function Dashboard() {
         <h1 className="flex justify-center items-center w-full h-[50px] bg-purple-600 font-bold text-xl text-white uppercase tracking-wider">
           Attendee Reviews
         </h1>
-        <div className="">
+        <div className="lg:flex lg:justify-center">
           {allEventsData.map((x, i) =>
             x.Review.map((j, k) => (
               <div className="flex flex-col justify-center items-center">
