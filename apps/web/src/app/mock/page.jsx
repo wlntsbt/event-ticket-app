@@ -33,7 +33,6 @@ export default function MockComponent({ query }) {
     };
 
     fetch();
-    console.log(searchedEvents);
   }, [query, pageState]);
 
   if (isLoading) {
