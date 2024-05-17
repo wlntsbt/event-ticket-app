@@ -64,7 +64,7 @@ export const useLogout = () => {
   const logout = () => {
     deleteCookie();
     localStorage.clear();
-    alert('Logged Out');
+    toast.success('Logged Out');
     navigate.push('/');
     dispatch(
       setUser({

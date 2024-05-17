@@ -12,7 +12,6 @@ import { useState } from 'react';
 export default function TransactionPage() {
   const { userTransaction } = useGetUserTransaction();
   const { userReview } = useGetUserReview();
-  const userState = useSelector((state) => state.user);
   const [activeReviewIndex, setActiveReviewIndex] = useState(null);
 
   if (!userTransaction || !userReview) return <Spinner />;
@@ -29,7 +28,7 @@ export default function TransactionPage() {
     }
     return 0;
   });
-  
+
   return (
     <div className="pt-[20px] scroll-smooth">
       <h1 className="flex justify-center items-center w-full bg-purple-100 h-[50px] text-2xl">
