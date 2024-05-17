@@ -42,7 +42,6 @@ export const useUserRegister = () => {
     onSuccess: (res) => {
       console.log(res?.data.data);
       setCookie(res?.data.data.accesstoken);
-
       dispatch(
         setUser({
           uid: res.data.data.uid,

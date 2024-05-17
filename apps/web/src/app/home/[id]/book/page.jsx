@@ -19,11 +19,11 @@ export default function BookingPage() {
   let { bookingData } = JSON.parse(localStorage.getItem('ticket'));
   const [usePoints, setUsePoints] = useState(false);
   const [useVouchers, setUseVouchers] = useState(0);
+  const [clicked, setClicked] = useState(false);
   const [usePromos, setUsePromos] = useState(0);
   const [voucherAmount, setVoucherAmount] = useState(0);
   const { userPromo } = useGetUserPromo(pathname.split('/')[2]);
   const voucherRef = useRef(null);
-
   const { mutationPurchaseTicket } = useCreatePurchase();
   const router = useRouter();
 
@@ -359,14 +359,16 @@ export default function BookingPage() {
           </div>
 
           <button
-            onClick={() =>
+            disabled={clicked ? true : false}
+            onClick={() => {
+              setClicked(true);
               mutationPurchaseTicket({
                 bookingData,
                 usePoint: usePoints,
                 voucherId: useVouchers,
                 discountId: usePromos,
-              })
-            }
+              });
+            }}
             type="submit"
             className="my-5 lg:w-full font-bold w-full relative bg-purple-500 rounded-full h-12 before:absolute before:inset-0 before:bg-purple-300 before:scale-x-0 before:origin-top before:transition before:duration-100 hover:before:scale-x-100 hover:before:origin-bottom before:rounded-full"
           >
@@ -375,7 +377,6 @@ export default function BookingPage() {
             </span>
           </button>
         </div>
-        {/* right section for desktop */}
       </div>
     </div>
   );

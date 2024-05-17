@@ -37,8 +37,12 @@ export default function MockComponent({ query }) {
 
   if (isLoading) {
     return <Spinner />;
-  } else if (!searchedEvents) {
-    return <div>No result for {query}</div>;
+  } else if (searchedEvents?.perPage.length == 0) {
+    return (
+      <div className="py-16 flex flex-col items-center gap-8 w-full">
+        <div className="min-h-screen">No result found for "{query}"</div>
+      </div>
+    );
   } else {
     return (
       <div className="py-16 flex flex-col items-center gap-8 w-full">
