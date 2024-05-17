@@ -4,6 +4,7 @@ import cors from 'cors';
 const router = Router();
 router.use(cors());
 router.use(express.json()); // Body Parser
+router.use('*/image', express.static('src/public/image'));
 
 import RegisterRouter from '../features/register/registerRouter';
 import AuthRouter from '../features/auth/authRouter';
@@ -13,6 +14,8 @@ import { promoterVerify, userVerify } from '@/middleware/roleVerify';
 import EnumsRouter from '@/features/enums/enumRouter';
 import GeneralRouter from '@/features/general/generalRouter';
 import userRouter from './userRouter';
+
+router.use('*/image',express.static('src/public/image'))
 
 router.use('/public', GeneralRouter);
 router.use('/enums', EnumsRouter);

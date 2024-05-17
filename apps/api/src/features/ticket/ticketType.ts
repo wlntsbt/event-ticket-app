@@ -13,4 +13,5 @@ export interface ICreateBill {
   bookingData: IBookingData[];
   usePoint?: boolean;
   voucherId?: number;
+  discountId?: number;
 }

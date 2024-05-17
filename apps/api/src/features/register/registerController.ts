@@ -25,6 +25,7 @@ export const newPromoter = async (
     const accesstoken = await createToken({
       uid: accountData.uid,
       role: accountData.role,
+      username: accountData.username,
     });
 
     res.status(200).send({
@@ -34,6 +35,7 @@ export const newPromoter = async (
         accesstoken,
         uid: accountData.uid,
         role: accountData.role,
+        username: accountData.username,
       },
     });
   } catch (error) {
@@ -74,6 +76,7 @@ export const newAttendee = async (
     const accesstoken = await createToken({
       uid: accountData.uid,
       role: accountData.role,
+      username: accountData.username,
     });
 
     res.status(200).send({
@@ -83,6 +86,7 @@ export const newAttendee = async (
         accesstoken,
         uid: accountData.uid,
         role: accountData.role,
+        username: accountData.username,
       },
     });
   } catch (error) {

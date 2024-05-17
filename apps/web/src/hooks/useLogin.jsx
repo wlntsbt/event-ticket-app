@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { setCookie, deleteCookie } from '@/utils/cookiesHelper';
 import { setUser } from '@/redux/slice/userSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 export const useAuthLogin = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,15 @@ export const useAuthLogin = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
-      alert(res.data.message);
+
+      toast.success(res.data.message);
       router.push('/');
     },
     onError: (err) => {
+      toast.error('Login Failed, input correct email and password');
       console.log(err);
     },
   });
@@ -40,6 +44,7 @@ export const usePersistLogin = () => {
         setUser({
           uid: res.data.data.uid,
           role: res.data.data.role,
+          username: res.data.data.username,
         }),
       );
     },
@@ -58,8 +63,16 @@ export const useLogout = () => {
   const dispatch = useDispatch();
   const logout = () => {
     deleteCookie();
+    localStorage.clear();
+    toast.success('Logged Out');
     navigate.push('/');
-    window.location.reload();
+    dispatch(
+      setUser({
+        uid: '',
+        role: '',
+        username: '',
+      }),
+    );
   };
 
   return { logout };

@@ -25,6 +25,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
   console.log(`[SERVER] Server Running on Port ${PORT}`);
 });

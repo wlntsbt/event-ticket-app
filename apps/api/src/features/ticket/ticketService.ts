@@ -1,10 +1,9 @@
 import { prisma, billingStatus, pointStatus } from '@/connection';
 import { IBookingData, IAttendeeTicketData, ICreateBill } from './ticketType';
-import { Prisma } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 export const createBill = async (data: ICreateBill) => {
-  const { uid, bookingData, usePoint, voucherId } = data;
+  const { uid, bookingData, usePoint, voucherId, discountId } = data;
 
   const bill = await prisma.bill.create({
     data: {
@@ -51,6 +50,18 @@ export const createBill = async (data: ICreateBill) => {
     }
   }
 
+  if (discountId) {
+    const discount = await prisma.discount.findUnique({
+      where: {
+        id: discountId,
+      },
+    });
+
+    if (discount) {
+      total = total - total * new Decimal(discount.amount).toNumber();
+    }
+  }
+
   return prisma.$transaction(async (tx) => {
     if (usePoint) {
       await tx.point.updateMany({
@@ -92,12 +103,30 @@ export const createBill = async (data: ICreateBill) => {
       });
     }
 
-    await tx.bill.update({
+    if (discountId) {
+      await tx.bill.update({
+        where: {
+          id: bill.id,
+        },
+        data: {
+          useDiscount: discountId,
+        },
+      });
+    }
+
+    return await tx.bill.update({
       where: {
         id: bill.id,
       },
       data: {
         total: total,
+      },
+      include: {
+        Booking: {
+          include: {
+            ticket: true,
+          },
+        },
       },
     });
   });
@@ -105,7 +134,7 @@ export const createBill = async (data: ICreateBill) => {
 
 export const payBill = async (id: string) => {
   return prisma.$transaction(async (tx) => {
-    await tx.bill.update({
+    const updatedBill = await tx.bill.update({
       where: {
         id,
       },
@@ -114,12 +143,27 @@ export const payBill = async (id: string) => {
       },
     });
 
+    if (updatedBill.useDiscount) {
+      await tx.discount.update({
+        where: {
+          id: updatedBill.useDiscount,
+        },
+        data: {
+          stock: {
+            decrement: 1,
+          },
+        },
+      });
+    }
+
     const ticketData: IAttendeeTicketData[] = [];
+
     const bookingData = await tx.booking.findMany({
       where: {
         billId: id,
       },
     });
+
     bookingData.forEach((x) => {
       for (let i = 0; i < x.qty; i++) {
         ticketData.push({
@@ -133,10 +177,25 @@ export const payBill = async (id: string) => {
       data: ticketData,
     });
 
-    await tx.booking.deleteMany({
-      where: {
-        billId: id,
+    const ticket = await tx.ticket.findMany({
+      include: {
+        AttendeeTicket: true,
       },
     });
+
+    for (let book of bookingData) {
+      await tx.ticket.update({
+        where: {
+          id: book.ticketId,
+        },
+        data: {
+          ticketAmount: {
+            decrement: book.qty,
+          },
+        },
+      });
+    }
+
+    return ticket;
   });
 };

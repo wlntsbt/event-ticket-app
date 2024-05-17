@@ -1,0 +1,17 @@
+.gradient {
+  background: linear-gradient(60deg, #6b97f7, #7525e2, #f7137e);
+  background-size: 150%;
+  animation: gradient-animation 3s ease-in-out infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

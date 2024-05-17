@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   uid: '',
   role: '',
+  username: '',
 };
 
 export const userSlice = createSlice({
@@ -13,6 +14,7 @@ export const userSlice = createSlice({
       // console.log("action payload",action.payload);
       prevState.uid = action.payload.uid;
       prevState.role = action.payload.role;
+      prevState.username = action.payload.username;
     },
   },
 });

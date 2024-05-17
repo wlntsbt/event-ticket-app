@@ -1,20 +1,15 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import PromoterMenuBar from '@/components/promoter/menuBar';
-import Link from 'next/link';
-import { Formik, Form, Field, useFormikContext } from 'formik';
-import CreateTicket from '../../../../components/promoter/ticketForm';
 import { FormProvider } from '@/utils/formContext';
 import EventForm from '@/components/promoter/eventForm';
 
-export default function PromoterPage() {
+export default function NewEventPage() {
   return (
-    <div className="pt-32">
+    <div className="relative pt-[100px] h-full border-b border-b-purple-500 bg-[url(/confetti-doodles.svg)] pb-10">
       <FormProvider>
-        <div>CREATE EVENT</div>
-        <EventForm></EventForm>
-        <div className="w-[50vw] mx-12"></div>
+        <div className="flex justify-center items-center w-full bg-purple-100 h-[50px]">
+          <h1 className="text-2xl">CREATE YOUR EVENT</h1>
+        </div>
+        <EventForm />
       </FormProvider>
     </div>
   );

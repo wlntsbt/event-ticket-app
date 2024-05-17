@@ -4,14 +4,15 @@ import Link from 'next/link';
 export default function OptionAttendee() {
   return (
     <Link href={'/auth/register/user'}>
-      <div className="bg-white w-[400px] h-[150px] rounded-full hover:shadow-slate-800 hover:shadow-[0_5px_10px_rgba(0,0,0,0.5)] lg:w-[400px] lg:h-[200px]">
+      <div className="bg-purple-50 border border-gray-300 w-[400px] h-[150px] rounded-full hover:shadow-[0_5px_10px_rgba(0,0,0,0.5)] lg:w-[400px] lg:h-[200px]">
         <div className="text-sm lg:text-base">
-          <div className="text-teal-500 pt-10 text-[22px] font-bold tracking-widest h-[50px] flex items-center justify-center">
+          <h1 className="group pt-7 text-center text-purple-500 transition duration-200 w-fit mx-auto text-[22px] font-bold tracking-widest">
             ATTENDEE
-          </div>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-purple-500"></span>
+          </h1>
 
           <div className="text-center pt-[35px]">
-            <button className="bg-teal-500 rounded-full p-2 text-white hover:bg-teal-300">
+            <button className="border border-purple-700 bg-purple-50 font-medium rounded-full p-2 hover:bg-purple-300 ">
               CREATE NOW
             </button>
           </div>
