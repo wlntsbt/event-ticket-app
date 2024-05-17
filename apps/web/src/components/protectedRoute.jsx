@@ -4,6 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { usePersistLogin } from '@/hooks/useLogin';
 import { useSelector } from 'react-redux';
+import Spinner from './general/spinner';
 
 export default function ProtectedRoute({ children }) {
   const router = useRouter();
@@ -51,5 +52,5 @@ export default function ProtectedRoute({ children }) {
     }
   }, [loading, path, userState.role]);
 
-  return loading ? null : <>{children}</>;
+  return loading ? <Spinner/> : <>{children}</>;
 }

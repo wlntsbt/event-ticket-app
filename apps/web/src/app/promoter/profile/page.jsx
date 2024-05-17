@@ -30,7 +30,7 @@ export default function PromoterProfile() {
           {({ dirty }) => {
             return (
               <Form>
-                <div className="flex flex-col px-10 gap-1 h-full lg:w-1/2 lg:mx-auto">
+                <div className=" pt-5 flex flex-col px-10 gap-1 h-full lg:w-1/2 lg:mx-auto">
                   <label>Promoter Name</label>
                   <Field
                     type="text"
@@ -48,7 +48,7 @@ export default function PromoterProfile() {
                     type="text"
                     name="email"
                     disabled={true}
-                    className="disabled:text-purple-500 disabled:bg-gray-200 border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
+                    className="disabled:text-purple-500 cursor-not-allowed disabled:bg-gray-200 border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
                   />
                   <label>Location</label>
                   <Field
