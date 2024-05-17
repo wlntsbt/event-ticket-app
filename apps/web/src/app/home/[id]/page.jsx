@@ -12,14 +12,11 @@ export default function brandPage({ params }) {
   let eventData = allPublishedEvents;
   const userState = useSelector((state) => state.user);
   const ticketState = useSelector((state) => state.ticket);
-  // console.log('ticket state', ticketState);
-  // console.log('user state', userState);
-  // console.log('user state uid', typeof userState.uid);
   const router = useRouter();
+
   if (!eventData) return <Spinner />;
 
   eventData = eventData.filter((x) => x.id == params.id);
-  console.log(eventData);
 
   let eventDate;
   if (
@@ -81,7 +78,17 @@ export default function brandPage({ params }) {
       <div className="px-5 lg:px-0">
         <p className="lg:text-xl">{eventDate}</p>
         <div>
-          {eventData[0].startTime} - {eventData[0].endTime}
+          {new Date(eventData[0].startTime).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}{' '}
+          -{' '}
+          {new Date(eventData[0].endTime).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}
         </div>
         <div className="underline">{eventData[0].location}</div>
 

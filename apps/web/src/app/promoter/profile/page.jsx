@@ -8,7 +8,6 @@ export default function PromoterProfile() {
 
   if (!promoterInfo) return <Spinner />;
 
-  console.log(promoterInfo);
   return (
     <div>
       <div className="pt-[20px] scroll-smooth">
@@ -24,7 +23,7 @@ export default function PromoterProfile() {
             email: promoterInfo.email,
             location: promoterInfo.location,
             phone: promoterInfo.location,
-            password: promoterInfo.password,
+            password: promoterInfo.password.slice(0, 7),
           }}
         >
           {({ dirty }) => {
@@ -56,7 +55,9 @@ export default function PromoterProfile() {
                     name="location"
                     className="border border-black rounded-lg p-2 focus:outline-none focus:border-purple-500 focus:border-2"
                   >
-                    <option defaultChecked value="">Select Location</option>
+                    <option defaultChecked value="">
+                      Select Location
+                    </option>
                     <option value="JAKARTA">JAKARTA</option>
                     <option value="BANDUNG">BANDUNG</option>
                     <option value="YOGYAKARTA">YOGYAKARTA</option>
