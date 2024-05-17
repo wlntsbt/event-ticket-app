@@ -13,7 +13,7 @@ export default function PromoterReviewComponent({
   return (
     <div
       key={key}
-      className="bg-purple-50 border-2 border-purple-500 rounded-lg p-3 m-5 lg:w-1/3"
+      className="bg-purple-50 border-2 border-purple-500 rounded-lg p-3 m-5"
     >
       <p className="flex items-center gap-1 bg-white border-purple-500 border rounded-full px-2 max-w-min uppercase">
         <PiSmileyLight />
